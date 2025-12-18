@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative CV Template</title>
+    
+    <style>
+        /* CREATIVE TEMPLATE STYLES */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        
+        .cv-container {
+            display: flex;
+            min-height: 100%;
+            position: relative;
+        }
+        
+        /* SIDEBAR */
+        .sidebar {
+            width: 80px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .profile-icon {
+            width: 50px;
+            height: 50px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .profile-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 30px;
+            border: 2px solid #667eea;
+        }
+        
+        /* MAIN CONTENT */
+        .main-content {
+            flex: 1;
+            background: white;
+            padding: 40px;
+            margin-left: 80px;
+        }
+        
+        /* HEADER */
+        .header {
+            margin-bottom: 40px;
+        }
+        
+        .name {
+            font-size: 48px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+        
+        .title {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #667eea;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-size: 15px;
+        }
+        
+        /* CONTENT GRID */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        
+        .left-column {
+            grid-column: 1;
+        }
+        
+        .right-column {
+            grid-column: 2;
+        }
+        
+        /* SECTIONS */
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+        
+        /* TIMELINE */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e0e0e0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 4px solid white;
+        }
+        
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-subtitle {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-date {
+            color: #999;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-description {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        /* SUMMARY */
+        .summary {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        /* SKILL TAGS */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-tag {
+            background: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #555;
+            display: inline-block;
+        }
+        
+        /* LANGUAGE TAGS */
+        .language-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        /* REFEREE CARDS */
+        .referee-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .referee-name {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .referee-details {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* PRINT STYLES */
+        @media print {
+            body {
+                background: white;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+            }
+            
+            .cv-container {
+                margin: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 25px;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <img src="" alt="Profile" class="profile-image" id="profileImage">
+        </div>
+        
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- HEADER -->
+            <div class="header">
+                <h1 class="name" id="fullName">Alex Johnson</h1>
+                <h2 class="title" id="jobTitle">Creative Director</h2>
+                
+                <div class="contact-info">
+                    <div class="contact-item" id="emailItem">
+                        <i class="fas fa-envelope"></i>
+                        <span id="email">alex@creative.com</span>
+                    </div>
+                    <div class="contact-item" id="phoneItem">
+                        <i class="fas fa-phone"></i>
+                        <span id="phone">+1 (123) 456-7890</span>
+                    </div>
+                    <div class="contact-item" id="locationItem">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span id="location">Los Angeles, CA</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <!-- LEFT COLUMN -->
+                <div class="left-column">
+                    <!-- SUMMARY -->
+                    <div class="section" id="summarySection">
+                        <h3 class="section-title">About Me</h3>
+                        <p class="summary" id="summary">
+                            Creative professional with 8+ years of experience in digital design and brand strategy. 
+                            Passionate about creating compelling visual narratives and driving innovative solutions. 
+                            Proven ability to lead creative teams and deliver exceptional results.
+                        </p>
+                    </div>
+                    
+                    <!-- EXPERIENCE -->
+                    <div class="section" id="experienceSection">
+                        <h3 class="section-title">Experience</h3>
+                        <div class="timeline" id="experienceList">
+                            <div class="timeline-item">
+                                <div class="timeline-title">Creative Director</div>
+                                <div class="timeline-subtitle">Design Studio Inc.</div>
+                                <div class="timeline-date">2019 - Present • Los Angeles</div>
+                                <div class="timeline-description">
+                                    Led a team of 12 designers on major brand campaigns. Developed innovative design strategies that increased client engagement by 45%.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RIGHT COLUMN -->
+                <div class="right-column">
+                    <!-- SKILLS -->
+                    <div class="section" id="skillsSection">
+                        <h3 class="section-title">Skills</h3>
+                        <div class="skills-container" id="skillsList">
+                            <span class="skill-tag">UI/UX Design</span>
+                            <span class="skill-tag">Brand Strategy</span>
+                        </div>
+                    </div>
+                    
+                    <!-- LANGUAGES -->
+                    <div class="section" id="languagesSection">
+                        <h3 class="section-title">Languages</h3>
+                        <div id="languagesList">
+                            <span class="language-tag">English (Native)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- EDUCATION -->
+                    <div class="section" id="educationSection">
+                        <h3 class="section-title">Education</h3>
+                        <div class="timeline" id="educationList">
+                            <div class="timeline-item">
+                                <div class="timeline-title">BFA in Graphic Design</div>
+                                <div class="timeline-subtitle">Art Center College</div>
+                                <div class="timeline-date">2014</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- REFERENCES -->
+                    <div class="section" id="refereesSection">
+                        <h3 class="section-title">References</h3>
+                        <div id="refereesList">
+                            <div class="referee-card">
+                                <div class="referee-name">Michael Chen</div>
+                                <div class="referee-details">
+                                    <div>CEO, Design Studio</div>
+                                    <div>michael@designstudio.com</div>
+                                    <div>+1 (987) 654-3210</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="no-print" style="position: fixed; bottom: 20px; right: 20px; display: flex; gap: 10px;">
+        <button onclick="window.print()" style="padding: 12px 24px; background: #667eea; color: white; border: none; border-radius: 25px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 500;">
+            <i class="fas fa-print"></i> Print CV
+        </button>
+        <button onclick="downloadPDF()" style="padding: 12px 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 25px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: 500;">
+            <i class="fas fa-download"></i> Save PDF
+        </button>
+    </div>
+    
+    <script>
+        // Get data from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataParam = urlParams.get('data');
+        
+        if (dataParam) {
+            try {
+                const cvData = JSON.parse(decodeURIComponent(dataParam));
+                populateCV(cvData);
+            } catch (error) {
+                console.error('Error parsing CV data:', error);
+            }
+        }
+        
+        function populateCV(data) {
+            // Personal Information
+            document.getElementById('fullName').textContent = data.fullName || 'Alex Johnson';
+            document.getElementById('jobTitle').textContent = data.jobTitle || 'Creative Professional';
+            document.getElementById('summary').textContent = data.summary || 'Creative professional summary...';
+            
+            // Profile Image
+            if (data.profileImage) {
+                document.getElementById('profileImage').src = data.profileImage;
+            } else {
+                document.getElementById('profileImage').style.display = 'none';
+            }
+            
+            // Contact Information
+            if (data.email) {
+                document.getElementById('email').textContent = data.email;
+            } else {
+                document.getElementById('emailItem').style.display = 'none';
+            }
+            
+            if (data.phone) {
+                document.getElementById('phone').textContent = data.phone;
+            } else {
+                document.getElementById('phoneItem').style.display = 'none';
+            }
+            
+            if (data.location) {
+                document.getElementById('location').textContent = data.location;
+            } else {
+                document.getElementById('locationItem').style.display = 'none';
+            }
+            
+            // Skills
+            if (data.skills && data.skills.length > 0) {
+                const skillsList = document.getElementById('skillsList');
+                skillsList.innerHTML = '';
+                data.skills.forEach(skill => {
+                    const skillSpan = document.createElement('span');
+                    skillSpan.className = 'skill-tag';
+                    skillSpan.textContent = skill.name;
+                    skillsList.appendChild(skillSpan);
+                });
+            } else {
+                document.getElementById('skillsSection').style.display = 'none';
+            }
+            
+            // Languages
+            if (data.languages && data.languages.length > 0) {
+                const languagesList = document.getElementById('languagesList');
+                languagesList.innerHTML = '';
+                data.languages.forEach(lang => {
+                    const langSpan = document.createElement('span');
+                    langSpan.className = 'language-tag';
+                    langSpan.textContent = `${lang.name} (${lang.level})`;
+                    languagesList.appendChild(langSpan);
+                });
+            } else {
+                document.getElementById('languagesSection').style.display = 'none';
+            }
+            
+            // Education
+            if (data.education && data.education.length > 0) {
+                const educationList = document.getElementById('educationList');
+                educationList.innerHTML = '';
+                data.education.forEach(edu => {
+                    const eduDiv = document.createElement('div');
+                    eduDiv.className = 'timeline-item';
+                    eduDiv.innerHTML = `
+                        <div class="timeline-title">${edu.degree || 'Degree'}</div>
+                        <div class="timeline-subtitle">${edu.institution || 'Institution'}</div>
+                        ${edu.year ? `<div class="timeline-date">${edu.year}</div>` : ''}
+                        ${edu.achievements ? `
+                            <div class="timeline-description">${edu.achievements}</div>
+                        ` : ''}
+                    `;
+                    educationList.appendChild(eduDiv);
+                });
+            } else {
+                document.getElementById('educationSection').style.display = 'none';
+            }
+            
+            // Experience
+            if (data.experience && data.experience.length > 0) {
+                const experienceList = document.getElementById('experienceList');
+                experienceList.innerHTML = '';
+                data.experience.forEach(exp => {
+                    const expDiv = document.createElement('div');
+                    expDiv.className = 'timeline-item';
+                    
+                    expDiv.innerHTML = `
+                        <div class="timeline-title">${exp.title || 'Position'}</div>
+                        <div class="timeline-subtitle">${exp.company || 'Company'}</div>
+                        <div class="timeline-date">
+                            ${formatDate(exp.startDate)} - ${exp.current ? 'Present' : formatDate(exp.endDate)}
+                            ${exp.location ? ` • ${exp.location}` : ''}
+                        </div>
+                        ${exp.description ? `
+                            <div class="timeline-description">${exp.description}</div>
+                        ` : ''}
+                    `;
+                    experienceList.appendChild(expDiv);
+                });
+            } else {
+                document.getElementById('experienceSection').style.display = 'none';
+            }
+            
+            // Referees
+            if (data.referees && data.referees.length > 0) {
+                const refereesList = document.getElementById('refereesList');
+                refereesList.innerHTML = '';
+                data.referees.forEach(ref => {
+                    const refDiv = document.createElement('div');
+                    refDiv.className = 'referee-card';
+                    refDiv.innerHTML = `
+                        <div class="referee-name">${ref.name || 'Name'}</div>
+                        <div class="referee-details">
+                            ${ref.position ? `<div>${ref.position}</div>` : ''}
+                            ${ref.company ? `<div>${ref.company}</div>` : ''}
+                            ${ref.email ? `<div>${ref.email}</div>` : ''}
+                            ${ref.phone ? `<div>${ref.phone}</div>` : ''}
+                        </div>
+                    `;
+                    refereesList.appendChild(refDiv);
+                });
+            } else {
+                document.getElementById('refereesSection').style.display = 'none';
+            }
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        }
+        
+        async function downloadPDF() {
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+            document.head.appendChild(script);
+            
+            script.onload = async function() {
+                const { jsPDF } = window.jspdf;
+                
+                const html2canvasScript = document.createElement('script');
+                html2canvasScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                document.head.appendChild(html2canvasScript);
+                
+                html2canvasScript.onload = async function() {
+                    const canvas = await html2canvas(document.querySelector('.cv-container'), {
+                        scale: 2,
+                        useCORS: true,
+                        logging: false,
+                        backgroundColor: '#ffffff'
+                    });
+                    
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+                    
+                    const imgData = canvas.toDataURL('image/png');
+                    const pageWidth = pdf.internal.pageSize.getWidth();
+                    const pageHeight = pdf.internal.pageSize.getHeight();
+                    
+                    pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
+                    pdf.save(`${document.getElementById('fullName').textContent}-Creative-CV.pdf`);
+                };
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - CV Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding-bottom: 50px;
+        }
+
+        .cookie-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+        .logo span {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .last-updated {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #334155;
+            margin: 35px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #475569;
+            margin: 25px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #475569;
+        }
+
+        ul, ol {
+            margin: 15px 0 20px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #475569;
+        }
+
+        .cookie-banner {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            border-left: 4px solid #6366f1;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cookie-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .cookie-controls {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .cookie-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .cookie-table th,
+        .cookie-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cookie-table th {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        .cookie-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .cookie-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .essential {
+            background-color: #10b981;
+            color: white;
+        }
+
+        .functional {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .analytics {
+            background-color: #8b5cf6;
+            color: white;
+        }
+
+        .marketing {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .cookie-settings {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .cookie-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #10b981;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .save-btn {
+            padding: 12px 30px;
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            background: #4f46e5;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .cookie-container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .cookie-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .cookie-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cookie-container">
+        <div class="header">
+            <div class="logo">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </div>
+            <h1>Cookie Policy</h1>
+            <p class="last-updated">Last Updated: January 1, 2025</p>
+        </div>
+
+        <div class="cookie-banner">
+            <div class="cookie-icon">🍪</div>
+            <div>
+                <p><strong>Cookie Notice:</strong> This Cookie Policy explains how CV Builder uses cookies and similar technologies to recognize you when you visit our website. It explains what these technologies are and why we use them, as well as your rights to control our use of them.</p>
+            </div>
+        </div>
+
+        <h2>1. What Are Cookies?</h2>
+        <p>Cookies are small data files that are placed on your computer or mobile device when you visit a website. Cookies are widely used by website owners to make their websites work, or to work more efficiently, as well as to provide reporting information.</p>
+        
+        <p>Cookies set by the website owner (in this case, CV Builder) are called "first-party cookies." Cookies set by parties other than the website owner are called "third-party cookies." Third-party cookies enable third-party features or functionality to be provided on or through the website (e.g., advertising, interactive content, and analytics).</p>
+
+        <h2>2. Why Do We Use Cookies?</h2>
+        <p>We use first-party and third-party cookies for several reasons. Some cookies are required for technical reasons for our website to operate, and we refer to these as "essential" or "strictly necessary" cookies. Other cookies enable us to track and target the interests of our users to enhance the experience on our website. Third parties serve cookies through our website for advertising, analytics, and other purposes.</p>
+
+        <h2>3. Types of Cookies We Use</h2>
+        
+        <table class="cookie-table">
+            <thead>
+                <tr>
+                    <th>Cookie Type</th>
+                    <th>Purpose</th>
+                    <th>Examples</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="cookie-type essential">Essential</span>
+                        Strictly Necessary
+                    </td>
+                    <td>These cookies are necessary for the website to function and cannot be switched off. They are usually only set in response to actions made by you.</td>
+                    <td>Session cookies, authentication cookies, security cookies</td>
+                    <td>Session or up to 24 hours</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="cookie-type functional">Functional</span>
+                        Preferences
+                    </td>
+                    <td>These cookies enable the website to provide enhanced functionality and personalization.</td>
+                    <td>Language preferences, template selections, layout settings</td>
+                    <td>Up to 1 year</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="cookie-type analytics">Analytics</span>
+                        Performance
+                    </td>
+                    <td>These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site.</td>
+                    <td>Google Analytics, visitor tracking, page performance</td>
+                    <td>Up to 2 years</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="cookie-type marketing">Marketing</span>
+                        Targeting
+                    </td>
+                    <td>These cookies may be set through our site by our advertising partners to build a profile of your interests.</td>
+                    <td>Facebook Pixel, retargeting ads, conversion tracking</td>
+                    <td>Up to 90 days</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>4. Detailed Cookie Information</h2>
+        
+        <h3>Essential Cookies</h3>
+        <p>These cookies are strictly necessary to provide you with services available through our website and to use some of its features, such as access to secure areas.</p>
+        <ul>
+            <li><strong>auth_token:</strong> Keeps you logged in during your session</li>
+            <li><strong>session_id:</strong> Maintains your browsing session</li>
+            <li><strong>csrf_token:</strong> Protects against cross-site request forgery</li>
+            <li><strong>consent_status:</strong> Stores your cookie preferences</li>
+        </ul>
+
+        <h3>Functional Cookies</h3>
+        <p>These cookies enable enhanced functionality and personalization on our website:</p>
+        <ul>
+            <li><strong>template_preference:</strong> Remembers your preferred CV template style</li>
+            <li><strong>language_setting:</strong> Stores your language preference</li>
+            <li><strong>layout_mode:</strong> Remembers dark/light mode preference</li>
+            <li><strong>font_size:</strong> Stores your preferred text size</li>
+        </ul>
+
+        <h3>Analytics Cookies</h3>
+        <p>We use Google Analytics and other analytics tools to understand how visitors interact with our website:</p>
+        <ul>
+            <li><strong>_ga:</strong> Google Analytics - distinguishes users (2 years)</li>
+            <li><strong>_gid:</strong> Google Analytics - distinguishes users (24 hours)</li>
+            <li><strong>_gat:</strong> Google Analytics - throttles request rate (1 minute)</li>
+            <li><strong>_ga_*:</strong> Google Analytics - persists session state (2 years)</li>
+        </ul>
+
+        <h3>Third-Party Cookies</h3>
+        <p>We may use third-party services that set their own cookies:</p>
+        <ul>
+            <li><strong>Payment Processors:</strong> For processing premium subscriptions</li>
+            <li><strong>Social Media:</strong> For sharing features and social login</li>
+            <li><strong>Advertising Networks:</strong> For relevant advertising (if applicable)</li>
+            <li><strong>Cloud Services:</strong> For file storage and processing</li>
+        </ul>
+
+        <h2>5. How Can You Control Cookies?</h2>
+        
+        <div class="cookie-controls">
+            <h3>Browser Controls</h3>
+            <p>You can set or amend your web browser controls to accept or refuse cookies. If you choose to reject cookies, you may still use our website though your access to some functionality and areas may be restricted.</p>
+            
+            <p>How to manage cookies in popular browsers:</p>
+            <ul>
+                <li><strong>Google Chrome:</strong> Settings → Privacy and security → Cookies and other site data</li>
+                <li><strong>Mozilla Firefox:</strong> Options → Privacy & Security → Cookies and Site Data</li>
+                <li><strong>Safari:</strong> Preferences → Privacy → Cookies and website data</li>
+                <li><strong>Microsoft Edge:</strong> Settings → Cookies and site permissions → Cookies and site data</li>
+            </ul>
+
+            <h3>Opt-Out Links for Specific Cookies</h3>
+            <ul>
+                <li><strong>Google Analytics:</strong> <a href="https://tools.google.com/dlpage/gaoptout" target="_blank">Google Analytics Opt-out Browser Add-on</a></li>
+                <li><strong>Facebook:</strong> <a href="https://www.facebook.com/help/568137493302217" target="_blank">Facebook Ads Settings</a></li>
+                <li><strong>Digital Advertising Alliance:</strong> <a href="http://optout.aboutads.info/" target="_blank">YourAdChoices</a></li>
+            </ul>
+        </div>
+
+        <h2>6. Your Cookie Preferences</h2>
+        
+        <div class="cookie-settings">
+            <p>Manage your cookie preferences below. Essential cookies cannot be disabled as they are necessary for the website to function properly.</p>
+            
+            <div class="cookie-toggle">
+                <div>
+                    <strong>Essential Cookies</strong>
+                    <p>Required for basic website functionality</p>
+                </div>
+                <div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="slider"></span>
+                    </label>
+                    <span style="color: #10b981; font-size: 0.9rem;">Always On</span>
+                </div>
+            </div>
+            
+            <div class="cookie-toggle">
+                <div>
+                    <strong>Functional Cookies</strong>
+                    <p>Remember your preferences and settings</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="functionalToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="cookie-toggle">
+                <div>
+                    <strong>Analytics Cookies</strong>
+                    <p>Help us improve our website</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="analyticsToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="cookie-toggle">
+                <div>
+                    <strong>Marketing Cookies</strong>
+                    <p>Show relevant advertisements</p>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="marketingToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <button class="save-btn" id="savePreferences">Save Preferences</button>
+        </div>
+
+        <h2>7. Do Not Track Signals</h2>
+        <p>Some browsers have a "Do Not Track" feature that lets you tell websites that you do not want to have your online activities tracked. At this time, we do not respond to browser "Do Not Track" signals.</p>
+
+        <h2>8. Changes to This Cookie Policy</h2>
+        <p>We may update this Cookie Policy from time to time to reflect changes to the cookies we use or for other operational, legal, or regulatory reasons. Please revisit this Cookie Policy regularly to stay informed about our use of cookies and related technologies.</p>
+
+        <h2>9. Contact Us</h2>
+        <p>If you have any questions about our use of cookies or other technologies, please contact us:</p>
+        
+        <div class="cookie-banner">
+            <div>
+                <p><strong>CV Builder Privacy Team</strong></p>
+                <p>Email: privacy@cvbuilder.com</p>
+                <p>Address: CV Builder, Lagos, Nigeria</p>
+                <p>For cookie-specific inquiries, please include "Cookie Policy" in your subject line.</p>
+            </div>
+        </div>
+
+        <a href="../index.html" class="back-btn">
+            ← Back to Homepage
+        </a>
+    </div>
+
+    <script>
+        // Set current date for last updated
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const lastUpdatedElement = document.querySelector('.last-updated');
+            if (lastUpdatedElement) {
+                lastUpdatedElement.textContent = `Last Updated: ${currentDate}`;
+            }
+
+            // Load saved preferences
+            loadCookiePreferences();
+
+            // Save preferences button
+            document.getElementById('savePreferences').addEventListener('click', function() {
+                saveCookiePreferences();
+                alert('Cookie preferences saved successfully!');
+            });
+
+            // Set initial toggle states based on saved preferences
+            function loadCookiePreferences() {
+                const savedPrefs = JSON.parse(localStorage.getItem('cookiePreferences') || '{}');
+                
+                document.getElementById('functionalToggle').checked = savedPrefs.functional !== false;
+                document.getElementById('analyticsToggle').checked = savedPrefs.analytics !== false;
+                document.getElementById('marketingToggle').checked = savedPrefs.marketing === true;
+            }
+
+            function saveCookiePreferences() {
+                const preferences = {
+                    functional: document.getElementById('functionalToggle').checked,
+                    analytics: document.getElementById('analyticsToggle').checked,
+                    marketing: document.getElementById('marketingToggle').checked,
+                    savedAt: new Date().toISOString()
+                };
+                
+                localStorage.setItem('cookiePreferences', JSON.stringify(preferences));
+                
+                // In a real implementation, you would set/remove cookies based on preferences
+                updateCookiesBasedOnPreferences(preferences);
+            }
+
+            function updateCookiesBasedOnPreferences(preferences) {
+                // This is where you would implement actual cookie setting/removal
+                // For demonstration purposes only
+                
+                if (!preferences.functional) {
+                    // Remove functional cookies
+                    console.log('Functional cookies disabled');
+                }
+                
+                if (!preferences.analytics) {
+                    // Remove analytics cookies
+                    console.log('Analytics cookies disabled');
+                }
+                
+                if (!preferences.marketing) {
+                    // Remove marketing cookies
+                    console.log('Marketing cookies disabled');
+                }
+            }
+
+            // Check if consent has been given
+            if (!localStorage.getItem('cookieConsent')) {
+                // Show cookie consent banner (you would implement this on your main site)
+                console.log('Cookie consent not given. Implement banner on main site.');
+            }
+        });
+    </script>
+</body>
+</html>

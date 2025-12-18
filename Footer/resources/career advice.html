@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Development Guide - CV Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --radius: 12px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .logo-container span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .header-cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .header-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Hero Section */
+        .career-hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .career-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .career-hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Navigation */
+        .career-nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+        }
+
+        .career-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .career-nav-container::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .career-nav-container::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 2px;
+        }
+
+        .career-nav-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .career-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--light);
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+            color: var(--gray);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .career-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .career-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Main Container */
+        .career-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Career Path Section */
+        .path-section {
+            margin-bottom: 4rem;
+        }
+
+        .path-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .path-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .path-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .path-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .path-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .path-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .path-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .path-steps {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .path-steps li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--gray);
+        }
+
+        .path-steps li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Skill Development */
+        .skills-section {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(79, 70, 229, 0.05) 100%);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+        }
+
+        .skills-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .skill-category h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem;
+            background: var(--light);
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-level {
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .level-beginner {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .level-intermediate {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .level-advanced {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        /* Career Assessment */
+        .assessment-tool {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .assessment-tool h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .assessment-tool p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .assessment-questions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            text-align: left;
+            backdrop-filter: blur(10px);
+        }
+
+        .assessment-question {
+            margin-bottom: 1.5rem;
+        }
+
+        .assessment-question h4 {
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        .assessment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .assessment-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .assessment-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .assessment-option input[type="radio"] {
+            margin: 0;
+        }
+
+        .assessment-btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            margin-top: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .assessment-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Networking Guide */
+        .networking-guide {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .networking-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .networking-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            color: var(--dark);
+        }
+
+        .networking-tips {
+            list-style: none;
+        }
+
+        .networking-tips li {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--gray);
+        }
+
+        .networking-tips li::before {
+            content: '💼';
+            position: absolute;
+            left: 0;
+        }
+
+        /* Career Timeline */
+        .timeline-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+        }
+
+        .timeline-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .timeline-year {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+        }
+
+        /* Salary Guide */
+        .salary-guide {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+        }
+
+        .salary-guide h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .salary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .salary-table th,
+        .salary-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .salary-table th {
+            background: var(--light);
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .salary-table tr:hover {
+            background: var(--light);
+        }
+
+        /* Career Change Guide */
+        .career-change {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(217, 119, 6, 0.05) 100%);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+        }
+
+        .career-change h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .change-steps {
+            counter-reset: step-counter;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .change-step {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            padding-left: 4rem;
+        }
+
+        .change-step::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .change-step h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .footer-logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .career-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .path-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .networking-guide {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .change-step {
+                padding-left: 3rem;
+                padding-right: 1rem;
+            }
+            
+            .change-step::before {
+                left: -15px;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo-container">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="builder.html">CV Builder</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="resume-tips.html">Resume Tips</a></li>
+                <li><a href="cover-letter-guide.html">Cover Letters</a></li>
+                <li><a href="interview-guide.html">Interview Guide</a></li>
+                <li><a href="career-guide.html" class="active">Career Tips</a></li>
+            </ul>
+            
+            <a href="builder.html" class="header-cta">Create Your CV</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="career-hero">
+        <h1>Career Development Guide</h1>
+        <p>Master your career journey with expert advice on growth, skills, networking, and strategic planning</p>
+    </section>
+
+    <!-- Navigation -->
+    <nav class="career-nav">
+        <div class="career-nav-container">
+            <a href="#paths" class="career-btn active">Career Paths</a>
+            <a href="#skills" class="career-btn">Skill Development</a>
+            <a href="#assessment" class="career-btn">Career Assessment</a>
+            <a href="#networking" class="career-btn">Networking</a>
+            <a href="#timeline" class="career-btn">Career Timeline</a>
+            <a href="#salary" class="career-btn">Salary Guide</a>
+            <a href="#change" class="career-btn">Career Change</a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="career-container">
+        <!-- Career Paths -->
+        <section id="paths" class="path-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark);">Career Path Development</h2>
+            <p style="color: var(--gray); margin-bottom: 2rem;">Explore different career growth strategies and find the right path for your professional journey.</p>
+            
+            <div class="path-grid">
+                <div class="path-card">
+                    <div class="path-icon">🚀</div>
+                    <h3>Vertical Growth</h3>
+                    <p>Climbing the corporate ladder through promotions and increased responsibilities within your current field.</p>
+                    <ul class="path-steps">
+                        <li>Set clear promotion goals</li>
+                        <li>Develop leadership skills</li>
+                        <li>Seek mentorship opportunities</li>
+                        <li>Take on stretch assignments</li>
+                        <li>Build internal network</li>
+                    </ul>
+                </div>
+
+                <div class="path-card">
+                    <div class="path-icon">🔄</div>
+                    <h3>Lateral Moves</h3>
+                    <p>Exploring different roles at the same level to gain diverse experience and broaden your skill set.</p>
+                    <ul class="path-steps">
+                        <li>Identify transferable skills</li>
+                        <li>Network across departments</li>
+                        <li>Request cross-training</li>
+                        <li>Volunteer for inter-departmental projects</li>
+                        <li>Update skills for new roles</li>
+                    </ul>
+                </div>
+
+                <div class="path-card">
+                    <div class="path-icon">🌟</div>
+                    <h3>Skill-Based Growth</h3>
+                    <p>Focusing on developing specialized expertise that increases your value and opens new opportunities.</p>
+                    <ul class="path-steps">
+                        <li>Identify in-demand skills</li>
+                        <li>Pursue certifications</li>
+                        <li>Build a portfolio</li>
+                        <li>Attend industry conferences</li>
+                        <li>Contribute to professional communities</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skill Development -->
+        <section id="skills" class="skills-section">
+            <h2>Essential Skills for Career Success</h2>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 2rem;">Develop these critical skills to advance your career in any industry</p>
+            
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>💼 Professional Skills</h3>
+                    <ul class="skill-list">
+                        <li>
+                            <span>Leadership & Management</span>
+                            <span class="skill-level level-advanced">Advanced</span>
+                        </li>
+                        <li>
+                            <span>Project Management</span>
+                            <span class="skill-level level-intermediate">Intermediate</span>
+                        </li>
+                        <li>
+                            <span>Strategic Thinking</span>
+                            <span class="skill-level level-advanced">Advanced</span>
+                        </li>
+                        <li>
+                            <span>Business Acumen</span>
+                            <span class="skill-level level-intermediate">Intermediate</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>🤝 Interpersonal Skills</h3>
+                    <ul class="skill-list">
+                        <li>
+                            <span>Communication</span>
+                            <span class="skill-level level-advanced">Advanced</span>
+                        </li>
+                        <li>
+                            <span>Emotional Intelligence</span>
+                            <span class="skill-level level-intermediate">Intermediate</span>
+                        </li>
+                        <li>
+                            <span>Conflict Resolution</span>
+                            <span class="skill-level level-beginner">Beginner</span>
+                        </li>
+                        <li>
+                            <span>Team Collaboration</span>
+                            <span class="skill-level level-advanced">Advanced</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>💻 Technical Skills</h3>
+                    <ul class="skill-list">
+                        <li>
+                            <span>Data Analysis</span>
+                            <span class="skill-level level-intermediate">Intermediate</span>
+                        </li>
+                        <li>
+                            <span>Digital Literacy</span>
+                            <span class="skill-level level-advanced">Advanced</span>
+                        </li>
+                        <li>
+                            <span>AI Tools & Automation</span>
+                            <span class="skill-level level-beginner">Beginner</span>
+                        </li>
+                        <li>
+                            <span>Software Proficiency</span>
+                            <span class="skill-level level-intermediate">Intermediate</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Assessment Tool -->
+        <section id="assessment" class="assessment-tool">
+            <h2>Career Path Assessment</h2>
+            <p>Take this quick assessment to identify your ideal career growth direction</p>
+            
+            <div class="assessment-questions">
+                <div class="assessment-question">
+                    <h4>1. What motivates you most in your career?</h4>
+                    <div class="assessment-options">
+                        <label class="assessment-option">
+                            <input type="radio" name="q1" value="leadership">
+                            <span>Leading teams and making strategic decisions</span>
+                        </label>
+                        <label class="assessment-option">
+                            <input type="radio" name="q1" value="expertise">
+                            <span>Becoming an expert in a specific field</span>
+                        </label>
+                        <label class="assessment-option">
+                            <input type="radio" name="q1" value="variety">
+                            <span>Working on diverse projects and learning new things</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="assessment-question">
+                    <h4>2. What's your preferred learning style?</h4>
+                    <div class="assessment-options">
+                        <label class="assessment-option">
+                            <input type="radio" name="q2" value="hands-on">
+                            <span>Hands-on experience and practice</span>
+                        </label>
+                        <label class="assessment-option">
+                            <input type="radio" name="q2" value="formal">
+                            <span>Formal education and certifications</span>
+                        </label>
+                        <label class="assessment-option">
+                            <input type="radio" name="q2" value="mentorship">
+                            <span>Learning from mentors and peers</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="assessment-question">
+                    <h4>3. Where do you see yourself in 5 years?</h4>
+                    <div class="assessment-options">
+                        <label class="assessment-option">
+                            <input type="radio" name="q3" value="management">
+                            <span>In a senior leadership position</span>
+                        </label>
+                        <label class="assessment-option">
+                            <input type="radio" name="q3" value="specialist">
+                            <span>As a recognized expert in my field</span>
+                        </label>
+                        <label class="assessment-option">
+                            <input type="radio" name="q3" value="entrepreneur">
+                            <span>Running my own business or consultancy</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="assessment-btn" onclick="calculateCareerPath()">Get Your Career Path Recommendation</button>
+            <div id="assessment-result" style="margin-top: 2rem; display: none;"></div>
+        </section>
+
+        <!-- Networking Guide -->
+        <section id="networking" class="networking-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark);">Strategic Networking Guide</h2>
+            
+            <div class="networking-guide">
+                <div class="networking-card">
+                    <h3>🌐 Online Networking</h3>
+                    <ul class="networking-tips">
+                        <li>Optimize your LinkedIn profile with keywords</li>
+                        <li>Join industry-specific groups and communities</li>
+                        <li>Share valuable content regularly</li>
+                        <li>Engage with industry leaders' posts</li>
+                        <li>Use Twitter for real-time industry conversations</li>
+                        <li>Create professional content on Medium or your blog</li>
+                    </ul>
+                </div>
+
+                <div class="networking-card">
+                    <h3>🤝 In-Person Networking</h3>
+                    <ul class="networking-tips">
+                        <li>Attend industry conferences and meetups</li>
+                        <li>Prepare your 30-second elevator pitch</li>
+                        <li>Focus on quality connections over quantity</li>
+                        <li>Follow up within 24-48 hours</li>
+                        <li>Offer value before asking for help</li>
+                        <li>Join professional associations</li>
+                    </ul>
+                </div>
+
+                <div class="networking-card">
+                    <h3>💡 Networking Strategies</h3>
+                    <ul class="networking-tips">
+                        <li>Set specific networking goals each month</li>
+                        <li>Schedule informational interviews</li>
+                        <li>Create a networking tracking spreadsheet</li>
+                        <li>Offer to help others in your network</li>
+                        <li>Attend company events and open houses</li>
+                        <li>Build relationships with recruiters</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Timeline -->
+        <section id="timeline" class="timeline-section">
+            <h2>5-Year Career Development Timeline</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 1</div>
+                    <div class="timeline-content">
+                        <h4>Foundation Building</h4>
+                        <p>Master your current role, build internal network, identify skills gaps, and set baseline performance metrics.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 2</div>
+                    <div class="timeline-content">
+                        <h4>Skill Development</h4>
+                        <p>Pursue certifications, take on stretch assignments, develop mentorship relationships, and build external network.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 3</div>
+                    <div class="timeline-content">
+                        <h4>Visibility & Leadership</h4>
+                        <p>Lead projects, speak at internal events, publish industry insights, and position for promotion.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 4</div>
+                    <div class="timeline-content">
+                        <h4>Strategic Growth</h4>
+                        <p>Take on cross-functional roles, develop business acumen, build team leadership experience, and expand industry influence.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">Year 5</div>
+                    <div class="timeline-content">
+                        <h4>Expert Positioning</h4>
+                        <p>Establish thought leadership, mentor others, influence strategy, and prepare for executive roles or career pivot.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Salary Guide -->
+        <section id="salary" class="salary-guide">
+            <h2>Salary Negotiation & Growth Strategies</h2>
+            
+            <table class="salary-table">
+                <thead>
+                    <tr>
+                        <th>Career Stage</th>
+                        <th>Focus Areas</th>
+                        <th>Salary Strategy</th>
+                        <th>Timeline</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Entry Level (0-2 years)</strong></td>
+                        <td>Skill acquisition, building portfolio</td>
+                        <td>Focus on learning opportunities over salary</td>
+                        <td>6-12 month review cycles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mid-Level (3-7 years)</strong></td>
+                        <td>Specialization, leadership skills</td>
+                        <td>Market research, performance-based raises</td>
+                        <td>Annual reviews + promotions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Senior Level (8-15 years)</strong></td>
+                        <td>Strategic impact, team leadership</td>
+                        <td>Total compensation package negotiation</td>
+                        <td>18-24 month advancement cycles</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Executive (15+ years)</strong></td>
+                        <td>Business outcomes, industry influence</td>
+                        <td>Equity, bonuses, long-term incentives</td>
+                        <td>Multi-year compensation plans</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 2rem; background: var(--light); padding: 1.5rem; border-radius: var(--radius);">
+                <h4 style="color: var(--primary); margin-bottom: 1rem;">Salary Negotiation Tips:</h4>
+                <ul style="color: var(--gray); list-style-position: inside;">
+                    <li>Research industry averages for your role and location</li>
+                    <li>Consider total compensation (benefits, bonuses, stock options)</li>
+                    <li>Time negotiations after successful project completion or annual reviews</li>
+                    <li>Practice your negotiation conversation beforehand</li>
+                    <li>Be prepared to walk away if offer doesn't meet minimum requirements</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Career Change Guide -->
+        <section id="change" class="career-change">
+            <h2>Career Change Strategy Guide</h2>
+            
+            <div class="change-steps">
+                <div class="change-step">
+                    <h4>Self-Assessment</h4>
+                    <p>Identify transferable skills, values, interests, and what you want from your next career.</p>
+                </div>
+
+                <div class="change-step">
+                    <h4>Research & Exploration</h4>
+                    <p>Investigate target industries, talk to professionals, attend industry events, and identify skill gaps.</p>
+                </div>
+
+                <div class="change-step">
+                    <h4>Skill Development</h4>
+                    <p>Acquire necessary skills through courses, certifications, volunteering, or side projects.</p>
+                </div>
+
+                <div class="change-step">
+                    <h4>Networking Strategy</h4>
+                    <p>Build connections in your target industry through informational interviews and professional groups.</p>
+                </div>
+
+                <div class="change-step">
+                    <h4>Transition Planning</h4>
+                    <p>Create financial runway, update resume for new industry, and plan your exit strategy.</p>
+                </div>
+
+                <div class="change-step">
+                    <h4>Execution & Follow-up</h4>
+                    <p>Apply strategically, leverage network, and continue learning during transition.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section style="text-align: center; margin: 4rem 0;">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--dark);">Ready to Advance Your Career?</h2>
+            <p style="color: var(--gray); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Update your resume with your new skills and achievements to reflect your career growth.</p>
+            <a href="builder.html" class="assessment-btn" style="text-decoration: none; display: inline-block;">Update Your Resume Now →</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="builder.html">CV Builder</a></li>
+                    <li><a href="templates.html">Templates</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resume-tips.html">Resume Tips</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📸</a>
+                    <a href="#">💼</a>
+                    <a href="#">📹</a>
+                </div>
+                <p style="margin-top: 1.5rem; color: rgba(255, 255, 255, 0.7);">
+                    Email: support@cvbuilder.com<br>
+                    Phone: +234 812 000 0000
+                </p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2025 CV Builder. All rights reserved. Build your career with confidence.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.career-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active button
+                    document.querySelectorAll('.career-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.path-section, .skills-section, .assessment-tool, .networking-section, .timeline-section, .salary-guide, .career-change');
+            const navButtons = document.querySelectorAll('.career-btn');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.id;
+                }
+            });
+            
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('href') === currentSection) {
+                    button.classList.add('active');
+                }
+            });
+        });
+
+        // Career Assessment Tool
+        function calculateCareerPath() {
+            const answers = {
+                q1: document.querySelector('input[name="q1"]:checked')?.value,
+                q2: document.querySelector('input[name="q2"]:checked')?.value,
+                q3: document.querySelector('input[name="q3"]:checked')?.value
+            };
+
+            if (!answers.q1 || !answers.q2 || !answers.q3) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+
+            const resultContainer = document.getElementById('assessment-result');
+            let result = '';
+            let recommendations = [];
+
+            // Calculate career path based on answers
+            const leadershipScore = (answers.q1 === 'leadership' ? 2 : 0) + 
+                                  (answers.q2 === 'mentorship' ? 1 : 0) + 
+                                  (answers.q3 === 'management' ? 2 : 0);
+
+            const expertiseScore = (answers.q1 === 'expertise' ? 2 : 0) + 
+                                 (answers.q2 === 'formal' ? 1 : 0) + 
+                                 (answers.q3 === 'specialist' ? 2 : 0);
+
+            const entrepreneurScore = (answers.q1 === 'variety' ? 2 : 0) + 
+                                    (answers.q2 === 'hands-on' ? 1 : 0) + 
+                                    (answers.q3 === 'entrepreneur' ? 2 : 0);
+
+            if (leadershipScore >= expertiseScore && leadershipScore >= entrepreneurScore) {
+                result = '<h3>🚀 Management Career Path</h3>';
+                result += '<p>Your assessment suggests you thrive in leadership roles. Focus on developing people management skills and strategic thinking.</p>';
+                recommendations = [
+                    'Pursue leadership training programs',
+                    'Seek mentorship from senior leaders',
+                    'Volunteer for team leadership opportunities',
+                    'Develop business acumen through cross-functional projects'
+                ];
+            } else if (expertiseScore >= leadershipScore && expertiseScore >= entrepreneurScore) {
+                result = '<h3>🔬 Specialist Career Path</h3>';
+                result += '<p>Your assessment indicates you excel in deep expertise. Focus on becoming a subject matter expert in your field.</p>';
+                recommendations = [
+                    'Pursue advanced certifications',
+                    'Contribute to industry publications',
+                    'Attend specialized conferences',
+                    'Build a portfolio of expert work'
+                ];
+            } else {
+                result = '<h3>💡 Entrepreneurial Career Path</h3>';
+                result += '<p>Your assessment shows entrepreneurial spirit. Focus on developing business skills and building diverse experiences.</p>';
+                recommendations = [
+                    'Develop business development skills',
+                    'Build a professional network',
+                    'Learn about startup ecosystems',
+                    'Consider side projects or consulting'
+                ];
+            }
+
+            // Add recommendations
+            result += '<h4 style="margin-top: 1rem; color: white;">Recommended Actions:</h4><ul>';
+            recommendations.forEach(rec => {
+                result += `<li style="margin-bottom: 0.5rem;">${rec}</li>`;
+            });
+            result += '</ul>';
+
+            resultContainer.innerHTML = result;
+            resultContainer.style.display = 'block';
+            resultContainer.style.animation = 'fadeIn 0.5s ease';
+        }
+
+        // Skill level interaction
+        document.querySelectorAll('.skill-level').forEach(level => {
+            level.addEventListener('click', function() {
+                const skill = this.parentElement.querySelector('span:first-child').textContent;
+                const currentLevel = this.textContent;
+                const nextLevel = {
+                    'Beginner': 'Intermediate',
+                    'Intermediate': 'Advanced',
+                    'Advanced': 'Expert'
+                }[currentLevel] || 'Beginner';
+
+                if (confirm(`Update ${skill} from ${currentLevel} to ${nextLevel}?`)) {
+                    this.textContent = nextLevel;
+                    this.className = `skill-level level-${nextLevel.toLowerCase()}`;
+                    
+                    // Save to localStorage
+                    saveSkillLevel(skill, nextLevel);
+                }
+            });
+        });
+
+        // Save skill levels
+        function saveSkillLevel(skill, level) {
+            const skills = JSON.parse(localStorage.getItem('careerSkills') || '{}');
+            skills[skill] = level;
+            localStorage.setItem('careerSkills', JSON.stringify(skills));
+        }
+
+        // Load skill levels
+        function loadSkillLevels() {
+            const skills = JSON.parse(localStorage.getItem('careerSkills') || '{}');
+            
+            document.querySelectorAll('.skill-list li').forEach(li => {
+                const skillName = li.querySelector('span:first-child').textContent;
+                if (skills[skillName]) {
+                    const levelElement = li.querySelector('.skill-level');
+                    levelElement.textContent = skills[skillName];
+                    levelElement.className = `skill-level level-${skills[skillName].toLowerCase()}`;
+                }
+            });
+        }
+
+        // Highlight active section on load
+        window.addEventListener('load', function() {
+            loadSkillLevels();
+            
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
+                if (targetSection) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                    
+                    // Update active button
+                    document.querySelectorAll('.career-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('href') === hash) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            }
+        });
+
+        // Interactive timeline
+        document.querySelectorAll('.timeline-content').forEach(content => {
+            content.addEventListener('click', function() {
+                const year = this.previousElementSibling.textContent;
+                const title = this.querySelector('h4').textContent;
+                const description = this.querySelector('p').textContent;
+                
+                alert(`📅 ${year}: ${title}\n\n${description}\n\nClick OK to continue exploring your career timeline.`);
+            });
+        });
+    </script>
+</body>
+</html>

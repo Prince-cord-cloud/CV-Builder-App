@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Builder Blog - Career Tips & Resume Advice</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --radius: 12px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .logo-container span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .header-cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .header-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Hero Section */
+        .blog-hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .blog-hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-container {
+            max-width: 500px;
+            margin: 2rem auto 0;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-left: 3rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 30px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .search-container::before {
+            content: '🔍';
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+        }
+
+        /* Blog Content */
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        /* Featured Post */
+        .featured-post {
+            grid-column: 1 / -1;
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 2rem;
+        }
+
+        .featured-image {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .featured-post:hover .featured-image img {
+            transform: scale(1.05);
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .featured-content {
+            padding: 2rem;
+        }
+
+        .featured-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .featured-content p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Blog Posts Grid */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-post {
+            background: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .blog-post:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .post-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .blog-post:hover .post-image img {
+            transform: scale(1.1);
+        }
+
+        .post-content {
+            padding: 1.5rem;
+        }
+
+        .post-category {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .post-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+            line-height: 1.4;
+        }
+
+        .post-content p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .post-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author span {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .read-time {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .categories-list {
+            list-style: none;
+        }
+
+        .categories-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .categories-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .categories-list a:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            color: var(--primary);
+        }
+
+        .category-count {
+            background: var(--gray-light);
+            color: var(--dark);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .popular-posts {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .popular-post {
+            display: flex;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .popular-post:hover {
+            transform: translateX(5px);
+        }
+
+        .popular-post img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .popular-post h4 {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .popular-post span {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .newsletter-form {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+        }
+
+        .newsletter-form h3 {
+            color: white;
+            border-bottom-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .newsletter-form p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .newsletter-form input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            width: 100%;
+            padding: 0.75rem;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            grid-column: 1 / -1;
+        }
+
+        .page-btn {
+            padding: 0.75rem 1.25rem;
+            background: white;
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .page-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .footer-logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .blog-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .blog-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .featured-image {
+                height: 300px;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo-container">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="builder.html">CV Builder</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <a href="builder.html" class="header-cta">Create Your CV</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="blog-hero">
+        <h1>CV Builder Blog</h1>
+        <p>Expert advice, career tips, and resume writing strategies to help you land your dream job</p>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Search blog articles..." id="blogSearch">
+        </div>
+    </section>
+
+    <!-- Blog Content -->
+    <main class="blog-container">
+        <!-- Featured Post -->
+        <article class="featured-post">
+            <div class="featured-image">
+                <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=400&fit=crop" alt="Interview Success">
+                <div class="featured-badge">FEATURED</div>
+            </div>
+            <div class="featured-content">
+                <span class="post-category">CAREER ADVICE</span>
+                <h2>10 Common Resume Mistakes That Are Costing You Interviews</h2>
+                <p>Discover the most frequent resume errors that recruiters see and learn how to fix them. From formatting issues to content gaps, we'll show you how to create a resume that stands out for the right reasons.</p>
+                <div class="post-meta">
+                    <div class="author">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Author">
+                        <span>John Smith</span>
+                    </div>
+                    <div class="read-time">8 min read</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Blog Posts Grid -->
+        <div class="posts-grid">
+            <!-- Post 1 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=300&fit=crop" alt="AI Resume Writing">
+                </div>
+                <div class="post-content">
+                    <span class="post-category">TRENDING</span>
+                    <h3>How AI is Changing Resume Writing in 2025</h3>
+                    <p>Explore the latest AI tools and techniques that are revolutionizing how we create resumes and optimize them for ATS systems.</p>
+                    <div class="post-meta">
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Author">
+                            <span>Sarah Johnson</span>
+                        </div>
+                        <div class="read-time">6 min read</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 2 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=300&fit=crop" alt="Career Change">
+                </div>
+                <div class="post-content">
+                    <span class="post-category">CAREER CHANGE</span>
+                    <h3>The Complete Guide to Career Change Resumes</h3>
+                    <p>Switching careers? Learn how to craft a resume that highlights transferable skills and positions you for success in your new field.</p>
+                    <div class="post-meta">
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Author">
+                            <span>Michael Chen</span>
+                        </div>
+                        <div class="read-time">10 min read</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 3 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=300&fit=crop" alt="Remote Work">
+                </div>
+                <div class="post-content">
+                    <span class="post-category">REMOTE WORK</span>
+                    <h3>Remote Work Resume: What Employers Really Look For</h3>
+                    <p>With remote work becoming the norm, discover the key skills and experiences that make your resume stand out to remote employers.</p>
+                    <div class="post-meta">
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face" alt="Author">
+                            <span>Emma Davis</span>
+                        </div>
+                        <div class="read-time">7 min read</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 4 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=600&h=300&fit=crop" alt="Recent Graduate">
+                </div>
+                <div class="post-content">
+                    <span class="post-category">STUDENTS</span>
+                    <h3>Entry-Level Resume Tips for Recent Graduates</h3>
+                    <p>Graduating soon? Learn how to showcase your education, projects, and internships effectively when you have limited work experience.</p>
+                    <div class="post-meta">
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" alt="Author">
+                            <span>David Wilson</span>
+                        </div>
+                        <div class="read-time">5 min read</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 5 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=300&fit=crop" alt="ATS Systems">
+                </div>
+                <div class="post-content">
+                    <span class="post-category">TECH</span>
+                    <h3>Beat the ATS: Optimize Your Resume for Applicant Tracking Systems</h3>
+                    <p>Learn the secrets to formatting and keyword optimization that will get your resume past automated screening systems.</p>
+                    <div class="post-meta">
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=face" alt="Author">
+                            <span>Lisa Brown</span>
+                        </div>
+                        <div class="read-time">9 min read</div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Post 6 -->
+            <article class="blog-post">
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=600&h=300&fit=crop" alt="Freelance Portfolio">
+                </div>
+                <div class="post-content">
+                    <span class="post-category">FREELANCE</span>
+                    <h3>Creating a Standout Freelance Portfolio Website</h3>
+                    <p>Combine your resume with a professional portfolio to attract high-paying clients and showcase your best work effectively.</p>
+                    <div class="post-meta">
+                        <div class="author">
+                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face" alt="Author">
+                            <span>Sophia Martinez</span>
+                        </div>
+                        <div class="read-time">8 min read</div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Categories -->
+            <div class="sidebar-section">
+                <h3>Categories</h3>
+                <ul class="categories-list">
+                    <li><a href="#">Career Advice <span class="category-count">12</span></a></li>
+                    <li><a href="#">Resume Writing <span class="category-count">8</span></a></li>
+                    <li><a href="#">Interview Tips <span class="category-count">6</span></a></li>
+                    <li><a href="#">Remote Work <span class="category-count">4</span></a></li>
+                    <li><a href="#">Students & Grads <span class="category-count">7</span></a></li>
+                    <li><a href="#">Career Change <span class="category-count">5</span></a></li>
+                    <li><a href="#">Freelance <span class="category-count">3</span></a></li>
+                    <li><a href="#">Tech Industry <span class="category-count">9</span></a></li>
+                </ul>
+            </div>
+
+            <!-- Popular Posts -->
+            <div class="sidebar-section">
+                <h3>Popular Posts</h3>
+                <div class="popular-posts">
+                    <a href="#" class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1580894894513-541e068a3e2b?w-100&h=100&fit=crop" alt="Cover Letter">
+                        <div>
+                            <h4>The Perfect Cover Letter Template</h4>
+                            <span>Jan 15, 2025</span>
+                        </div>
+                    </a>
+                    <a href="#" class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1551836026-d5c2c5af78e4?w-100&h=100&fit=crop" alt="LinkedIn">
+                        <div>
+                            <h4>LinkedIn Profile Optimization Guide</h4>
+                            <span>Dec 28, 2024</span>
+                        </div>
+                    </a>
+                    <a href="#" class="popular-post">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w-100&h=100&fit=crop" alt="Salary Negotiation">
+                        <div>
+                            <h4>Salary Negotiation Strategies</h4>
+                            <span>Nov 30, 2024</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="sidebar-section newsletter-form">
+                <h3>Career Insights Newsletter</h3>
+                <p>Get weekly career tips, resume advice, and job search strategies delivered to your inbox.</p>
+                <form id="newsletterForm">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" class="page-btn active">1</a>
+            <a href="#" class="page-btn">2</a>
+            <a href="#" class="page-btn">3</a>
+            <a href="#" class="page-btn">4</a>
+            <a href="#" class="page-btn">Next →</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="builder.html">CV Builder</a></li>
+                    <li><a href="templates.html">Templates</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="gdpr-compliance.html">GDPR Compliance</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📸</a>
+                    <a href="#">💼</a>
+                    <a href="#">📹</a>
+                </div>
+                <p style="margin-top: 1.5rem; color: rgba(255, 255, 255, 0.7);">
+                    Email: hello@cvbuilder.com<br>
+                    Phone: +234 812 000 0000
+                </p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2025 CV Builder. All rights reserved. Made with ❤️ for job seekers worldwide.
+        </div>
+    </footer>
+
+    <script>
+        // Search functionality
+        document.getElementById('blogSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const posts = document.querySelectorAll('.blog-post, .featured-post');
+            
+            posts.forEach(post => {
+                const title = post.querySelector('h2, h3').textContent.toLowerCase();
+                const content = post.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || content.includes(searchTerm)) {
+                    post.style.display = 'block';
+                } else {
+                    post.style.display = 'none';
+                }
+            });
+        });
+
+        // Newsletter subscription
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            
+            // Simulate subscription
+            alert(`Thank you for subscribing! You'll receive career tips at ${email}`);
+            this.reset();
+        });
+
+        // Category filtering
+        document.querySelectorAll('.categories-list a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const category = this.textContent.split(' ')[0];
+                
+                // Filter posts by category
+                const posts = document.querySelectorAll('.blog-post');
+                posts.forEach(post => {
+                    const postCategory = post.querySelector('.post-category').textContent;
+                    if (category === 'All' || postCategory.includes(category)) {
+                        post.style.display = 'block';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+                
+                // Update active category
+                document.querySelectorAll('.categories-list a').forEach(a => {
+                    a.style.fontWeight = 'normal';
+                });
+                this.style.fontWeight = '600';
+            });
+        });
+
+        // Smooth scroll for pagination
+        document.querySelectorAll('.page-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: document.querySelector('.posts-grid').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Update active page
+                document.querySelectorAll('.page-btn').forEach(b => {
+                    b.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

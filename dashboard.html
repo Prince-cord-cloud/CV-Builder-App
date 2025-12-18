@@ -1,0 +1,3573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV Builder - Interactive Landing Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+ /* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary: #f59e0b;
+  --dark: #1e293b;
+  --light: #f8fafc;
+  --gray: #64748b;
+  --gray-light: #e2e8f0;
+  --success: #10b981;
+  --radius: 12px;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  color: var(--dark);
+  scroll-behavior: smooth;
+  line-height: 1.6;
+}
+
+/* NAVBAR */
+nav {
+  width: 100%;
+  padding: 18px 5%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.logo-container:hover {
+  transform: translateY(-1px);
+}
+
+.logo-container img {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.logo-container span {
+  font-size: 1.7rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+  transition: var(--transition);
+}
+
+nav ul li a {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--gray);
+  padding: 8px 0;
+  position: relative;
+  transition: var(--transition);
+}
+
+nav ul li a:hover {
+  color: var(--primary);
+}
+
+nav ul li a::after {
+  content: '';
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* Hero Button in Navbar */
+.nav-cta {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+}
+
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 5%;
+  overflow: hidden;
+  background: linear-gradient(135deg, 
+    rgba(99, 102, 241, 0.9) 0%, 
+    rgba(79, 70, 229, 0.9) 50%, 
+    rgba(139, 92, 246, 0.9) 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: white;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero .typed-text {
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 1.25rem;
+  margin-bottom: 40px;
+  max-width: 700px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease 0.3s forwards;
+}
+
+.start-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 42px;
+  background: white;
+  color: var(--primary);
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease 0.6s forwards;
+}
+
+.start-btn:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+}
+
+.start-btn::after {
+  content: '→';
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.start-btn:hover::after {
+  transform: translateX(4px);
+}
+
+/* SECTIONS */
+section {
+  padding: 100px 5%;
+  position: relative;
+}
+
+section h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 50px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  border-radius: 2px;
+}
+
+/* FEATURES */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-box {
+  background: white;
+  border-radius: var(--radius);
+  padding: 40px 30px;
+  text-align: center;
+  transition: var(--transition);
+  border: 1px solid var(--gray-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 0;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+  transition: height 0.3s ease;
+}
+
+.feature-box:hover::before {
+  height: 100%;
+}
+
+.feature-box:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.feature-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  font-size: 32px;
+  color: var(--primary);
+}
+
+.feature-box h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--dark);
+}
+
+.feature-box p {
+  color: var(--gray);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 60px 20px;
+  background-color: #f8f9fa;
+}
+
+.features h2 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.feature-box {
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
+  padding: 30px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  color: #4a6cf7;
+  margin-bottom: 20px;
+}
+
+.feature-box h3 {
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.4rem;
+}
+
+.feature-box p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* HOW IT WORKS */
+.how-it-works {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  counter-reset: step-counter;
+}
+
+.step {
+  background: white;
+  border-radius: var(--radius);
+  padding: 40px 30px;
+  text-align: center;
+  transition: var(--transition);
+  position: relative;
+  border: 1px solid var(--gray-light);
+}
+
+.step::before {
+  counter-increment: step-counter;
+  content: counter(step-counter);
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow);
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.step h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--dark);
+}
+
+.step p {
+  color: var(--gray);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* TEMPLATES */
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.template-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border: 1px solid var(--gray-light);
+}
+
+.template-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-lg);
+  border-color: transparent;
+}
+
+.template-img-container {
+  position: relative;
+  overflow: hidden;
+  height: 280px;
+}
+
+.template-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.template-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.95) 0%, rgba(79, 70, 229, 0.95) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.template-card:hover .template-overlay {
+  opacity: 1;
+}
+
+.template-card:hover .template-img-container img {
+  transform: scale(1.05);
+}
+
+.preview-btn, .use-btn {
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  min-width: 160px;
+}
+
+.preview-btn {
+  background: white;
+  color: var(--primary);
+}
+
+.preview-btn:hover {
+  background: var(--gray-light);
+  transform: translateY(-2px);
+}
+
+.use-btn {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+.use-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+}
+
+.template-info {
+  padding: 25px;
+}
+
+.template-info h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--dark);
+}
+
+.template-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: var(--gray-light);
+  color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.tag:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-1px);
+}
+
+
+.template-img-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
+  height: 250px;
+}
+
+.template-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.template-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(78, 84, 200, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.template-img-container:hover .template-overlay {
+  opacity: 1;
+}
+
+.template-img-container:hover img {
+  transform: scale(1.05);
+}
+
+.preview-btn, .use-btn {
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.preview-btn {
+  background: white;
+  color: #4e54c8;
+}
+
+.use-btn {
+  background: #ff7f50;
+  color: white;
+}
+
+.template-info {
+  padding: 15px;
+}
+
+.template-tags {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #f0f2ff;
+  color: #4e54c8;
+  padding: 3px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+}
+
+
+/* TESTIMONIALS */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial {
+  background: white;
+  padding: 40px 30px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  border-top: 4px solid var(--primary);
+  border-bottom: 4px solid var(--primary);
+  position: relative;
+  cursor: pointer;
+}
+
+
+.testimonial:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.testimonial::before {
+  content: "\f10d";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1.8rem;
+  color: var(--primary);
+  opacity: 0.2;
+}
+
+.testimonial p {
+  color: var(--dark);
+  margin-bottom: 25px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  position: relative;
+  z-index: 1;
+  padding: 0 10px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.testimonial-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.testimonial-info h5 {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 3px;
+}
+
+.testimonial-info span {
+  color: var(--gray);
+  font-size: 0.9rem;
+}
+
+/* FAQ */
+ .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* FAQ Section Styling */
+        .faq {
+            padding: 60px 20px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        
+        .faq h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #1e293b;
+            position: relative;
+        }
+        
+        .faq h2:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #4e54c8, #ff7f50);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .faq-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            border-color: #c7d2fe;
+        }
+        
+        .faq-item h4 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .faq-item h4:before {
+            content: "?";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .faq-item p {
+            color: #64748b;
+            font-size: 1.05rem;
+            padding-left: 38px;
+        }
+        
+        .account-notice {
+            background: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 40px auto 0;
+            max-width: 1000px;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 1px solid #c7d2fe;
+            color: #1e40af;
+            font-weight: 500;
+        }
+        
+        .account-notice strong {
+            color: #3b82f6;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .faq h2 {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+            
+            .faq-item {
+                padding: 22px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .faq {
+                padding: 40px 15px;
+            }
+            
+            .faq h2 {
+                font-size: 1.75rem;
+            }
+            
+            .faq-item h4 {
+                font-size: 1.1rem;
+            }
+            
+            .faq-item p {
+                font-size: 1rem;
+            }
+        }
+
+/* CONTACT */
+.contact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(550px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.contact-info, .contact-form {
+  background: white;
+  border-radius: var(--radius);
+  padding: 40px 35px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-light);
+}
+
+.contact-info h4, .contact-form h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: var(--dark);
+}
+
+.contact-info p {
+  color: var(--gray);
+  line-height: 1.7;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact-info p::before {
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--gray-light);
+  background: var(--light);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.contact-form button {
+  width: 100%;
+  padding: 16px;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.contact-form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  nav {
+    padding: 15px 20px;
+  }
+  
+  .logo-container span {
+    font-size: 1.4rem;
+  }
+  
+  nav ul {
+    display: none;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+  }
+  
+  section {
+    padding: 70px 20px;
+  }
+  
+  section h2 {
+    font-size: 2.2rem;
+  }
+  
+  .features,
+  .how-it-works,
+  .template-grid,
+  .testimonials,
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ANIMATIONS */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Scroll animations */
+section, .feature-box, .step, .template-card, .testimonial {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+section.visible, .feature-box.visible, .step.visible, 
+.template-card.visible, .testimonial.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Desktop Navigation - Always visible on desktop */
+.desktop-nav {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.desktop-nav a {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--gray);
+  padding: 8px 0;
+  position: relative;
+  transition: var(--transition);
+}
+
+.desktop-nav a:hover {
+  color: var(--primary);
+}
+
+.desktop-nav a::after {
+  content: '';
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transition: width 0.3s ease;
+}
+
+.desktop-nav a:hover::after {
+  width: 100%;
+}
+
+/* Modern Hamburger Menu - Hidden by default on desktop */
+.hamburger {
+  display: none; /* Hidden on desktop by default */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 12px;
+  position: relative;
+  z-index: 1001;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: var(--shadow);
+}
+
+.hamburger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+}
+
+.hamburger:active {
+  transform: translateY(0);
+}
+
+.hamburger-line {
+  width: 20px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.hamburger .line-2 {
+  margin: 4px 0;
+  width: 24px;
+}
+
+/* Active state animations */
+.hamburger.active {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  transform: rotate(180deg);
+}
+
+.hamburger.active .line-1 {
+  transform: rotate(45deg) translate(4px, 4px);
+  width: 20px;
+}
+
+.hamburger.active .line-2 {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.hamburger.active .line-3 {
+  transform: rotate(-45deg) translate(4px, -4px);
+  width: 20px;
+}
+
+/* Modern Mobile Menu - Always hidden on desktop */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 320px;
+  max-width: 85%;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  backdrop-filter: blur(20px);
+  box-shadow: -10px 0 60px rgba(0, 0, 0, 0.15);
+  padding: 100px 30px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+  z-index: 1000;
+  border-left: 1px solid rgba(226, 232, 240, 0.3);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.mobile-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.mobile-menu.show {
+  right: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile Menu Header */
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--gray-light);
+}
+
+.mobile-menu-header h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.close-menu {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--gray);
+  cursor: pointer;
+  transition: var(--transition);
+  line-height: 1;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.close-menu:hover {
+  color: var(--primary);
+  background: var(--gray-light);
+  transform: rotate(90deg);
+}
+
+/* Mobile Links */
+.mobile-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.1rem;
+  color: var(--dark);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 16px 20px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+  transition: width 0.3s ease;
+  z-index: -1;
+}
+
+.mobile-link:hover {
+  color: var(--primary);
+  transform: translateX(5px);
+  border-color: var(--primary-light);
+}
+
+.mobile-link:hover::before {
+  width: 100%;
+}
+
+.mobile-link .feature-icon {
+  font-size: 1.0rem;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(99, 102, 241, 0.1);
+  border-radius: 10px;
+  transition: var(--transition);
+}
+
+.mobile-link:hover .feature-icon {
+  background: var(--primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* Mobile CTA Button */
+.mobile-cta {
+  margin-top: 30px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 18px 25px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+}
+
+.mobile-cta .arrow {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.mobile-cta:hover .arrow {
+  transform: translateX(5px);
+}
+
+/* Menu Backdrop */
+.menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.menu-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* RESPONSIVE DESIGN - Mobile Breakpoint */
+@media (max-width: 768px) {
+  /* Hide desktop navigation on mobile */
+  .desktop-nav {
+    display: none;
+  }
+  
+  /* Hide desktop CTA on mobile */
+  .nav-cta {
+    display: none;
+  }
+  
+  /* Show hamburger on mobile */
+  .hamburger {
+    display: flex;
+  }
+  
+  /* Ensure mobile menu is properly positioned on mobile */
+  .mobile-menu {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Small screen adjustments */
+@media (max-width: 480px) {
+  .mobile-menu {
+    width: 100%;
+    max-width: 100%;
+    border-left: none;
+  }
+  
+  .mobile-menu::before {
+    width: 0;
+  }
+  
+  .mobile-menu-header h3 {
+    font-size: 1.3rem;
+  }
+  
+  .mobile-link {
+    font-size: 1rem;
+    padding: 14px 18px;
+  }
+}
+
+/* Medium screens (tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .desktop-nav {
+    gap: 24px;
+  }
+  
+  .desktop-nav a {
+    font-size: 0.95rem;
+  }
+  
+  .nav-cta {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <a href="index.html" class="logo-container">
+    <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Logo">
+    <span style="font-size: 21px;">CV Builder</span>
+  </a>
+  
+  <!-- Desktop Navigation -->
+  <div class="desktop-nav">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="#templates">Templates</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    
+    <!-- Theme Toggle Container -->
+    <div class="theme-toggle-container">
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </div>
+  
+  <a href="cv-builder/index.html" class="nav-cta">Get Started</a>
+  
+  <!-- Mobile Hamburger -->
+  <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span class="hamburger-line line-1"></span>
+    <span class="hamburger-line line-2"></span>
+    <span class="hamburger-line line-3"></span>
+  </button>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <div class="mobile-menu-header">
+      <h3>Menu</h3>
+      <button class="close-menu" aria-label="Close menu">×</button>
+    </div>
+    <a href="#features" class="mobile-link">
+      <i class="feature-icon">🎯</i>
+      <span>Features</span>
+    </a>
+    <a href="#how" class="mobile-link">
+      <i class="feature-icon">⚙️</i>
+      <span>How It Works</span>
+    </a>
+    <a href="#templates" class="mobile-link">
+      <i class="feature-icon">🎨</i>
+      <span>Templates</span>
+    </a>
+    <a href="#testimonials" class="mobile-link">
+      <i class="feature-icon">💬</i>
+      <span>Testimonials</span>
+    </a>
+    <a href="#faq" class="mobile-link">
+      <i class="feature-icon">❓</i>
+      <span>FAQ</span>
+    </a>
+    <a href="#contact" class="mobile-link">
+      <i class="feature-icon">📞</i>
+      <span>Contact</span>
+    </a>
+    
+    <!-- Mobile Theme Toggle -->
+    <button class="mobile-theme-toggle mobile-link" id="mobileThemeToggle">
+      <i class="fas fa-moon"></i>
+      <span>Dark Mode</span>
+    </button>
+    
+    <a href="builder.html" class="mobile-cta">
+      <span>Start Building</span>
+      <i class="arrow">→</i>
+    </a>
+  </div>
+</nav>
+ 
+<style>
+/* Add this to your existing CSS */
+.theme-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.theme-toggle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-secondary, #f8fafc);
+  color: var(--text-secondary, #64748b);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-btn:hover {
+  background: var(--bg-tertiary, #f1f5f9);
+  transform: translateY(-2px);
+  border-color: var(--primary, #6366f1);
+  color: var(--primary, #6366f1);
+}
+
+.theme-toggle-btn.dark-mode {
+  background: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+}
+
+.theme-toggle-btn.dark-mode:hover {
+  background: #334155;
+  border-color: #818cf8;
+  color: #818cf8;
+}
+
+/* Mobile theme toggle */
+.mobile-theme-toggle {
+  width: auto;
+  padding: 12px 20px;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 10px 0;
+  background: #f8fafc;
+  color: #64748b;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+}
+
+.mobile-theme-toggle.dark-mode {
+  background: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .theme-toggle-container {
+    margin-left: 0;
+    margin-right: 10px;
+  }
+  
+  .theme-toggle-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+</style>
+<script>
+// Dark Mode Toggle System
+document.addEventListener('DOMContentLoaded', function() {
+  const themeToggle = document.getElementById('themeToggle');
+  const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+  
+  // Create link element for dark theme
+  const darkCSS = document.createElement('link');
+  darkCSS.rel = 'stylesheet';
+  darkCSS.href = 'dark.css';
+  darkCSS.id = 'dark-css';
+  darkCSS.disabled = true;
+  document.head.appendChild(darkCSS);
+  
+  // Check for saved theme or system preference
+  const savedTheme = localStorage.getItem('cvBuilderTheme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Apply initial theme
+  if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    enableDarkMode();
+  } else {
+    disableDarkMode();
+  }
+  
+  // Desktop toggle
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+  }
+  
+  // Mobile toggle
+  if (mobileThemeToggle) {
+    mobileThemeToggle.addEventListener('click', function() {
+      toggleTheme();
+      // Close mobile menu after clicking (optional)
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const hamburger = document.querySelector('.hamburger');
+      const backdrop = document.querySelector('.menu-backdrop');
+      
+      if (mobileMenu && mobileMenu.classList.contains('show')) {
+        mobileMenu.classList.remove('show');
+        if (hamburger) hamburger.classList.remove('active');
+        if (backdrop) backdrop.classList.remove('show');
+      }
+    });
+  }
+  
+  function toggleTheme() {
+    if (darkCSS.disabled) {
+      enableDarkMode();
+    } else {
+      disableDarkMode();
+    }
+  }
+  
+  function enableDarkMode() {
+    darkCSS.disabled = false;
+    document.body.classList.add('dark-mode');
+    
+    // Update desktop toggle
+    if (themeToggle) {
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      themeToggle.classList.add('dark-mode');
+    }
+    
+    // Update mobile toggle
+    if (mobileThemeToggle) {
+      mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i> <span>Light Mode</span>';
+      mobileThemeToggle.classList.add('dark-mode');
+    }
+    
+    localStorage.setItem('cvBuilderTheme', 'dark');
+  }
+  
+  function disableDarkMode() {
+    darkCSS.disabled = true;
+    document.body.classList.remove('dark-mode');
+    
+    // Update desktop toggle
+    if (themeToggle) {
+      themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      themeToggle.classList.remove('dark-mode');
+    }
+    
+    // Update mobile toggle
+    if (mobileThemeToggle) {
+      mobileThemeToggle.innerHTML = '<i class="fas fa-moon"></i> <span>Dark Mode</span>';
+      mobileThemeToggle.classList.remove('dark-mode');
+    }
+    
+    localStorage.setItem('cvBuilderTheme', 'light');
+  }
+  
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('cvBuilderTheme')) {
+      if (e.matches) {
+        enableDarkMode();
+      } else {
+        disableDarkMode();
+      }
+    }
+  });
+});
+</script>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="floating-shape shape1"></div>
+  <div class="floating-shape shape2"></div>
+  <div class="floating-shape shape3"></div>
+
+  <h1>Create Your <span class="typed-text"></span></h1>
+  <p>Build a perfect CV using our modern templates, customize it to your style, and download it instantly as PDF. Whether you are a student, freelancer, or professional, impress recruiters with a polished CV!</p>
+  <a href="cv-builder/index.html" class="start-btn">Start Building Now</a>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+  <h2>Why Choose Our CV Builder</h2>
+  
+  <div class="feature-box">
+    <div class="feature-icon">
+      <i class="fas fa-bolt"></i>
+    </div>
+    <h3>Fast & Simple</h3>
+    <p>Fill out your details and instantly preview your CV with no technical knowledge required.</p>
+  </div>
+  
+  <div class="feature-box">
+    <div class="feature-icon">
+      <i class="fas fa-palette"></i>
+    </div>
+    <h3>Multiple Templates</h3>
+    <p>Choose from minimalist, modern, or creative CV templates that fit your professional style.</p>
+  </div>
+  
+  <div class="feature-box">
+    <div class="feature-icon">
+      <i class="fas fa-sliders-h"></i>
+    </div>
+    <h3>Fully Customizable</h3>
+    <p>Change colors, fonts, sections, and layout to match your personal branding.</p>
+  </div>
+  
+  <div class="feature-box">
+    <div class="feature-icon">
+      <i class="fas fa-file-pdf"></i>
+    </div>
+    <h3>PDF Download</h3>
+    <p>Download your CV instantly in high-quality PDF format, ready for applications or printing.</p>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how">
+  <h2>How It Works</h2>
+  <div class="how-it-works">
+    <div class="step">
+      <h4>Step 1: Choose Template</h4>
+      <p>Select the CV template that matches your style and profession.</p>
+    </div>
+    <div class="step">
+      <h4>Step 2: Fill Details</h4>
+      <p>Enter your personal information, skills, education, experience, and achievements.</p>
+    </div>
+    <div class="step">
+      <h4>Step 3: Preview</h4>
+      <p>See your CV live in real-time as you make changes to your information.</p>
+    </div>
+    <div class="step">
+      <h4>Step 4: Download PDF</h4>
+      <p>Click the download button to save your professional CV in PDF format instantly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Templates Section -->
+<section class="templates" id="templates">
+  <h2>Explore Our Templates</h2>
+  <div class="template-grid">
+    <div class="template-card">
+  <div class="template-img-container">
+    <img src="https://images.template.net/132891/modern-resume-template-09qz8.png" 
+         alt="Modern CV Template" loading="lazy">
+    <div class="template-overlay">
+      <button onclick="previewTemplate(4)" class="preview-btn">Preview</button>
+      <button onclick="useTemplate(4)" class="use-btn">Use This</button>
+    </div>
+  </div>
+  <div class="template-info">
+    <h4>Modern Resume Template</h4>
+    <div class="template-tags">
+      <span class="tag">Minimal</span>
+      <span class="tag">Professional</span>
+      <span class="tag">Clean</span>
+    </div>
+  </div>
+</div>
+
+    
+    <div class="template-card">
+      <div class="template-img-container">
+        <img src="https://images.pexels.com/photos/3183171/pexels-photo-3183171.jpeg?auto=compress&cs=tinysrgb&w=600&h=450&fit=crop" 
+             alt="Creative CV Design" loading="lazy">
+        <div class="template-overlay">
+          <button onclick="previewTemplate(2)" class="preview-btn">Preview</button>
+          <button onclick="useTemplate(2)" class="use-btn">Use This</button>
+        </div>
+      </div>
+      <div class="template-info">
+        <h4>Creative Portfolio</h4>
+        <div class="template-tags">
+          <span class="tag">Colorful</span>
+          <span class="tag">Creative</span>
+          <span class="tag">Portfolio</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="template-card">
+  <div class="template-img-container">
+    <img src="https://i.pinimg.com/736x/19/50/97/19509729f6b0440ff06c1a5929f1a549.jpg" 
+         alt="Executive CV Template" loading="lazy">
+    <div class="template-overlay">
+      <button onclick="previewTemplate(3)" class="preview-btn">Preview</button>
+      <button onclick="useTemplate(3)" class="use-btn">Use This</button>
+    </div>
+  </div>
+  <div class="template-info">
+    <h4>Executive Style</h4>
+    <div class="template-tags">
+      <span class="tag">Formal</span>
+      <span class="tag">Executive</span>
+      <span class="tag">Traditional</span>
+    </div>
+  </div>
+</div>
+
+<div class="template-card">
+  <div class="template-img-container">
+    <img src="https://i.pinimg.com/736x/4d/b2/eb/4db2ebd28a6297ae7cc7f1b37806af76.jpg" 
+         alt="Executive CV Template" loading="lazy">
+    <div class="template-overlay">
+      <button onclick="previewTemplate(3)" class="preview-btn">Preview</button>
+      <button onclick="useTemplate(3)" class="use-btn">Use This</button>
+    </div>
+  </div>
+  <div class="template-info">
+    <h4>Executive Style</h4>
+    <div class="template-tags">
+      <span class="tag">Formal</span>
+      <span class="tag">Executive</span>
+      <span class="tag">Traditional</span>
+    </div>
+  </div>
+</div>
+
+<div class="template-card">
+  <div class="template-img-container">
+    <img src="https://i.pinimg.com/736x/b9/b7/f7/b9b7f7e6a315b5ab9c97c69a63a3d7bf.jpg" 
+         alt="Executive CV Template" loading="lazy">
+    <div class="template-overlay">
+      <button onclick="previewTemplate(3)" class="preview-btn">Preview</button>
+      <button onclick="useTemplate(3)" class="use-btn">Use This</button>
+    </div>
+  </div>
+  <div class="template-info">
+    <h4>Executive Style</h4>
+    <div class="template-tags">
+      <span class="tag">Formal</span>
+      <span class="tag">Executive</span>
+      <span class="tag">Traditional</span>
+    </div>
+  </div>
+</div>
+
+<div class="template-card">
+  <div class="template-img-container">
+    <img src="https://i.pinimg.com/1200x/c7/b4/d6/c7b4d6fcee4c22e572faa5fd202fb6bf.jpg" 
+         alt="Executive CV Template" loading="lazy">
+    <div class="template-overlay">
+      <button onclick="previewTemplate(3)" class="preview-btn">Preview</button>
+      <button onclick="useTemplate(3)" class="use-btn">Use This</button>
+    </div>
+  </div>
+  <div class="template-info">
+    <h4>Executive Style</h4>
+    <div class="template-tags">
+      <span class="tag">Formal</span>
+      <span class="tag">Executive</span>
+      <span class="tag">Traditional</span>
+    </div>
+  </div>
+</div>
+
+</section>
+
+
+<style>
+
+</style>
+
+<script>
+function previewTemplate(id) {
+  // Open template preview in modal or new page
+  window.open(`template-preview-${id}.html`, '_blank');
+}
+
+function useTemplate(id) {
+  localStorage.setItem('selectedTemplate', id);
+  window.location.href = 'builder.html';
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Testimonials Section -->
+<section class="testimonials" id="testimonials">
+  <h2>What Our Users Say</h2>
+  <div class="testimonial">
+    <p>"This CV builder saved me hours! The templates are professional and easy to customize."</p>
+    <h5>- John Doe</h5>
+  </div>
+  <div class="testimonial">
+    <p>"I love the live preview feature. I could see my CV as I typed, and the PDF download worked perfectly."</p>
+    <h5>- Sarah Paul</h5>
+  </div>
+  
+  <div class="testimonial">
+    <p>"Best free CV builder online! Simple, modern, and very professional templates."</p>
+    <h5>- Ahmed Ali</h5>
+  </div>
+  
+</section>
+
+
+<div class="container">
+        <!-- FAQ Section -->
+        <section class="faq" id="faq">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="account-notice">
+                <p><strong>Note:</strong> You now need to create an account to use our CV builder program. This allows us to save your work and offer more personalized features.</p>
+            </div>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>Is it free to use?</h4>
+                    <p>Yes! Our CV builder is completely free for everyone. Creating an account is also free and gives you access to all features.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>Why do I need an account now?</h4>
+                    <p>Accounts allow us to save your CV templates, progress, and settings across devices. This ensures you never lose your work and can access it anytime.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>Can I download multiple templates?</h4>
+                    <p>Yes, with an account you can choose different templates and download each CV in PDF format. Your previous templates are saved in your account.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>Is my data safe and private?</h4>
+                    <p>Absolutely! We use industry-standard encryption and never share your personal information. Your CV data is only accessible through your secure account.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>How do I create an account?</h4>
+                    <p>Simply click the "Sign Up" button at the top right. You can register with your email, Google account, or LinkedIn profile in just a few seconds.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h4>Can I delete my account?</h4>
+                    <p>Yes, you can delete your account anytime from the settings page. All your data will be permanently removed from our servers.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+<!-- Contact Section -->
+<section class="contact" id="contact">
+<section class="contact" id="contact">
+  <h2>Contact Us</h2>
+  <div class="contact-container">
+    <!-- Contact Info Card -->
+    <div class="contact-info-card">
+      <div class="contact-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+      </div>
+      <h3>Get in Touch</h3>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon-small">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div>
+            <p class="contact-label">Email</p>
+            <p class="contact-value">support@cvbuilder.com</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon-small">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <div>
+            <p class="contact-label">Phone</p>
+            <p class="contact-value">+234 706 994 3790</p>
+          </div>
+        </div>
+        
+        <div class="contact-item">
+          <div class="contact-icon-small">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="M22 7l-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+          </div>
+          <div>
+            <p class="contact-label">Office</p>
+            <p class="contact-value">Port Harcourt, Nigeria</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-hours">
+        <h4>Business Hours</h4>
+        <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+        <p>Saturday: 10:00 AM - 4:00 PM</p>
+        <p>Sunday: Closed</p>
+      </div>
+    </div>
+
+    <!-- Modern Contact Form -->
+    <div class="modern-contact-form">
+      <div class="form-header">
+        <h3>Send Us a Message</h3>
+        <p class="form-subtitle">We'll respond within 24 hours</p>
+      </div>
+      
+      <form id="contactForm" class="animated-form">
+        <div class="form-group">
+          <label for="name" class="form-label">
+            <span class="label-text">Your Name</span>
+            <span class="required">*</span>
+          </label>
+          <div class="input-with-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <input 
+              type="text" 
+              id="name" 
+              name="name"
+              placeholder="John Doe"
+              required
+              class="form-input"
+            >
+          </div>
+          <div class="form-error" id="nameError"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email" class="form-label">
+            <span class="label-text">Email Address</span>
+            <span class="required">*</span>
+          </label>
+          <div class="input-with-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <input 
+              type="email" 
+              id="email" 
+              name="email"
+              placeholder="john@example.com"
+              required
+              class="form-input"
+            >
+          </div>
+          <div class="form-error" id="emailError"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="subject" class="form-label">
+            <span class="label-text">Subject</span>
+            <span class="required">*</span>
+          </label>
+          <div class="input-with-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12" y2="8"></line>
+            </svg>
+            <select id="subject" name="subject" class="form-select" required>
+              <option value="" disabled selected>Select a topic</option>
+              <option value="general">General Inquiry</option>
+              <option value="support">Technical Support</option>
+              <option value="feedback">Feedback & Suggestions</option>
+              <option value="business">Business Partnership</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="message" class="form-label">
+            <span class="label-text">Your Message</span>
+            <span class="required">*</span>
+          </label>
+          <div class="textarea-with-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <textarea 
+              id="message" 
+              name="message"
+              placeholder="Tell us how we can help you..."
+              rows="5"
+              required
+              class="form-textarea"
+            ></textarea>
+          </div>
+          <div class="char-count">
+            <span id="charCounter">0</span> / 500 characters
+          </div>
+          <div class="form-error" id="messageError"></div>
+        </div>
+        
+        <div class="form-group checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="newsletter" name="newsletter">
+            <span class="checkmark"></span>
+            <span>Subscribe to our newsletter for updates and tips</span>
+          </label>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+/* CONTACT SECTION */
+.contact {
+  padding: 100px 5%;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.contact h2 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 60px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* CONTACT INFO CARD */
+.contact-info-card {
+  padding: 50px 40px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-info-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  z-index: 1;
+}
+
+.contact-icon {
+  width: 70px;
+  height: 70px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-icon svg {
+  stroke: white;
+  width: 32px;
+  height: 32px;
+}
+
+.contact-info-card h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.contact-icon-small {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-icon-small svg {
+  stroke: white;
+  width: 22px;
+  height: 22px;
+}
+
+.contact-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.contact-value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.contact-hours {
+  position: relative;
+  z-index: 2;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.contact-hours h4 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.contact-hours p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 8px;
+}
+
+/* MODERN CONTACT FORM */
+.modern-contact-form {
+  padding: 50px 40px;
+}
+
+.form-header {
+  margin-bottom: 40px;
+}
+
+.form-header h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 10px;
+}
+
+.form-subtitle {
+  color: var(--gray);
+  font-size: 1.05rem;
+}
+
+.animated-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--dark);
+  font-size: 0.95rem;
+}
+
+.label-text {
+  font-size: 1rem;
+}
+
+.required {
+  color: #ef4444;
+}
+
+.input-with-icon,
+.textarea-with-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-icon svg,
+.textarea-with-icon svg {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  stroke: var(--gray);
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+}
+
+.textarea-with-icon svg {
+  top: 25px;
+  transform: none;
+}
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  padding: 16px 20px 16px 52px;
+  border: 2px solid var(--gray-light);
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: white;
+  color: var(--dark);
+  font-family: 'Inter', sans-serif;
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 20px;
+  cursor: pointer;
+}
+
+.form-textarea {
+  min-height: 140px;
+  resize: vertical;
+  padding-top: 20px;
+  line-height: 1.6;
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+}
+
+.form-input:focus + svg,
+.form-textarea:focus + svg {
+  stroke: var(--primary);
+}
+
+.char-count {
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--gray);
+  margin-top: 5px;
+}
+
+/* CHECKBOX STYLING */
+.checkbox-group {
+  margin-top: 10px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--dark);
+  font-size: 0.95rem;
+  gap: 12px;
+}
+
+.checkbox-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: relative;
+  height: 22px;
+  width: 22px;
+  background-color: white;
+  border: 2px solid var(--gray-light);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.checkbox-label:hover .checkmark {
+  border-color: var(--primary);
+}
+
+.checkbox-label input:checked ~ .checkmark {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-label input:checked ~ .checkmark::after {
+  display: block;
+}
+
+/* SUBMIT BUTTON */
+.form-actions {
+  margin-top: 20px;
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 18px 32px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s ease;
+}
+
+.submit-btn:hover::before {
+  left: 100%;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.btn-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: white;
+}
+
+/* FORM ERROR STATES */
+.form-error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 8px;
+  min-height: 20px;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+.form-error.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-input.error,
+.form-textarea.error,
+.form-select.error {
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.02);
+}
+
+/* SUCCESS MESSAGE */
+.success-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #10b981;
+  color: white;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+  transform: translateX(120%);
+  transition: transform 0.4s ease;
+}
+
+.success-message.show {
+  transform: translateX(0);
+}
+
+.success-icon {
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.success-icon svg {
+  stroke: #10b981;
+  width: 16px;
+  height: 16px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .contact-container {
+    gap: 40px;
+  }
+  
+  .contact-info-card,
+  .modern-contact-form {
+    padding: 40px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .contact-info-card {
+    padding: 40px 30px;
+    border-radius: 20px 20px 0 0;
+  }
+  
+  .modern-contact-form {
+    padding: 40px 30px;
+  }
+  
+  .contact h2 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact {
+    padding: 60px 20px;
+  }
+  
+  .contact-info-card,
+  .modern-contact-form {
+    padding: 30px 20px;
+  }
+  
+  .contact-info-card h3,
+  .form-header h3 {
+    font-size: 1.7rem;
+  }
+  
+  .submit-btn {
+    padding: 16px 24px;
+  }
+}
+</style>
+
+<script>
+// Contact Form JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.getElementById('contactForm');
+  const messageTextarea = document.getElementById('message');
+  const charCounter = document.getElementById('charCounter');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  // Character counter
+  if (messageTextarea && charCounter) {
+    messageTextarea.addEventListener('input', function() {
+      const length = this.value.length;
+      charCounter.textContent = length;
+      
+      // Change color when approaching limit
+      if (length > 450) {
+        charCounter.style.color = '#ef4444';
+      } else if (length > 400) {
+        charCounter.style.color = '#f59e0b';
+      } else {
+        charCounter.style.color = 'inherit';
+      }
+    });
+  }
+  
+  // Form validation
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Reset errors
+      clearErrors();
+      
+      // Validate form
+      const isValid = validateForm();
+      
+      if (isValid) {
+        // Show loading state
+        const originalText = submitBtn.querySelector('.btn-text').textContent;
+        submitBtn.querySelector('.btn-text').textContent = 'Sending...';
+        submitBtn.disabled = true;
+        
+        // Simulate API call
+        setTimeout(() => {
+          // Show success message
+          showSuccessMessage();
+          
+          // Reset form
+          contactForm.reset();
+          charCounter.textContent = '0';
+          
+          // Reset button
+          submitBtn.querySelector('.btn-text').textContent = originalText;
+          submitBtn.disabled = false;
+        }, 1500);
+      }
+    });
+  }
+  
+  // Real-time validation
+  const inputs = contactForm.querySelectorAll('.form-input, .form-textarea, .form-select');
+  inputs.forEach(input => {
+    input.addEventListener('blur', validateField);
+    input.addEventListener('input', clearFieldError);
+  });
+  
+  function validateField(e) {
+    const field = e.target;
+    const fieldId = field.id;
+    const value = field.value.trim();
+    const errorElement = document.getElementById(`${fieldId}Error`);
+    
+    let isValid = true;
+    let errorMessage = '';
+    
+    switch(fieldId) {
+      case 'name':
+        if (value.length < 2) {
+          isValid = false;
+          errorMessage = 'Name must be at least 2 characters';
+        }
+        break;
+        
+      case 'email':
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+          isValid = false;
+          errorMessage = 'Please enter a valid email address';
+        }
+        break;
+        
+      case 'message':
+        if (value.length < 10) {
+          isValid = false;
+          errorMessage = 'Message must be at least 10 characters';
+        } else if (value.length > 500) {
+          isValid = false;
+          errorMessage = 'Message cannot exceed 500 characters';
+        }
+        break;
+    }
+    
+    if (!isValid) {
+      field.classList.add('error');
+      errorElement.textContent = errorMessage;
+      errorElement.classList.add('show');
+    }
+    
+    return isValid;
+  }
+  
+  function clearFieldError(e) {
+    const field = e.target;
+    const errorElement = document.getElementById(`${field.id}Error`);
+    
+    field.classList.remove('error');
+    errorElement.classList.remove('show');
+    errorElement.textContent = '';
+  }
+  
+  function validateForm() {
+    let isValid = true;
+    
+    // Validate each field
+    inputs.forEach(input => {
+      if (!input.disabled && input.required) {
+        const event = new Event('blur');
+        input.dispatchEvent(event);
+        
+        if (input.classList.contains('error')) {
+          isValid = false;
+        }
+      }
+    });
+    
+    return isValid;
+  }
+  
+  function clearErrors() {
+    inputs.forEach(input => {
+      input.classList.remove('error');
+    });
+    
+    const errorElements = document.querySelectorAll('.form-error');
+    errorElements.forEach(error => {
+      error.classList.remove('show');
+      error.textContent = '';
+    });
+  }
+  
+  function showSuccessMessage() {
+    // Create success message element
+    let successMessage = document.createElement('div');
+    successMessage.className = 'success-message show';
+    successMessage.innerHTML = `
+      <div class="success-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <div>
+        <strong>Message Sent Successfully!</strong>
+        <p style="margin: 5px 0 0; font-size: 0.9em; opacity: 0.9;">
+          We'll get back to you within 24 hours.
+        </p>
+      </div>
+    `;
+    
+    document.body.appendChild(successMessage);
+    
+    // Remove message after 5 seconds
+    setTimeout(() => {
+      successMessage.classList.remove('show');
+      setTimeout(() => {
+        successMessage.remove();
+      }, 400);
+    }, 5000);
+  }
+});
+</script>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-container">
+    <!-- Main Footer Content -->
+    <div class="footer-main">
+      <!-- Brand Section -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+          <span class="footer-logo-text">CV Builder</span>
+        </div>
+        <p class="footer-tagline">Build professional resumes that get you hired faster.</p>
+        <!-- Replace Font Awesome with emojis -->
+<div class="footer-social">
+  <a href="https://twitter.com/prince_vincent6" aria-label="Twitter" class="social-link">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  </a>
+  <a href="https://www.linkedin.com/in/prince-vincent-337280393" aria-label="LinkedIn" class="social-link">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  </a>
+  <a href="https://github.com/Prince-cord-cloud" aria-label="GitHub" class="social-link">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+    </svg>
+  </a>
+  <a href="https://www.instagram.com/creative_graphics06/" aria-label="Instagram" class="social-link">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>
+  </a>
+</div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#templates">Templates</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Resources -->
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/Footer/resources/blog.html">Blog</a></li>
+          <li><a href="/Footer/resources/resume tip.html">Resume Tips</a></li>
+          <li><a href="/Footer/resources/cover letter guild.html">Cover Letter Guide</a></li>
+          <li><a href="Footer/resources/interview tips.html">Interview Tips</a></li>
+          <li><a href="Footer/resources/career advice.html">Career Advice</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="Footer/privacy policy.html">Privacy Policy</a></li>
+          <li><a href="Footer/terms for services.html">Terms of Service</a></li>
+          <li><a href="Footer/cookie policy.html">Cookie Policy</a></li>
+          <li><a href="Footer/GDPR compliance.html">GDPR Compliance</a></li>
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div class="footer-newsletter">
+        <h4>Stay Updated</h4>
+        <p>Get tips and templates in your inbox</p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Your email address" required>
+          <button type="submit" class="newsletter-btn">Subscribe</button>
+        </form>
+        <p class="newsletter-note">No spam, unsubscribe anytime</p>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider"></div>
+
+    <!-- Bottom Footer -->
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        <p>© 2025 CV Builder. All rights reserved. <span class="heart">❤️</span> Made with passion</p>
+      </div>
+      <div class="footer-bottom-links">
+        <a href="#contact">Contact</a>
+        <span class="separator">•</span>
+        <a href="Footer/support.html">Support</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<style>
+  /* Footer Styles */
+footer {
+  background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+  color: white;
+  padding: 90px 5% 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.footer-container {
+  max-width: 2400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Main Footer Grid */
+.footer-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+/* Brand Section */
+.footer-brand {
+  max-width: 300px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+
+.footer-logo img {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.footer-logo-text {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-tagline {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Social Links */
+.footer-social {
+  display: flex;
+  gap: 16px;
+}
+
+.social-link {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.social-link:hover {
+  background: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+  border-color: transparent;
+}
+
+/* Links Sections */
+.footer-links h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: white;
+  position: relative;
+  display: inline-block;
+}
+
+.footer-links h4::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  border-radius: 2px;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-links a::before {
+  content: '→';
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: white;
+  transform: translateX(5px);
+}
+
+.footer-links a:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Newsletter */
+.footer-newsletter {
+  max-width: 320px;
+}
+
+.footer-newsletter h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.footer-newsletter > p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.newsletter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.newsletter-form input {
+  padding: 16px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.newsletter-form input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.newsletter-form input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.newsletter-btn {
+  padding: 16px 24px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.newsletter-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+}
+
+.newsletter-note {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+/* Divider */
+.footer-divider {
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.1) 20%, 
+    rgba(255, 255, 255, 0.1) 80%, 
+    transparent 100%);
+  margin: 40px 0;
+}
+
+/* Bottom Footer */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-copyright p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.heart {
+  color: #ff6b6b;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-bottom-links a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-bottom-links a:hover {
+  color: white;
+}
+
+.separator {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  footer {
+    padding: 60px 20px 30px;
+  }
+  
+  .footer-main {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  
+  .footer-brand {
+    max-width: 100%;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .footer-bottom-links {
+    justify-content: center;
+  }
+}
+
+/* Font Awesome Icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+</style>
+
+<!-- Internal JS -->
+<script>
+// Modern Hamburger Menu JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const closeMenu = document.querySelector('.close-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link, .mobile-cta');
+  const body = document.body;
+  
+  // Create backdrop element
+  const backdrop = document.createElement('div');
+  backdrop.className = 'menu-backdrop';
+  document.body.appendChild(backdrop);
+  
+  // Toggle menu function
+  function toggleMenu() {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('show');
+    backdrop.classList.toggle('show');
+    body.classList.toggle('menu-open');
+    
+    // Update aria-expanded attribute for accessibility
+    const isExpanded = hamburger.classList.contains('active');
+    hamburger.setAttribute('aria-expanded', isExpanded);
+  }
+  
+  // Open menu
+  hamburger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMenu();
+  });
+  
+  // Close menu with close button
+  closeMenu.addEventListener('click', toggleMenu);
+  
+  // Close menu when clicking backdrop
+  backdrop.addEventListener('click', toggleMenu);
+  
+  // Close menu when clicking on a link
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // If it's not the CTA button, close the menu
+      if (!this.classList.contains('mobile-cta')) {
+        toggleMenu();
+      }
+    });
+  });
+  
+  // Close menu with Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+      toggleMenu();
+    }
+  });
+  
+  // Add touch swipe to close menu (optional)
+  let startX = 0;
+  let endX = 0;
+  
+  mobileMenu.addEventListener('touchstart', function(e) {
+    startX = e.changedTouches[0].screenX;
+  });
+  
+  mobileMenu.addEventListener('touchend', function(e) {
+    endX = e.changedTouches[0].screenX;
+    if (startX - endX > 50) { // Swipe right to close
+      toggleMenu();
+    }
+  });
+});
+
+
+
+  // FAQ toggle
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const paragraph = item.querySelector('p');
+      paragraph.style.display = paragraph.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+
+  // Scroll animations
+  const scrollElements = document.querySelectorAll('section, .feature-box, .step, .template-card, .testimonial');
+  const elementInView = (el, offset = 150) => {
+    const elementTop = el.getBoundingClientRect().top;
+    return elementTop <= (window.innerHeight - offset);
+  };
+  const displayScrollElement = (el) => { el.classList.add('visible'); };
+  const handleScrollAnimation = () => {
+    scrollElements.forEach(el => { if (elementInView(el)) displayScrollElement(el); });
+  };
+  window.addEventListener('scroll', () => { handleScrollAnimation(); });
+  window.addEventListener('DOMContentLoaded', () => { handleScrollAnimation(); });
+
+  // Animate hero text on load
+  window.addEventListener('DOMContentLoaded', () => {
+    const heroTitle = document.querySelector('.hero h1');
+    const heroText = document.querySelector('.hero p');
+    const heroButton = document.querySelector('.hero button');
+    setTimeout(() => { heroTitle.style.opacity = '1'; heroTitle.style.transform = 'translateY(0)'; }, 300);
+    setTimeout(() => { heroText.style.opacity = '1'; heroText.style.transform = 'translateY(0)'; }, 800);
+    setTimeout(() => { heroButton.style.opacity = '1'; heroButton.style.transform = 'translateY(0)'; }, 1300);
+  });
+
+  // Typing effect
+  const typedTextSpan = document.querySelector(".typed-text");
+  const textArray = ["Professional CV", "Creative Resume", "Winning CV"];
+  const typingDelay = 100;
+  const erasingDelay = 50;
+  const newTextDelay = 2000; 
+  let textArrayIndex = 0;
+  let charIndex = 0;
+
+  function type() {
+    if (charIndex < textArray[textArrayIndex].length) {
+      typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+      charIndex++;
+      setTimeout(type, typingDelay);
+    } else {
+      setTimeout(erase, newTextDelay);
+    }
+  }
+
+  function erase() {
+    if (charIndex > 0) {
+      typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+      charIndex--;
+      setTimeout(erase, erasingDelay);
+    } else {
+      textArrayIndex++;
+      if(textArrayIndex >= textArray.length) textArrayIndex = 0;
+      setTimeout(type, typingDelay + 500);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    if(textArray.length) setTimeout(type, newTextDelay + 250);
+  });
+
+  // Scroll to builder page
+  function scrollToBuilder() {
+    alert('Redirect to CV Builder page (builder.html)');
+    // Replace with actual page redirect:
+    // window.location.href = 'builder.html';
+  }
+</script>
+
+
+
+<script>
+// gdpr-consent.js
+class GDPRConsentManager {
+    constructor() {
+        this.consentCategories = {
+            essential: {
+                name: 'Essential',
+                required: true,
+                description: 'Required for website functionality',
+                cookies: ['session_id', 'auth_token', 'csrf_token']
+            },
+            functional: {
+                name: 'Functional',
+                required: false,
+                description: 'Remember your preferences and settings',
+                cookies: ['template_preference', 'language_setting']
+            },
+            analytics: {
+                name: 'Analytics',
+                required: false,
+                description: 'Help us improve our service',
+                cookies: ['_ga', '_gid', '_gat']
+            },
+            marketing: {
+                name: 'Marketing',
+                required: false,
+                description: 'Show relevant advertisements',
+                cookies: ['fbp', 'fr']
+            }
+        };
+        
+        this.init();
+    }
+
+    init() {
+        this.loadConsent();
+        this.setupEventListeners();
+        this.applyConsent();
+    }
+
+    loadConsent() {
+        const savedConsent = localStorage.getItem('gdpr_consent');
+        if (savedConsent) {
+            this.consent = JSON.parse(savedConsent);
+        } else {
+            this.consent = this.getDefaultConsent();
+            this.showConsentBanner();
+        }
+    }
+
+    getDefaultConsent() {
+        return {
+            essential: true, // Always required
+            functional: false,
+            analytics: false,
+            marketing: false,
+            timestamp: new Date().toISOString(),
+            version: '1.0'
+        };
+    }
+
+    showConsentBanner() {
+        if (!document.getElementById('gdprConsentBanner')) {
+            const bannerHTML = `
+                <div id="gdprConsentBanner" class="gdpr-consent-banner">
+                    <div class="gdpr-content">
+                        <h3>🍪 We Value Your Privacy</h3>
+                        <p>We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. <a href="gdpr-compliance.html">Learn More</a></p>
+                        <div class="gdpr-buttons">
+                            <button id="gdprAcceptAll" class="gdpr-btn accept">Accept All</button>
+                            <button id="gdprCustomize" class="gdpr-btn customize">Customize</button>
+                            <button id="gdprRejectNonEssential" class="gdpr-btn reject">Reject Non-Essential</button>
+                        </div>
+                    </div>
+                    <div id="gdprSettingsPanel" class="gdpr-settings-panel" style="display: none;">
+                        <h4>Cookie Settings</h4>
+                        ${Object.entries(this.consentCategories).map(([key, category]) => `
+                            <div class="gdpr-category">
+                                <div class="category-header">
+                                    <strong>${category.name}</strong>
+                                    <label class="gdpr-toggle">
+                                        <input type="checkbox" data-category="${key}" ${category.required ? 'checked disabled' : ''}>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <p class="category-desc">${category.description}</p>
+                            </div>
+                        `).join('')}
+                        <div class="gdpr-settings-buttons">
+                            <button id="gdprSaveSettings" class="gdpr-btn save">Save Preferences</button>
+                            <button id="gdprCloseSettings" class="gdpr-btn close">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const style = document.createElement('style');
+            style.textContent = `
+                .gdpr-consent-banner {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+                    color: white;
+                    padding: 20px;
+                    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+                    z-index: 9999;
+                }
+                .gdpr-content {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                }
+                .gdpr-content h3 {
+                    margin-bottom: 10px;
+                }
+                .gdpr-content p {
+                    margin-bottom: 20px;
+                    line-height: 1.6;
+                }
+                .gdpr-content a {
+                    color: #60a5fa;
+                    text-decoration: underline;
+                }
+                .gdpr-buttons {
+                    display: flex;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                }
+                .gdpr-btn {
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                }
+                .gdpr-btn.accept {
+                    background: #10b981;
+                    color: white;
+                }
+                .gdpr-btn.customize {
+                    background: transparent;
+                    color: white;
+                    border: 1px solid white;
+                }
+                .gdpr-btn.reject {
+                    background: transparent;
+                    color: #cbd5e1;
+                }
+                .gdpr-btn.save {
+                    background: #6366f1;
+                    color: white;
+                }
+                .gdpr-btn.close {
+                    background: #64748b;
+                    color: white;
+                }
+                .gdpr-btn:hover {
+                    transform: translateY(-2px);
+                }
+                .gdpr-settings-panel {
+                    background: #f8fafc;
+                    color: #1e293b;
+                    padding: 25px;
+                    margin-top: 20px;
+                    border-radius: 8px;
+                }
+                .gdpr-category {
+                    margin-bottom: 15px;
+                    padding: 15px;
+                    background: white;
+                    border-radius: 6px;
+                }
+                .category-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 8px;
+                }
+                .gdpr-toggle {
+                    position: relative;
+                    display: inline-block;
+                    width: 50px;
+                    height: 24px;
+                }
+                .gdpr-toggle input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+                .gdpr-toggle .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #ccc;
+                    transition: .4s;
+                    border-radius: 34px;
+                }
+                .gdpr-toggle .slider:before {
+                    position: absolute;
+                    content: "";
+                    height: 16px;
+                    width: 16px;
+                    left: 4px;
+                    bottom: 4px;
+                    background-color: white;
+                    transition: .4s;
+                    border-radius: 50%;
+                }
+                .gdpr-toggle input:checked + .slider {
+                    background-color: #10b981;
+                }
+                .gdpr-toggle input:checked + .slider:before {
+                    transform: translateX(26px);
+                }
+                .category-desc {
+                    font-size: 0.9rem;
+                    color: #64748b;
+                    margin: 0;
+                }
+                .gdpr-settings-buttons {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: flex-end;
+                    margin-top: 20px;
+                }   `;
+
+          document.head.appendChild(style);
+document.body.insertAdjacentHTML('beforeend', bannerHTML);
+        }
+    }
+}
+</script>
+
+</body>
+</html>

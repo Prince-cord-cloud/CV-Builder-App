@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV Pro | Build Your Perfect Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #f8fafc;
+            --accent: #06b6d4;
+            --text: #334155;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --error: #ef4444;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --radius-lg: 16px;
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            --container-bg: white;
+            --input-bg: transparent;
+        }
+
+        .dark-mode {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #1e293b;
+            --accent: #22d3ee;
+            --text: #f1f5f9;
+            --text-light: #cbd5e1;
+            --border: #475569;
+            --success: #34d399;
+            --error: #f87171;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --container-bg: #0f172a;
+            --input-bg: rgba(30, 41, 59, 0.5);
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--container-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-10px, -10px) rotate(360deg); }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-icon {
+            background: white;
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 14px;
+            opacity: 0.9;
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 35px;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 26px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .input-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 46px 14px 46px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            font-size: 15px;
+            transition: all 0.3s ease;
+            color: var(--text);
+            background: var(--input-bg);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .dark-mode input:focus {
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            color: var(--text-light);
+            font-size: 18px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            width: 24px;
+            height: 24px;
+            transition: color 0.2s;
+            z-index: 2;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: var(--radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .dark-mode button {
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.5);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+        }
+
+        .dark-mode button:hover {
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .switch {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .switch a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .switch a:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--secondary);
+            border-radius: var(--radius);
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1 0 45%;
+            font-size: 14px;
+        }
+
+        .feature i {
+            color: var(--primary);
+            font-size: 16px;
+        }
+
+        .cv-highlight {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-top: 25px;
+            text-align: center;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }
+
+        .dark-mode .cv-highlight {
+            background: linear-gradient(135deg, #083344 0%, #164e63 100%);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+        }
+
+        .cv-highlight h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .cv-highlight p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(15deg);
+        }
+
+        .theme-toggle-btn i {
+            font-size: 18px;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .content {
+                padding: 25px;
+            }
+            
+            .header {
+                padding: 25px 20px;
+            }
+            
+            .feature {
+                flex: 1 0 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+            }
+            
+            .theme-toggle-btn {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        /* Animation for page transitions */
+        .auth-page {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Error styling */
+        .error-message {
+            color: var(--error);
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .input-error {
+            border-color: var(--error) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="auth-container">
+        <div class="header">
+            <div class="theme-toggle">
+                <button class="theme-toggle-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <span>CV Pro</span>
+            </div>
+            <p class="tagline">Build a professional resume that gets you hired faster</p>
+        </div>
+        
+        <!-- Login Page -->
+        <div id="login-page" class="auth-page">
+            <div class="content">
+                <h2>Welcome Back</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: var(--text-light);">
+                    Sign in to access your CV dashboard and continue building your resume
+                </p>
+                
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <div class="input-container">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="login-email" placeholder="you@example.com" />
+                    </div>
+                    <div class="error-message" id="login-email-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="input-container">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="login-password" placeholder="Enter your password" />
+                        <button type="button" class="password-toggle" id="login-password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" id="login-password-error"></div>
+                </div>
+                
+                <button onclick="loginUser()">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login to CV Dashboard
+                </button>
+                
+                <div class="cv-highlight">
+                    <h3><i class="fas fa-rocket"></i> Resume Ready in Minutes</h3>
+                    <p>Access your saved resume templates, cover letters, and export options</p>
+                </div>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Professional Templates</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>ATS-Friendly Formatting</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Easy Export (PDF/DOC)</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Cover Letter Builder</span>
+                    </div>
+                </div>
+                
+                <div class="switch">
+                    Don't have an account? <a onclick="showRegister()">Create your CV profile</a>
+                </div>
+                
+                <div class="footer">
+                    <p>Over 50,000 resumes created with CV Pro</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Register Page -->
+        <div id="register-page" class="auth-page" style="display:none;">
+            <div class="content">
+                <h2>Build Your CV Profile</h2>
+                <p style="text-align: center; margin-bottom: 25px; color: var(--text-light);">
+                    Create an account to start building your professional resume
+                </p>
+                
+                <div class="form-group">
+                    <label for="reg-name">Full Name</label>
+                    <div class="input-container">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="reg-name" placeholder="Full name" />
+                    </div>
+                    <div class="error-message" id="reg-name-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <div class="input-container">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" id="reg-email" placeholder="you@example.com" />
+                    </div>
+                    <div class="error-message" id="reg-email-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-phone">Phone Number</label>
+                    <div class="input-container">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="text" id="reg-phone" placeholder="Phone number" />
+                    </div>
+                    <div class="error-message" id="reg-phone-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-pass">Password</label>
+                    <div class="input-container">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="reg-pass" placeholder="Create a secure password" />
+                        <button type="button" class="password-toggle" id="reg-password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" id="reg-pass-error"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="reg-confirm">Confirm Password</label>
+                    <div class="input-container">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="reg-confirm" placeholder="Confirm your password" />
+                        <button type="button" class="password-toggle" id="reg-confirm-toggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="error-message" id="reg-confirm-error"></div>
+                </div>
+                
+                <button onclick="registerUser()">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account & Start Building
+                </button>
+                
+                <div class="cv-highlight">
+                    <h3><i class="fas fa-gem"></i> Premium Features Included</h3>
+                    <p>All accounts include 5 professional templates, unlimited edits, and PDF export</p>
+                </div>
+                
+                <div class="switch">
+                    Already have an account? <a onclick="showLogin()">Sign in to your CV</a>
+                </div>
+                
+                <div class="footer">
+                    <p>Your data is secure. We never share your personal information.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize theme
+        function initTheme() {
+            const savedTheme = localStorage.getItem('cvProTheme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        }
+
+        // Toggle dark/light mode
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.getElementById('themeToggle');
+            
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('cvProTheme', 'light');
+            } else {
+                body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('cvProTheme', 'dark');
+            }
+        }
+
+        // Page switching
+        function showRegister() {
+            document.getElementById("register-page").style.display = "block";
+            document.getElementById("login-page").style.display = "none";
+            clearErrors();
+        }
+
+        function showLogin() {
+            document.getElementById("login-page").style.display = "block";
+            document.getElementById("register-page").style.display = "none";
+            clearErrors();
+        }
+
+        // Toggle password visibility
+        function setupPasswordToggle() {
+            // Login password toggle
+            const loginToggle = document.getElementById("login-password-toggle");
+            const loginPassword = document.getElementById("login-password");
+            
+            loginToggle.addEventListener("click", function() {
+                const type = loginPassword.getAttribute("type") === "password" ? "text" : "password";
+                loginPassword.setAttribute("type", type);
+                this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                
+                // Maintain focus on input after toggle
+                loginPassword.focus();
+            });
+
+            // Registration password toggle
+            const regToggle = document.getElementById("reg-password-toggle");
+            const regPassword = document.getElementById("reg-pass");
+            
+            regToggle.addEventListener("click", function() {
+                const type = regPassword.getAttribute("type") === "password" ? "text" : "password";
+                regPassword.setAttribute("type", type);
+                this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                
+                // Maintain focus on input after toggle
+                regPassword.focus();
+            });
+
+            // Registration confirm password toggle
+            const regConfirmToggle = document.getElementById("reg-confirm-toggle");
+            const regConfirm = document.getElementById("reg-confirm");
+            
+            regConfirmToggle.addEventListener("click", function() {
+                const type = regConfirm.getAttribute("type") === "password" ? "text" : "password";
+                regConfirm.setAttribute("type", type);
+                this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                
+                // Maintain focus on input after toggle
+                regConfirm.focus();
+            });
+        }
+
+        // Initialize password toggles and theme
+        document.addEventListener("DOMContentLoaded", function() {
+            setupPasswordToggle();
+            initTheme();
+            
+            // Add event listener to theme toggle button
+            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+        });
+
+        // Error handling
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+            
+            // Add error class to input
+            const inputId = elementId.replace("-error", "");
+            const inputElement = document.getElementById(inputId);
+            if (inputElement) {
+                inputElement.classList.add("input-error");
+            }
+        }
+
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = "";
+            errorElement.style.display = "none";
+            
+            // Remove error class from input
+            const inputId = elementId.replace("-error", "");
+            const inputElement = document.getElementById(inputId);
+            if (inputElement) {
+                inputElement.classList.remove("input-error");
+            }
+        }
+
+        function clearErrors() {
+            const errorElements = document.querySelectorAll(".error-message");
+            errorElements.forEach(el => {
+                el.textContent = "";
+                el.style.display = "none";
+            });
+            
+            const inputElements = document.querySelectorAll("input");
+            inputElements.forEach(el => {
+                el.classList.remove("input-error");
+            });
+        }
+
+        // Register User
+        function registerUser() {
+            clearErrors();
+            
+            const name = document.getElementById("reg-name").value.trim();
+            const email = document.getElementById("reg-email").value.trim();
+            const phone = document.getElementById("reg-phone").value.trim();
+            const pass = document.getElementById("reg-pass").value;
+            const confirm = document.getElementById("reg-confirm").value;
+            
+            let isValid = true;
+            
+            // Validation
+            if (!name) {
+                showError("reg-name-error", "Full name is required for your resume");
+                isValid = false;
+            }
+            
+            if (!email) {
+                showError("reg-email-error", "Email is required");
+                isValid = false;
+            } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+                showError("reg-email-error", "Please enter a valid email address");
+                isValid = false;
+            }
+            
+            if (!phone) {
+                showError("reg-phone-error", "Phone number is required");
+                isValid = false;
+            }
+            
+            if (!pass) {
+                showError("reg-pass-error", "Password is required");
+                isValid = false;
+            } else if (pass.length < 6) {
+                showError("reg-pass-error", "Password must be at least 6 characters");
+                isValid = false;
+            }
+            
+            if (!confirm) {
+                showError("reg-confirm-error", "Please confirm your password");
+                isValid = false;
+            } else if (pass !== confirm) {
+                showError("reg-confirm-error", "Passwords do not match");
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Create user object
+            const user = { 
+                name, 
+                email, 
+                phone, 
+                pass,
+                createdAt: new Date().toISOString(),
+                resumeCount: 0
+            };
+            
+            // Store user data
+            localStorage.setItem("cvProUser", JSON.stringify(user));
+            
+            // Success message with CV-specific text
+            alert("🎉 Registration successful! You can now access our professional CV builder.");
+            showLogin();
+            
+            // Clear registration form
+            document.getElementById("reg-name").value = "";
+            document.getElementById("reg-email").value = "";
+            document.getElementById("reg-phone").value = "";
+            document.getElementById("reg-pass").value = "";
+            document.getElementById("reg-confirm").value = "";
+        }
+
+        // Login User
+        function loginUser() {
+            clearErrors();
+            
+            const email = document.getElementById("login-email").value.trim();
+            const password = document.getElementById("login-password").value;
+            
+            let isValid = true;
+            
+            if (!email) {
+                showError("login-email-error", "Email is required");
+                isValid = false;
+            }
+            
+            if (!password) {
+                showError("login-password-error", "Password is required");
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            const savedUser = JSON.parse(localStorage.getItem("cvProUser"));
+            
+            if (!savedUser) {
+                alert("No account found. Please register first to build your CV.");
+                showRegister();
+                return;
+            }
+            
+            if (email === savedUser.email && password === savedUser.pass) {
+                // Login successful - simulate redirect
+                const loginBtn = document.querySelector("button[onclick='loginUser()']");
+                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading Dashboard...';
+                loginBtn.disabled = true;
+                
+                setTimeout(() => {
+                    alert(`✅ Welcome back, ${savedUser.name}! Redirecting to your CV Dashboard...`);
+                    // In a real app, this would redirect to dashboard.html
+                    window.location.href = "dashboard.html"; // Simulated redirect
+                    
+                    // Reset button
+                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to CV Dashboard';
+                    loginBtn.disabled = false;
+                }, 1000);
+            } else {
+                alert("Invalid email or password. Please try again.");
+            }
+        }
+    </script>
+</body>
+</html>

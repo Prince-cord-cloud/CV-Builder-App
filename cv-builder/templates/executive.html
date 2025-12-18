@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive CV Template</title>
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* EXECUTIVE TEMPLATE STYLES */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .cv-wrapper {
+            width: 210mm;
+            margin: 20px auto;
+            background: #ffffff;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .cv-container {
+            padding: 40px;
+            min-height: 297mm;
+        }
+        
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #2c3e50;
+        }
+        
+        .name {
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .title {
+            font-size: 22px;
+            color: #7f8c8d;
+            font-weight: 400;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            font-size: 16px;
+            color: #34495e;
+        }
+        
+        /* CONTENT GRID */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .main-column {
+            grid-column: 1;
+        }
+        
+        .sidebar-column {
+            grid-column: 2;
+        }
+        
+        /* SECTIONS */
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #ecf0f1;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: #2c3e50;
+        }
+        
+        /* SUMMARY */
+        .summary {
+            font-size: 16px;
+            color: #34495e;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+        
+        /* ITEMS */
+        .item {
+            margin-bottom: 30px;
+            page-break-inside: avoid;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .item-subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .item-date {
+            font-size: 15px;
+            color: #95a5a6;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .item-description {
+            font-size: 15px;
+            color: #34495e;
+            margin-top: 12px;
+            line-height: 1.7;
+        }
+        
+        /* LISTS */
+        .executive-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .executive-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #34495e;
+        }
+        
+        .executive-list li::before {
+            content: '▸';
+            color: #2c3e50;
+            position: absolute;
+            left: 0;
+            font-size: 16px;
+        }
+        
+        /* SKILLS */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .skill-category {
+            margin-bottom: 20px;
+        }
+        
+        .skill-category h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        /* LANGUAGES */
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+        
+        .language-name {
+            color: #2c3e50;
+        }
+        
+        .language-level {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        /* REFEREES */
+        .referees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .referee-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border: 1px solid #ecf0f1;
+            border-radius: 4px;
+            page-break-inside: avoid;
+        }
+        
+        .referee-name {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+        
+        .referee-title {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .referee-contact {
+            font-size: 14px;
+            color: #34495e;
+            line-height: 1.5;
+        }
+        
+        /* BUTTON STYLES - UPDATED */
+        .action-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+        
+        .action-btn {
+            padding: 12px 24px;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Georgia', serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .action-btn:hover {
+            background: #1a252f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .print-btn {
+            background: #2c3e50;
+        }
+        
+        .pdf-btn {
+            background: #7f8c8d;
+        }
+        
+        .pdf-btn:hover {
+            background: #6c7b7d;
+        }
+        
+        /* LOADING OVERLAY */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 2000;
+            font-family: 'Georgia', serif;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* PRINT STYLES - UPDATED */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .cv-wrapper {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                box-shadow: none;
+            }
+            
+            .cv-container {
+                padding: 25px;
+                min-height: auto;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        /* RESPONSIVE ADJUSTMENTS */
+        @media screen and (max-width: 900px) {
+            body {
+                padding: 10px;
+            }
+            
+            .cv-wrapper {
+                width: 100%;
+                margin: 10px auto;
+            }
+            
+            .cv-container {
+                padding: 20px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .main-column, .sidebar-column {
+                grid-column: 1;
+            }
+            
+            .action-buttons {
+                bottom: 15px;
+                right: 15px;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-wrapper">
+        <div class="cv-container">
+            <!-- HEADER -->
+            <div class="header">
+                <h1 class="name" id="fullName">Johnathan Smith</h1>
+                <h2 class="title" id="jobTitle">Senior Executive Director</h2>
+                
+                <div class="contact-info">
+                    <div id="emailDisplay">john.smith@executive.com</div>
+                    <div id="phoneDisplay">+1 (123) 456-7890</div>
+                    <div id="locationDisplay">New York, NY</div>
+                </div>
+            </div>
+            
+            <!-- SUMMARY -->
+            <div class="summary" id="summary">
+                Accomplished executive with 15+ years of experience in strategic leadership and business transformation. 
+                Proven track record of driving growth, optimizing operations, and building high-performance teams. 
+                Expertise in corporate strategy, digital transformation, and stakeholder management.
+            </div>
+            
+            <div class="content-grid">
+                <!-- MAIN COLUMN -->
+                <div class="main-column">
+                    <!-- EXPERIENCE -->
+                    <div class="section" id="experienceSection">
+                        <h3 class="section-title">Career History</h3>
+                        <div id="experienceList">
+                            <div class="item">
+                                <div class="item-header">
+                                    <div>
+                                        <div class="item-title">Chief Operations Officer</div>
+                                        <div class="item-subtitle">Global Solutions Corporation</div>
+                                    </div>
+                                    <div class="item-date">2018 - Present</div>
+                                </div>
+                                <div class="item-description">
+                                    <ul class="executive-list">
+                                        <li>Led digital transformation initiative increasing efficiency by 35%</li>
+                                        <li>Managed $50M annual budget and 200+ team members</li>
+                                        <li>Expanded operations into 3 new international markets</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SIDEBAR COLUMN -->
+                <div class="sidebar-column">
+                    <!-- EDUCATION -->
+                    <div class="section" id="educationSection">
+                        <h3 class="section-title">Education</h3>
+                        <div id="educationList">
+                            <div class="item">
+                                <div class="item-title">MBA, Business Administration</div>
+                                <div class="item-subtitle">Harvard Business School</div>
+                                <div class="item-date">2008</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- SKILLS -->
+                    <div class="section" id="skillsSection">
+                        <h3 class="section-title">Core Competencies</h3>
+                        <div class="skills-grid" id="skillsList">
+                            <div class="skill-category">
+                                <h4>Leadership</h4>
+                                <ul class="executive-list">
+                                    <li>Strategic Planning</li>
+                                    <li>Team Building</li>
+                                    <li>Change Management</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- LANGUAGES -->
+                    <div class="section" id="languagesSection">
+                        <h3 class="section-title">Languages</h3>
+                        <div id="languagesList">
+                            <div class="language-item">
+                                <span class="language-name">English</span>
+                                <span class="language-level">Native</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- REFERENCES -->
+            <div class="section" id="refereesSection">
+                <h3 class="section-title">Professional References</h3>
+                <div class="referees-grid" id="refereesList">
+                    <div class="referee-card">
+                        <div class="referee-name">Michael Roberts</div>
+                        <div class="referee-title">CEO, Global Solutions</div>
+                        <div class="referee-contact">
+                            <div>michael@globalsolutions.com</div>
+                            <div>+1 (987) 654-3210</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay no-print" id="loadingOverlay">
+        <div class="spinner"></div>
+        <h3>Generating PDF...</h3>
+        <p>Please wait a moment</p>
+    </div>
+    
+    <!-- Action Buttons - NOW VISIBLE -->
+    <div class="action-buttons no-print">
+        <button onclick="printCV()" class="action-btn print-btn">
+            <i class="fas fa-print"></i> Print CV
+        </button>
+        <button onclick="downloadPDF()" class="action-btn pdf-btn">
+            <i class="fas fa-download"></i> Save as PDF
+        </button>
+    </div>
+    
+    <script>
+        // Get data from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataParam = urlParams.get('data');
+        
+        if (dataParam) {
+            try {
+                const cvData = JSON.parse(decodeURIComponent(dataParam));
+                populateCV(cvData);
+            } catch (error) {
+                console.error('Error parsing CV data:', error);
+            }
+        }
+        
+        function populateCV(data) {
+            // Personal Information
+            document.getElementById('fullName').textContent = data.fullName || 'John Doe';
+            document.getElementById('jobTitle').textContent = data.jobTitle || 'Professional Title';
+            document.getElementById('summary').textContent = data.summary || 'Professional summary goes here...';
+            
+            // Contact Information
+            if (data.email) {
+                document.getElementById('emailDisplay').textContent = data.email;
+            } else {
+                document.getElementById('emailDisplay').style.display = 'none';
+            }
+            
+            if (data.phone) {
+                document.getElementById('phoneDisplay').textContent = data.phone;
+            } else {
+                document.getElementById('phoneDisplay').style.display = 'none';
+            }
+            
+            if (data.location) {
+                document.getElementById('locationDisplay').textContent = data.location;
+            } else {
+                document.getElementById('locationDisplay').style.display = 'none';
+            }
+            
+            // Skills
+            if (data.skills && data.skills.length > 0) {
+                const skillsList = document.getElementById('skillsList');
+                skillsList.innerHTML = '';
+                
+                // Group skills by level
+                const expertSkills = data.skills.filter(s => s.level === 'expert' || s.level === 'advanced');
+                const otherSkills = data.skills.filter(s => s.level === 'intermediate' || s.level === 'beginner');
+                
+                if (expertSkills.length > 0) {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'skill-category';
+                    categoryDiv.innerHTML = `
+                        <h4>Expertise</h4>
+                        <ul class="executive-list">
+                            ${expertSkills.slice(0, 6).map(skill => `<li>${skill.name}</li>`).join('')}
+                        </ul>
+                    `;
+                    skillsList.appendChild(categoryDiv);
+                }
+                
+                if (otherSkills.length > 0) {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'skill-category';
+                    categoryDiv.innerHTML = `
+                        <h4>Additional Skills</h4>
+                        <ul class="executive-list">
+                            ${otherSkills.slice(0, 6).map(skill => `<li>${skill.name}</li>`).join('')}
+                        </ul>
+                    `;
+                    skillsList.appendChild(categoryDiv);
+                }
+            } else {
+                document.getElementById('skillsSection').style.display = 'none';
+            }
+            
+            // Languages
+            if (data.languages && data.languages.length > 0) {
+                const languagesList = document.getElementById('languagesList');
+                languagesList.innerHTML = '';
+                data.languages.forEach(lang => {
+                    const langDiv = document.createElement('div');
+                    langDiv.className = 'language-item';
+                    langDiv.innerHTML = `
+                        <span class="language-name">${lang.name}</span>
+                        <span class="language-level">${lang.level.charAt(0).toUpperCase() + lang.level.slice(1)}</span>
+                    `;
+                    languagesList.appendChild(langDiv);
+                });
+            } else {
+                document.getElementById('languagesSection').style.display = 'none';
+            }
+            
+            // Education
+            if (data.education && data.education.length > 0) {
+                const educationList = document.getElementById('educationList');
+                educationList.innerHTML = '';
+                data.education.forEach(edu => {
+                    const eduDiv = document.createElement('div');
+                    eduDiv.className = 'item';
+                    eduDiv.innerHTML = `
+                        <div class="item-title">${edu.degree || 'Degree'}</div>
+                        <div class="item-subtitle">${edu.institution || 'Institution'}</div>
+                        ${edu.year ? `<div class="item-date">${edu.year}</div>` : ''}
+                        ${edu.achievements ? `
+                            <div class="item-description">
+                                <ul class="executive-list">
+                                    ${edu.achievements.split('\n').filter(line => line.trim()).map(point => `<li>${point}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                    `;
+                    educationList.appendChild(eduDiv);
+                });
+            } else {
+                document.getElementById('educationSection').style.display = 'none';
+            }
+            
+            // Experience
+            if (data.experience && data.experience.length > 0) {
+                const experienceList = document.getElementById('experienceList');
+                experienceList.innerHTML = '';
+                data.experience.forEach(exp => {
+                    const expDiv = document.createElement('div');
+                    expDiv.className = 'item';
+                    
+                    const description = exp.description || '';
+                    const bulletPoints = description.split('\n').filter(line => line.trim());
+                    
+                    expDiv.innerHTML = `
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">${exp.title || 'Position'}</div>
+                                <div class="item-subtitle">${exp.company || 'Company'}</div>
+                            </div>
+                            <div class="item-date">
+                                ${formatDate(exp.startDate)} - ${exp.current ? 'Present' : formatDate(exp.endDate)}
+                            </div>
+                        </div>
+                        ${exp.location ? `<div class="item-subtitle">${exp.location}</div>` : ''}
+                        ${description ? `
+                            <div class="item-description">
+                                <ul class="executive-list">
+                                    ${bulletPoints.map(point => `<li>${point}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                    `;
+                    experienceList.appendChild(expDiv);
+                });
+            } else {
+                document.getElementById('experienceSection').style.display = 'none';
+            }
+            
+            // Referees
+            if (data.referees && data.referees.length > 0) {
+                const refereesList = document.getElementById('refereesList');
+                refereesList.innerHTML = '';
+                data.referees.forEach(ref => {
+                    const refDiv = document.createElement('div');
+                    refDiv.className = 'referee-card';
+                    refDiv.innerHTML = `
+                        <div class="referee-name">${ref.name || 'Name'}</div>
+                        ${ref.position ? `<div class="referee-title">${ref.position}</div>` : ''}
+                        ${ref.company ? `<div class="referee-title">${ref.company}</div>` : ''}
+                        <div class="referee-contact">
+                            ${ref.email ? `<div>${ref.email}</div>` : ''}
+                            ${ref.phone ? `<div>${ref.phone}</div>` : ''}
+                        </div>
+                    `;
+                    refereesList.appendChild(refDiv);
+                });
+            } else {
+                document.getElementById('refereesSection').style.display = 'none';
+            }
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        }
+        
+        // PRINT FUNCTION
+        function printCV() {
+            window.print();
+        }
+        
+        // PDF DOWNLOAD FUNCTION
+        async function downloadPDF() {
+            try {
+                // Show loading overlay
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                
+                // Load jsPDF library
+                if (typeof window.jspdf === 'undefined') {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+                    await new Promise((resolve, reject) => {
+                        script.onload = resolve;
+                        script.onerror = reject;
+                        document.head.appendChild(script);
+                    });
+                }
+                
+                const { jsPDF } = window.jspdf;
+                
+                // Load html2canvas library
+                if (typeof html2canvas === 'undefined') {
+                    const script = document.createElement('script');
+                    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                    await new Promise((resolve, reject) => {
+                        script.onload = resolve;
+                        script.onerror = reject;
+                        document.head.appendChild(script);
+                    });
+                }
+                
+                // Generate PDF from the cv-wrapper
+                const element = document.querySelector('.cv-wrapper');
+                const canvas = await html2canvas(element, {
+                    scale: 2,
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff',
+                    onclone: function(clonedDoc) {
+                        // Ensure proper styling for PDF
+                        const style = clonedDoc.createElement('style');
+                        style.textContent = `
+                            body { 
+                                background: white !important;
+                                font-family: 'Georgia', 'Times New Roman', serif !important;
+                            }
+                            .cv-wrapper {
+                                box-shadow: none !important;
+                            }
+                            * { 
+                                -webkit-print-color-adjust: exact !important;
+                                print-color-adjust: exact !important;
+                            }
+                        `;
+                        clonedDoc.head.appendChild(style);
+                    }
+                });
+                
+                const pdf = new jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                const imgData = canvas.toDataURL('image/png', 1.0);
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                
+                // Calculate image dimensions to fit the page
+                const imgWidth = pageWidth;
+                const imgHeight = (canvas.height * pageWidth) / canvas.width;
+                
+                // Center the image on the page
+                const xOffset = 0;
+                const yOffset = 0;
+                
+                pdf.addImage(imgData, 'PNG', xOffset, yOffset, imgWidth, imgHeight);
+                
+                // Generate filename
+                const name = document.getElementById('fullName').textContent || 'CV';
+                const fileName = name.replace(/\s+/g, '_') + '_Executive_CV.pdf';
+                
+                // Save PDF
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try printing instead (Ctrl+P).');
+            } finally {
+                // Hide loading overlay
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }
+        }
+        
+        // Make sure buttons are visible
+        window.addEventListener('load', function() {
+            const buttons = document.querySelector('.action-buttons');
+            if (buttons) {
+                buttons.style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>

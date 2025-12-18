@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - CV Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding-bottom: 50px;
+        }
+
+        .terms-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+        }
+
+        .logo span {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .last-updated {
+            color: #64748b;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #334155;
+            margin: 35px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            counter-reset: subsection;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #475569;
+            margin: 25px 0 10px;
+            counter-increment: subsection;
+        }
+
+        h3::before {
+            content: counter(section) "." counter(subsection) ". ";
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #475569;
+        }
+
+        ul, ol {
+            margin: 15px 0 20px 30px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #475569;
+        }
+
+        .acceptance-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(217, 119, 6, 0.05) 100%);
+            border-left: 4px solid #f59e0b;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .legal-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .legal-table th,
+        .legal-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .legal-table th {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        .legal-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .section-counter {
+            counter-reset: section;
+        }
+
+        h2 {
+            counter-increment: section;
+        }
+
+        h2::before {
+            content: counter(section) ". ";
+        }
+
+        .toc {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            counter-reset: none;
+        }
+
+        .toc h3::before {
+            content: "";
+        }
+
+        .toc ul {
+            list-style-type: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 8px;
+        }
+
+        .toc a {
+            color: #6366f1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            opacity: 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .terms-container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .scroll-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terms-container">
+        <div class="header">
+            <div class="logo">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </div>
+            <h1>Terms of Service</h1>
+            <p class="last-updated">Last Updated: January 1, 2025</p>
+        </div>
+
+        <div class="acceptance-box">
+            <p><strong>Important Notice:</strong> By accessing or using the CV Builder website and services, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access our service.</p>
+        </div>
+
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#acceptance">1. Acceptance of Terms</a></li>
+                <li><a href="#service-description">2. Service Description</a></li>
+                <li><a href="#user-accounts">3. User Accounts</a></li>
+                <li><a href="#user-responsibilities">4. User Responsibilities</a></li>
+                <li><a href="#content-ownership">5. Content Ownership and Rights</a></li>
+                <li><a href="#prohibited-uses">6. Prohibited Uses</a></li>
+                <li><a href="#service-availability">7. Service Availability and Modifications</a></li>
+                <li><a href="#pricing">8. Pricing and Payments</a></li>
+                <li><a href="#termination">9. Termination</a></li>
+                <li><a href="#disclaimer">10. Disclaimer of Warranties</a></li>
+                <li><a href="#limitation-liability">11. Limitation of Liability</a></li>
+                <li><a href="#indemnification">12. Indemnification</a></li>
+                <li><a href="#governing-law">13. Governing Law</a></li>
+                <li><a href="#changes">14. Changes to Terms</a></li>
+                <li><a href="#contact">15. Contact Information</a></li>
+            </ul>
+        </div>
+
+        <div class="section-counter">
+            <h2 id="acceptance">Acceptance of Terms</h2>
+            <p>These Terms of Service ("Terms") govern your access to and use of the CV Builder website, services, and applications (collectively, the "Service"). The Service is provided by CV Builder ("we," "us," or "our").</p>
+            
+            <p>By accessing or using the Service, you agree to be bound by these Terms. If you are using the Service on behalf of an organization, you are agreeing to these Terms for that organization and representing that you have the authority to bind that organization to these Terms.</p>
+
+            <h3>Eligibility</h3>
+            <p>You must be at least 16 years old to use our Service. By using the Service, you represent and warrant that you are at least 16 years of age.</p>
+
+            <h2 id="service-description">Service Description</h2>
+            <p>CV Builder provides an online platform that allows users to:</p>
+            <ul>
+                <li>Create, edit, and format professional CVs/resumes</li>
+                <li>Choose from various CV templates and designs</li>
+                <li>Download CVs in multiple formats (PDF, Word, etc.)</li>
+                <li>Store and manage CV versions online</li>
+                <li>Access CV creation tools and resources</li>
+            </ul>
+
+            <h3>Free and Premium Services</h3>
+            <p>We offer both free and premium services. Premium features may require payment and are subject to additional terms.</p>
+
+            <h2 id="user-accounts">User Accounts</h2>
+            <h3>Account Registration</h3>
+            <p>To access certain features, you may need to register for an account. You agree to:</p>
+            <ul>
+                <li>Provide accurate, current, and complete information</li>
+                <li>Maintain the security of your password</li>
+                <li>Accept all risks of unauthorized access to your account</li>
+                <li>Notify us immediately of any unauthorized use</li>
+            </ul>
+
+            <h3>Account Security</h3>
+            <p>You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account.</p>
+
+            <h2 id="user-responsibilities">User Responsibilities</h2>
+            <p>You agree to:</p>
+            <ul>
+                <li>Provide accurate and truthful information in your CV</li>
+                <li>Use the Service only for lawful purposes</li>
+                <li>Not misrepresent your qualifications or experience</li>
+                <li>Comply with all applicable laws and regulations</li>
+                <li>Not use the Service to create fraudulent documents</li>
+            </ul>
+
+            <div class="warning-box">
+                <p><strong>Important:</strong> You are solely responsible for the accuracy and completeness of the information in your CV. We do not verify or validate the information you provide.</p>
+            </div>
+
+            <h2 id="content-ownership">Content Ownership and Rights</h2>
+            <h3>Your Content</h3>
+            <p>You retain all ownership rights to the content you create using our Service (your "User Content"). However, by using our Service, you grant us a worldwide, non-exclusive, royalty-free license to:</p>
+            <ul>
+                <li>Store, display, and reproduce your User Content on our platform</li>
+                <li>Use your User Content to provide and improve our services</li>
+                <li>Generate formatted CV documents based on your content</li>
+            </ul>
+
+            <h3>Our Intellectual Property</h3>
+            <p>The Service, including all templates, designs, software, and content we provide (excluding your User Content), is owned by CV Builder and protected by intellectual property laws. You may not:</p>
+            <ul>
+                <li>Copy, modify, or distribute our templates without permission</li>
+                <li>Reverse engineer or attempt to extract source code</li>
+                <li>Use our branding or trademarks without authorization</li>
+            </ul>
+
+            <h2 id="prohibited-uses">Prohibited Uses</h2>
+            <p>You may not use the Service to:</p>
+            <table class="legal-table">
+                <thead>
+                    <tr>
+                        <th>Prohibited Activity</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Illegal Activities</td>
+                        <td>Create fraudulent documents or engage in illegal conduct</td>
+                    </tr>
+                    <tr>
+                        <td>Harassment</td>
+                        <td>Harass, abuse, or harm another person</td>
+                    </tr>
+                    <tr>
+                        <td>Spam</td>
+                        <td>Send spam or unauthorized commercial communications</td>
+                    </tr>
+                    <tr>
+                        <td>Security Breaches</td>
+                        <td>Attempt to breach security or authentication measures</td>
+                    </tr>
+                    <tr>
+                        <td>Automated Access</td>
+                        <td>Use bots, scrapers, or other automated means</td>
+                    </tr>
+                    <tr>
+                        <td>Infringement</td>
+                        <td>Violate intellectual property rights of others</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="service-availability">Service Availability and Modifications</h2>
+            <h3>Service Changes</h3>
+            <p>We reserve the right to:</p>
+            <ul>
+                <li>Modify or discontinue the Service at any time</li>
+                <li>Change features, functionality, or pricing</li>
+                <li>Limit access to certain features</li>
+                <li>Perform maintenance and updates</li>
+            </ul>
+
+            <h3>No Guarantee of Availability</h3>
+            <p>We do not guarantee that the Service will be available 100% of the time. We are not liable for any downtime, delays, or service interruptions.</p>
+
+            <h2 id="pricing">Pricing and Payments</h2>
+            <h3>Free Services</h3>
+            <p>Basic CV creation and download features are available for free. Free services may have limitations on templates, downloads, or features.</p>
+
+            <h3>Premium Services</h3>
+            <p>Premium features may include:</p>
+            <ul>
+                <li>Access to premium templates</li>
+                <li>Unlimited downloads</li>
+                <li>Advanced formatting options</li>
+                <li>Cloud storage for multiple CVs</li>
+                <li>Priority support</li>
+            </ul>
+
+            <h3>Payment Terms</h3>
+            <p>For premium services:</p>
+            <ul>
+                <li>Payments are processed through secure third-party providers</li>
+                <li>All fees are non-refundable unless required by law</li>
+                <li>Prices may change with 30 days notice</li>
+                <li>Taxes are not included unless specified</li>
+            </ul>
+
+            <h2 id="termination">Termination</h2>
+            <h3>By You</h3>
+            <p>You may stop using our Service at any time. You may also request deletion of your account and data.</p>
+
+            <h3>By Us</h3>
+            <p>We may suspend or terminate your access to the Service if:</p>
+            <ul>
+                <li>You violate these Terms</li>
+                <li>We suspect fraudulent or illegal activity</li>
+                <li>Required by law or legal process</li>
+                <li>For operational reasons</li>
+            </ul>
+
+            <h2 id="disclaimer">Disclaimer of Warranties</h2>
+            <p><strong>The Service is provided "as is" and "as available" without warranties of any kind, either express or implied.</strong></p>
+            
+            <p>We do not warrant that:</p>
+            <ul>
+                <li>The Service will meet your specific requirements</li>
+                <li>The Service will be uninterrupted, timely, or error-free</li>
+                <li>Results obtained from using the Service will be accurate or reliable</li>
+                <li>Any errors in the Service will be corrected</li>
+            </ul>
+
+            <h2 id="limitation-liability">Limitation of Liability</h2>
+            <p>To the maximum extent permitted by law, CV Builder shall not be liable for:</p>
+            <ul>
+                <li>Any indirect, incidental, special, or consequential damages</li>
+                <li>Loss of profits, data, or business opportunities</li>
+                <li>Damages resulting from your use of the Service</li>
+                <li>Third-party claims related to your CV content</li>
+            </ul>
+
+            <h3>Maximum Liability</h3>
+            <p>Our total liability to you for all claims shall not exceed the amount you paid us in the last 12 months, or $100 if you haven't paid for services.</p>
+
+            <h2 id="indemnification">Indemnification</h2>
+            <p>You agree to indemnify and hold harmless CV Builder, its officers, directors, employees, and agents from any claims, damages, losses, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or relating to:</p>
+            <ul>
+                <li>Your use of the Service</li>
+                <li>Your violation of these Terms</li>
+                <li>Your violation of any rights of another</li>
+                <li>Your CV content or representations</li>
+            </ul>
+
+            <h2 id="governing-law">Governing Law</h2>
+            <h3>Jurisdiction</h3>
+            <p>These Terms shall be governed by and construed in accordance with the laws of Nigeria, without regard to its conflict of law provisions.</p>
+
+            <h3>Dispute Resolution</h3>
+            <p>Any disputes arising from these Terms shall be resolved through good faith negotiations. If unresolved, disputes shall be submitted to binding arbitration in Lagos, Nigeria.</p>
+
+            <h2 id="changes">Changes to Terms</h2>
+            <p>We reserve the right to modify these Terms at any time. We will provide notice of material changes by:</p>
+            <ul>
+                <li>Posting the updated Terms on our website</li>
+                <li>Sending email notifications to registered users</li>
+                <li>Displaying a notice on the Service</li>
+            </ul>
+            
+            <p>Your continued use of the Service after changes constitutes acceptance of the modified Terms.</p>
+
+            <h2 id="contact">Contact Information</h2>
+            <p>If you have any questions about these Terms, please contact us:</p>
+            
+            <div class="acceptance-box">
+                <p><strong>CV Builder Legal Department</strong></p>
+                <p>Email: legal@cvbuilder.com</p>
+                <p>Address: CV Builder Legal Team, Lagos, Nigeria</p>
+                <p>Response Time: We aim to respond to legal inquiries within 5 business days.</p>
+            </div>
+
+            <a href="../index.html" class="back-btn">
+                ← Back to Homepage
+            </a>
+        </div>
+    </div>
+
+    <a href="#" class="scroll-top" id="scrollTop">↑</a>
+
+    <script>
+        // Set current date for last updated
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const lastUpdatedElement = document.querySelector('.last-updated');
+            if (lastUpdatedElement) {
+                lastUpdatedElement.textContent = `Last Updated: ${currentDate}`;
+            }
+
+            // Table of Contents smooth scrolling
+            document.querySelectorAll('.toc a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('visible');
+                } else {
+                    scrollTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollTopBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

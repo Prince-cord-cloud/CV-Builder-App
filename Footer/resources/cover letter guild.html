@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Guide - CV Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --radius: 12px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .logo-container span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .header-cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .header-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Hero Section */
+        .cover-hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .cover-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cover-hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Guide Navigation */
+        .guide-nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+        }
+
+        .guide-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .guide-nav-container::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .guide-nav-container::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 2px;
+        }
+
+        .guide-nav-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .guide-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--light);
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+            color: var(--gray);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .guide-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .guide-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Guide Container */
+        .guide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Cover Letter Structure */
+        .structure-section {
+            margin-bottom: 4rem;
+        }
+
+        .structure-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .structure-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .structure-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 0;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            transition: height 0.3s ease;
+        }
+
+        .structure-card:hover::before {
+            height: 100%;
+        }
+
+        .structure-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .structure-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .structure-card p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .structure-example {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .structure-example h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .structure-example p {
+            margin: 0;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        /* Template Examples */
+        .template-section {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(79, 70, 229, 0.05) 100%);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+        }
+
+        .template-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .template-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .template-tab {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .template-tab:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .template-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .template-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .template-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .template-header {
+            border-bottom: 2px solid var(--gray-light);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .template-body {
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            color: var(--dark);
+        }
+
+        .template-body strong {
+            color: var(--primary);
+        }
+
+        .template-note {
+            background: var(--light);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--secondary);
+        }
+
+        /* Dos and Don'ts */
+        .dos-donts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .dos-card, .donts-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .dos-card {
+            border-top: 4px solid var(--success);
+        }
+
+        .donts-card {
+            border-top: 4px solid #ef4444;
+        }
+
+        .dos-card h3, .donts-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .dos-card h3::before {
+            content: '✅';
+        }
+
+        .donts-card h3::before {
+            content: '❌';
+        }
+
+        .dos-card ul, .donts-card ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .dos-card li, .donts-card li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .dos-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .donts-card li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        /* Generator Tool */
+        .generator-tool {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .generator-tool h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .generator-tool p {
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .generator-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-item h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .generator-btn {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .generator-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .footer-logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .cover-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .structure-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dos-donts {
+                grid-template-columns: 1fr;
+            }
+            
+            .template-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo-container">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="builder.html">CV Builder</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="resume-tips.html">Resume Tips</a></li>
+                <li><a href="cover-letter-guide.html" class="active">Cover Letters</a></li>
+            </ul>
+            
+            <a href="builder.html" class="header-cta">Create Your CV</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="cover-hero">
+        <h1>The Complete Cover Letter Guide</h1>
+        <p>Learn how to write a compelling cover letter that complements your resume and gets you interviews</p>
+    </section>
+
+    <!-- Guide Navigation -->
+    <nav class="guide-nav">
+        <div class="guide-nav-container">
+            <a href="#structure" class="guide-btn active">Structure</a>
+            <a href="#templates" class="guide-btn">Templates</a>
+            <a href="#dos-donts" class="guide-btn">Dos & Don'ts</a>
+            <a href="#tips" class="guide-btn">Pro Tips</a>
+            <a href="#examples" class="guide-btn">Examples</a>
+            <a href="#generator" class="guide-btn">Generator</a>
+        </div>
+    </nav>
+
+    <!-- Guide Container -->
+    <main class="guide-container">
+        <!-- Cover Letter Structure -->
+        <section id="structure" class="structure-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark);">The Perfect Cover Letter Structure</h2>
+            <p style="color: var(--gray); margin-bottom: 2rem;">A great cover letter follows a specific structure that makes it easy to read and professional.</p>
+            
+            <div class="structure-grid">
+                <div class="structure-card">
+                    <div class="structure-number">1</div>
+                    <h3>Header & Contact Information</h3>
+                    <p>Start with your contact information and the employer's details. Match your resume header for consistency.</p>
+                    <div class="structure-example">
+                        <h4>Example:</h4>
+                        <p>Your Name<br>Your Address | Phone | Email<br>[Date]<br>Hiring Manager Name<br>Company Name<br>Company Address</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">2</div>
+                    <h3>Salutation</h3>
+                    <p>Address the hiring manager by name whenever possible. Avoid generic greetings like "To Whom It May Concern."</p>
+                    <div class="structure-example">
+                        <h4>Best Options:</h4>
+                        <p>• Dear Mr./Ms. [Last Name]<br>• Dear Hiring Manager<br>• Dear [Department] Team</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">3</div>
+                    <h3>Opening Paragraph</h3>
+                    <p>Start strong! Mention the position, where you saw it, and express your enthusiasm. Include 1-2 key qualifications.</p>
+                    <div class="structure-example">
+                        <h4>Example:</h4>
+                        <p>"I am writing to express my enthusiastic interest in the Marketing Manager position at [Company Name], which I discovered on LinkedIn..."</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">4</div>
+                    <h3>Body Paragraphs (1-2)</h3>
+                    <p>Highlight your most relevant experiences and achievements. Connect your skills to the job requirements.</p>
+                    <div class="structure-example">
+                        <h4>Strategy:</h4>
+                        <p>• Use specific examples<br>• Quantify achievements<br>• Show you've researched the company</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">5</div>
+                    <h3>Closing Paragraph</h3>
+                    <p>Reiterate your interest, express enthusiasm for the opportunity, and include a call to action.</p>
+                    <div class="structure-example">
+                        <h4>Example:</h4>
+                        <p>"I am excited about the opportunity to contribute to [Company Name]'s success and look forward to discussing my qualifications further..."</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">6</div>
+                    <h3>Closing & Signature</h3>
+                    <p>Use a professional closing, your signature, and typed name. Include enclosures if applicable.</p>
+                    <div class="structure-example">
+                        <h4>Format:</h4>
+                        <p>Sincerely,<br>[Your Signature]<br>[Your Typed Name]<br>Enclosure: Resume</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Template Examples -->
+        <section id="templates" class="template-section">
+            <h2>Cover Letter Templates</h2>
+            <div class="template-tabs">
+                <div class="template-tab active" data-template="formal">Formal Corporate</div>
+                <div class="template-tab" data-template="creative">Creative Industry</div>
+                <div class="template-tab" data-template="entry">Entry Level</div>
+                <div class="template-tab" data-template="career-change">Career Change</div>
+            </div>
+
+            <div class="template-content active" id="formal-template">
+                <div class="template-header">
+                    <h3>Formal Corporate Template</h3>
+                    <p style="color: var(--gray);">Perfect for corporate roles, finance, law, and traditional industries</p>
+                </div>
+                <div class="template-body">
+                    <p><strong>[Your Name]</strong><br>
+                    [Your Address] | [Your Phone] | [Your Email]<br>
+                    [LinkedIn Profile URL]</p>
+                    
+                    <p><br><strong>[Date]</strong></p>
+                    
+                    <p><strong>[Hiring Manager Name]</strong><br>
+                    [Job Title]<br>
+                    [Company Name]<br>
+                    [Company Address]</p>
+                    
+                    <p><br><strong>Dear Mr./Ms. [Last Name],</strong></p>
+                    
+                    <p>I am writing to express my interest in the [Position Title] position at [Company Name], which I discovered on [Platform]. With [Number] years of experience in [Industry/Field], I am confident in my ability to contribute significantly to your team.</p>
+                    
+                    <p>In my previous role at [Previous Company], I successfully [Achievement 1 with numbers]. Additionally, I [Achievement 2 with numbers]. These experiences have equipped me with the skills necessary to excel in the [Position Title] role at [Company Name].</p>
+                    
+                    <p>I am particularly drawn to [Company Name] because of [Specific Reason - Company Achievement/Values/Mission]. I admire your commitment to [Specific Aspect] and believe my expertise in [Your Skill] aligns perfectly with your needs.</p>
+                    
+                    <p>I am enthusiastic about the opportunity to bring my [Key Skill 1] and [Key Skill 2] to [Company Name]. I have attached my resume for your review and look forward to discussing how I can contribute to your team's success.</p>
+                    
+                    <p><strong>Sincerely,</strong><br>
+                    [Your Signature]<br>
+                    [Your Typed Name]</p>
+                </div>
+                <div class="template-note">
+                    <p><strong>Note:</strong> Keep this template professional and concise. Focus on measurable achievements and alignment with company values.</p>
+                </div>
+            </div>
+
+            <div class="template-content" id="creative-template">
+                <div class="template-header">
+                    <h3>Creative Industry Template</h3>
+                    <p style="color: var(--gray);">Ideal for design, marketing, advertising, and creative roles</p>
+                </div>
+                <div class="template-body">
+                    <!-- Creative template content -->
+                    <p>This template allows more personality while maintaining professionalism. Show creativity in structure and content.</p>
+                </div>
+            </div>
+
+            <div class="template-content" id="entry-template">
+                <div class="template-header">
+                    <h3>Entry Level Template</h3>
+                    <p style="color: var(--gray);">Perfect for recent graduates and first-time job seekers</p>
+                </div>
+                <div class="template-body">
+                    <!-- Entry level template content -->
+                    <p>Focus on education, relevant coursework, internships, and transferable skills when you lack work experience.</p>
+                </div>
+            </div>
+
+            <div class="template-content" id="career-change-template">
+                <div class="template-header">
+                    <h3>Career Change Template</h3>
+                    <p style="color: var(--gray);">For professionals transitioning to new industries or roles</p>
+                </div>
+                <div class="template-body">
+                    <!-- Career change template content -->
+                    <p>Emphasize transferable skills, relevant accomplishments, and your passion for the new field.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dos and Don'ts -->
+        <section id="dos-donts" class="dos-donts-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark);">Dos & Don'ts of Cover Letters</h2>
+            
+            <div class="dos-donts">
+                <div class="dos-card">
+                    <h3>Do This</h3>
+                    <ul>
+                        <li>Customize for each application</li>
+                        <li>Address the hiring manager by name</li>
+                        <li>Highlight relevant achievements with numbers</li>
+                        <li>Show knowledge of the company</li>
+                        <li>Keep it to one page maximum</li>
+                        <li>Use professional but conversational tone</li>
+                        <li>Proofread multiple times</li>
+                        <li>Save as PDF with proper filename</li>
+                    </ul>
+                </div>
+
+                <div class="donts-card">
+                    <h3>Don't Do This</h3>
+                    <ul>
+                        <li>Send generic, one-size-fits-all letters</li>
+                        <li>Use "To Whom It May Concern"</li>
+                        <li>Simply repeat your resume</li>
+                        <li>Focus only on what you want</li>
+                        <li>Exceed one page</li>
+                        <li>Use overly formal or casual language</li>
+                        <li>Forget to proofread</li>
+                        <li>Use unprofessional email addresses</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pro Tips Section -->
+        <section id="tips" class="structure-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark); margin-top: 4rem;">Professional Tips & Strategies</h2>
+            
+            <div class="structure-grid">
+                <div class="structure-card">
+                    <div class="structure-number">7</div>
+                    <h3>Research the Company</h3>
+                    <p>Mention specific projects, values, or achievements of the company to show genuine interest.</p>
+                    <div class="structure-example">
+                        <h4>Example:</h4>
+                        <p>"I was particularly impressed by [Company]'s recent initiative to [Specific Project], which aligns with my passion for [Related Interest]."</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">8</div>
+                    <h3>Address Employment Gaps</h3>
+                    <p>Briefly explain gaps positively. Focus on skills gained during that time.</p>
+                    <div class="structure-example">
+                        <h4>Example:</h4>
+                        <p>"During my career break, I developed [New Skill] through [Activity], which enhances my ability to [Job Requirement]."</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">9</div>
+                    <h3>Keyword Optimization</h3>
+                    <p>Incorporate keywords from the job description naturally throughout your letter.</p>
+                    <div class="structure-example">
+                        <h4>Strategy:</h4>
+                        <p>Identify 5-7 key terms from the job posting and weave them into your achievements and skills sections.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cover Letter Generator Tool -->
+        <section id="generator" class="generator-tool">
+            <h2>Use Our Cover Letter Generator</h2>
+            <p>Create professional, customized cover letters in minutes with our AI-powered tool</p>
+            
+            <div class="generator-features">
+                <div class="feature-item">
+                    <h4>AI-Powered</h4>
+                    <p>Generate tailored content based on job descriptions</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Multiple Templates</h4>
+                    <p>Choose from industry-specific templates</p>
+                </div>
+                <div class="feature-item">
+                    <h4>ATS Optimized</h4>
+                    <p>Ensure your letter passes automated screening</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Export Options</h4>
+                    <p>Download as PDF, Word, or plain text</p>
+                </div>
+            </div>
+            
+            <a href="cover-letter-builder.html" class="generator-btn">Try Cover Letter Generator →</a>
+        </section>
+
+        <!-- Final Tips -->
+        <section id="examples" class="structure-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark); margin-top: 4rem;">Real Examples & Templates</h2>
+            
+            <div class="structure-grid">
+                <div class="structure-card">
+                    <div class="structure-number">10</div>
+                    <h3>The Follow-Up Paragraph</h3>
+                    <p>Include a polite follow-up statement that shows initiative without being pushy.</p>
+                    <div class="structure-example">
+                        <h4>Example:</h4>
+                        <p>"I will follow up on my application next week. In the meantime, please feel free to contact me at [Phone] or [Email]."</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">11</div>
+                    <h3>Email Cover Letters</h3>
+                    <p>For email applications, use the email body as your cover letter with a clear subject line.</p>
+                    <div class="structure-example">
+                        <h4>Subject Line:</h4>
+                        <p>"Application for [Position] - [Your Name]"<br>"[Position] Application - [Your Name]"</p>
+                    </div>
+                </div>
+
+                <div class="structure-card">
+                    <div class="structure-number">12</div>
+                    <h3>Networking Cover Letters</h3>
+                    <p>When sent through a referral, mention the connection early in the letter.</p>
+                    <div class="structure-example">
+                        <h4>Opening:</h4>
+                        <p>"I was referred to this opportunity by [Referrer Name], who suggested I contact you regarding the [Position] role..."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="builder.html">CV Builder</a></li>
+                    <li><a href="templates.html">Templates</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resume-tips.html">Resume Tips</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📸</a>
+                    <a href="#">💼</a>
+                    <a href="#">📹</a>
+                </div>
+                <p style="margin-top: 1.5rem; color: rgba(255, 255, 255, 0.7);">
+                    Email: support@cvbuilder.com<br>
+                    Phone: +234 812 000 0000
+                </p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2025 CV Builder. All rights reserved. Master the art of cover letters.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.guide-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active button
+                    document.querySelectorAll('.guide-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.structure-section, .template-section, .dos-donts-section');
+            const navButtons = document.querySelectorAll('.guide-btn');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.id;
+                }
+            });
+            
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('href') === currentSection) {
+                    button.classList.add('active');
+                }
+            });
+        });
+
+        // Template tabs functionality
+        document.querySelectorAll('.template-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const templateType = this.getAttribute('data-template');
+                
+                // Update active tab
+                document.querySelectorAll('.template-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show corresponding template
+                document.querySelectorAll('.template-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(templateType + '-template').classList.add('active');
+            });
+        });
+
+        // Structure card interactivity
+        document.querySelectorAll('.structure-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('expanded');
+            });
+        });
+
+        // Highlight active section on load
+        window.addEventListener('load', function() {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
+                if (targetSection) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                    
+                    // Update active button
+                    document.querySelectorAll('.guide-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('href') === hash) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            }
+        });
+
+        // Template preview interaction
+        const templates = {
+            formal: `[Your Name]
+[Your Address] | [Phone] | [Email]
+[LinkedIn Profile]
+
+[Date]
+
+[Hiring Manager Name]
+[Title]
+[Company Name]
+[Company Address]
+
+Dear [Mr./Ms. Last Name],
+
+I am writing to express my interest in the [Position] role at [Company Name]. With [X] years of experience in [Field], I am confident in my ability to contribute to your team's success.
+
+In my previous role at [Previous Company], I successfully [Achievement 1 with metrics]. This experience, combined with my expertise in [Skill], makes me well-suited for this position.
+
+I admire [Company Name]'s commitment to [Specific Company Value], and I am excited about the opportunity to contribute to your ongoing success.
+
+Sincerely,
+[Your Signature]
+[Your Typed Name]`,
+
+            creative: `[Your Creative Header]
+
+[Date]
+
+Dear [Hiring Manager Name],
+
+The [Position] opportunity at [Company Name] immediately caught my attention. As a creative professional with a passion for [Specific Aspect], I was particularly drawn to your recent work on [Specific Project].
+
+My portfolio demonstrates my ability to [Key Achievement 1] and [Key Achievement 2], which align directly with the requirements for this role. I believe my innovative approach to [Skill] would be a valuable addition to your team.
+
+I am excited by the prospect of bringing my creative vision to [Company Name] and contributing to your continued innovation.
+
+Best regards,
+[Your Name]
+[Portfolio Link]
+[Contact Information]`,
+
+            entry: `[Your Name]
+[University/College]
+[Degree, Graduation Year]
+[Phone] | [Email] | [LinkedIn]
+
+[Date]
+
+[Hiring Manager Name]
+[Company Name]
+[Company Address]
+
+Dear [Mr./Ms. Last Name],
+
+As a recent graduate from [University] with a degree in [Major], I am enthusiastic about applying for the [Position] role at [Company Name]. My academic achievements and internship experiences have prepared me to contribute meaningfully to your organization.
+
+During my internship at [Company], I developed strong skills in [Skill 1] and [Skill 2], successfully [Achievement]. My coursework in [Relevant Course] provided me with a solid foundation in [Relevant Knowledge].
+
+I am particularly impressed by [Company Name]'s reputation for [Specific Aspect], and I am eager to contribute to your team while continuing to develop my professional skills.
+
+Thank you for considering my application.
+
+Sincerely,
+[Your Name]`,
+
+            'career-change': `[Your Name]
+[Your Current/Previous Title]
+[Phone] | [Email] | [LinkedIn]
+
+[Date]
+
+[Hiring Manager Name]
+[Company Name]
+[Company Address]
+
+Dear [Mr./Ms. Last Name],
+
+I am writing to express my interest in the [New Position] role at [Company Name]. While my background has been in [Previous Industry], I have developed transferable skills that align perfectly with this opportunity, and I am eager to transition into [New Industry].
+
+In my previous role as [Previous Title], I successfully [Achievement 1], demonstrating my ability to [Skill Relevant to New Role]. Additionally, my experience in [Previous Skill] has equipped me with [Transferable Skill] that would benefit your team.
+
+I have been actively preparing for this career transition through [Relevant Course/Certification/Project], and I am excited about the opportunity to bring my unique perspective to [Company Name].
+
+Thank you for considering my application.
+
+Sincerely,
+[Your Name]`
+        };
+
+        // Initialize template content
+        Object.entries(templates).forEach(([type, content]) => {
+            const element = document.getElementById(`${type}-template`);
+            if (element) {
+                const body = element.querySelector('.template-body');
+                if (body) {
+                    body.innerHTML = `<pre style="white-space: pre-wrap; font-family: 'Inter', sans-serif;">${content}</pre>`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

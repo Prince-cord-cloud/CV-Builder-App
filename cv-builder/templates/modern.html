@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern CV Template</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Preload PDF libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        /* MODERN TEMPLATE STYLES */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            width: 210mm;
+            height: 297mm;
+            margin: 0 auto;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+        
+        .cv-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100%;
+        }
+        
+        /* SIDEBAR */
+        .sidebar {
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            padding: 40px 30px;
+        }
+        
+        .profile-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .profile-image {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 25px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+        }
+        
+        .name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .title {
+            font-size: 18px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            margin: 30px 0;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .contact-item i {
+            width: 24px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .section {
+            margin: 35px 0;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+        
+        .skill-item {
+            margin-bottom: 15px;
+        }
+        
+        .skill-name {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        
+        .skill-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+        }
+        
+        .language-item {
+            margin-bottom: 12px;
+        }
+        
+        /* MAIN CONTENT */
+        .main-content {
+            padding: 50px 40px;
+        }
+        
+        .summary {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #4361ee;
+        }
+        
+        .experience-item, .education-item {
+            margin-bottom: 30px;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            align-items: flex-start;
+        }
+        
+        .item-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+        
+        .item-subtitle {
+            font-size: 16px;
+            color: #4361ee;
+            font-weight: 500;
+        }
+        
+        .item-date {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .item-description {
+            font-size: 14px;
+            color: #555;
+            margin-top: 10px;
+        }
+        
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .bullet-list li::before {
+            content: "•";
+            color: #4361ee;
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+        }
+        
+        .referee-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4361ee;
+        }
+        
+        .referee-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #1a1a1a;
+        }
+        
+        .referee-details {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .action-btn {
+            padding: 12px 24px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .print-btn {
+            background: #4361ee;
+        }
+        
+        .pdf-btn {
+            background: #10b981;
+        }
+        
+        /* Loading overlay for PDF generation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4361ee;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* PRINT STYLES */
+        @media print {
+            body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .cv-container {
+                height: 100%;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
+        
+        /* MOBILE ADJUSTMENTS */
+        @media screen and (max-width: 768px) {
+            body {
+                width: 100%;
+                height: auto;
+                margin: 0;
+            }
+            
+            .cv-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                bottom: 10px;
+                right: 10px;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cv-container">
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <div class="profile-section">
+                <div class="profile-image" id="profileImage">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h1 class="name" id="fullName">John Doe</h1>
+                <div class="title" id="jobTitle">Software Engineer</div>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-item" id="emailItem">
+                    <i class="fas fa-envelope"></i>
+                    <span id="email">john.doe@example.com</span>
+                </div>
+                <div class="contact-item" id="phoneItem">
+                    <i class="fas fa-phone"></i>
+                    <span id="phone">+1 (123) 456-7890</span>
+                </div>
+                <div class="contact-item" id="locationItem">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="location">San Francisco, CA</span>
+                </div>
+                <div class="contact-item" id="linkedinItem" style="display: none;">
+                    <i class="fab fa-linkedin"></i>
+                    <span id="linkedin">linkedin.com/in/johndoe</span>
+                </div>
+            </div>
+            
+            <div class="section" id="skillsSection">
+                <h3 class="section-title">Skills</h3>
+                <div id="skillsList">
+                    <div class="skill-item">
+                        <span class="skill-name">JavaScript</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section" id="languagesSection">
+                <h3 class="section-title">Languages</h3>
+                <div id="languagesList">
+                    <div class="language-item">English (Native)</div>
+                </div>
+            </div>
+            
+            <div class="section" id="educationSection">
+                <h3 class="section-title">Education</h3>
+                <div id="educationList">
+                    <div class="education-item">
+                        <div class="item-title">B.Sc. Computer Science</div>
+                        <div class="item-subtitle">Stanford University</div>
+                        <div class="item-date">2018</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="summary" id="summary">
+                Passionate software engineer with 5+ years of experience building scalable web applications. 
+                Expert in JavaScript, React, and Node.js. Strong background in full-stack development and team leadership.
+            </div>
+            
+            <div class="section" id="experienceSection">
+                <h3 class="section-title" style="color: #4361ee; border-bottom: 2px solid #4361ee; padding-bottom: 10px;">Work Experience</h3>
+                <div id="experienceList">
+                    <div class="experience-item">
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">Senior Software Engineer</div>
+                                <div class="item-subtitle">Tech Solutions Inc.</div>
+                            </div>
+                            <div class="item-date">2020 - Present</div>
+                        </div>
+                        <div class="item-description">
+                            <ul class="bullet-list">
+                                <li>Led development of customer-facing web applications</li>
+                                <li>Improved application performance by 40%</li>
+                                <li>Mentored 3 junior developers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section" id="refereesSection">
+                <h3 class="section-title" style="color: #4361ee; border-bottom: 2px solid #4361ee; padding-bottom: 10px;">References</h3>
+                <div id="refereesList">
+                    <div class="referee-item">
+                        <div class="referee-name">Sarah Johnson</div>
+                        <div class="referee-details">
+                            <div>Senior Manager at Tech Solutions</div>
+                            <div>sarah@techsolutions.com</div>
+                            <div>+1 (987) 654-3210</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <h3>Generating PDF...</h3>
+        <p>Please wait while we create your CV document</p>
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="action-buttons no-print">
+        <button onclick="window.print()" class="action-btn print-btn">
+            <i class="fas fa-print"></i> Print CV
+        </button>
+        <button onclick="downloadPDF()" class="action-btn pdf-btn">
+            <i class="fas fa-download"></i> Download PDF
+        </button>
+    </div>
+    
+    <script>
+        // Get data from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataParam = urlParams.get('data');
+        
+        if (dataParam) {
+            try {
+                const cvData = JSON.parse(decodeURIComponent(dataParam));
+                populateCV(cvData);
+            } catch (error) {
+                console.error('Error parsing CV data:', error);
+                showError('Error loading CV data');
+            }
+        }
+        
+        function populateCV(data) {
+            // Personal Information
+            document.getElementById('fullName').textContent = data.fullName || 'John Doe';
+            document.getElementById('jobTitle').textContent = data.jobTitle || 'Professional Title';
+            document.getElementById('summary').textContent = data.summary || 'Professional summary goes here...';
+            
+            // Profile Image
+            if (data.profileImage) {
+                const profileImage = document.getElementById('profileImage');
+                profileImage.innerHTML = '';
+                profileImage.style.backgroundImage = `url('${data.profileImage}')`;
+                profileImage.style.backgroundSize = 'cover';
+                profileImage.style.backgroundPosition = 'center';
+            }
+            
+            // Contact Information
+            if (data.email) {
+                document.getElementById('email').textContent = data.email;
+            } else {
+                document.getElementById('emailItem').style.display = 'none';
+            }
+            
+            if (data.phone) {
+                document.getElementById('phone').textContent = data.phone;
+            } else {
+                document.getElementById('phoneItem').style.display = 'none';
+            }
+            
+            if (data.location) {
+                document.getElementById('location').textContent = data.location;
+            } else {
+                document.getElementById('locationItem').style.display = 'none';
+            }
+            
+            if (data.linkedin) {
+                document.getElementById('linkedin').textContent = data.linkedin;
+                document.getElementById('linkedinItem').style.display = 'flex';
+            }
+            
+            // Skills
+            if (data.skills && data.skills.length > 0) {
+                const skillsList = document.getElementById('skillsList');
+                skillsList.innerHTML = '';
+                data.skills.forEach(skill => {
+                    const skillDiv = document.createElement('div');
+                    skillDiv.className = 'skill-item';
+                    skillDiv.innerHTML = `
+                        <span class="skill-name">${skill.name}</span>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: ${
+                                skill.level === 'expert' ? '100' :
+                                skill.level === 'advanced' ? '85' :
+                                skill.level === 'intermediate' ? '65' : '40'
+                            }%"></div>
+                        </div>
+                    `;
+                    skillsList.appendChild(skillDiv);
+                });
+            } else {
+                document.getElementById('skillsSection').style.display = 'none';
+            }
+            
+            // Languages
+            if (data.languages && data.languages.length > 0) {
+                const languagesList = document.getElementById('languagesList');
+                languagesList.innerHTML = '';
+                data.languages.forEach(lang => {
+                    const langDiv = document.createElement('div');
+                    langDiv.className = 'language-item';
+                    langDiv.textContent = `${lang.name} (${lang.level.charAt(0).toUpperCase() + lang.level.slice(1)})`;
+                    languagesList.appendChild(langDiv);
+                });
+            } else {
+                document.getElementById('languagesSection').style.display = 'none';
+            }
+            
+            // Education
+            if (data.education && data.education.length > 0) {
+                const educationList = document.getElementById('educationList');
+                educationList.innerHTML = '';
+                data.education.forEach(edu => {
+                    const eduDiv = document.createElement('div');
+                    eduDiv.className = 'education-item';
+                    eduDiv.innerHTML = `
+                        <div class="item-title">${edu.degree || 'Degree'}</div>
+                        <div class="item-subtitle">${edu.institution || 'Institution'}</div>
+                        ${edu.year ? `<div class="item-date">${edu.year}</div>` : ''}
+                    `;
+                    educationList.appendChild(eduDiv);
+                });
+            } else {
+                document.getElementById('educationSection').style.display = 'none';
+            }
+            
+            // Experience
+            if (data.experience && data.experience.length > 0) {
+                const experienceList = document.getElementById('experienceList');
+                experienceList.innerHTML = '';
+                data.experience.forEach(exp => {
+                    const expDiv = document.createElement('div');
+                    expDiv.className = 'experience-item';
+                    
+                    const description = exp.description || '';
+                    const bulletPoints = description.split('\n').filter(line => line.trim());
+                    
+                    expDiv.innerHTML = `
+                        <div class="item-header">
+                            <div>
+                                <div class="item-title">${exp.title || 'Position'}</div>
+                                <div class="item-subtitle">${exp.company || 'Company'}</div>
+                            </div>
+                            <div class="item-date">
+                                ${formatDate(exp.startDate)} - ${exp.current ? 'Present' : formatDate(exp.endDate)}
+                            </div>
+                        </div>
+                        ${exp.location ? `<div class="item-subtitle" style="margin-top: 5px;">${exp.location}</div>` : ''}
+                        ${description ? `
+                            <div class="item-description">
+                                <ul class="bullet-list">
+                                    ${bulletPoints.map(point => `<li>${point}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : ''}
+                    `;
+                    experienceList.appendChild(expDiv);
+                });
+            } else {
+                document.getElementById('experienceSection').style.display = 'none';
+            }
+            
+            // Referees
+            if (data.referees && data.referees.length > 0) {
+                const refereesList = document.getElementById('refereesList');
+                refereesList.innerHTML = '';
+                data.referees.forEach(ref => {
+                    const refDiv = document.createElement('div');
+                    refDiv.className = 'referee-item';
+                    refDiv.innerHTML = `
+                        <div class="referee-name">${ref.name || 'Name'}</div>
+                        <div class="referee-details">
+                            ${ref.position ? `<div>${ref.position}</div>` : ''}
+                            ${ref.company ? `<div>${ref.company}</div>` : ''}
+                            ${ref.email ? `<div>${ref.email}</div>` : ''}
+                            ${ref.phone ? `<div>${ref.phone}</div>` : ''}
+                        </div>
+                    `;
+                    refereesList.appendChild(refDiv);
+                });
+            } else {
+                document.getElementById('refereesSection').style.display = 'none';
+            }
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            try {
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) {
+                    return dateString; // Return original if not a valid date
+                }
+                return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+            } catch (error) {
+                return dateString; // Return original if parsing fails
+            }
+        }
+        
+        async function downloadPDF() {
+            try {
+                // Show loading overlay
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                
+                // Check if libraries are loaded
+                if (typeof html2canvas === 'undefined') {
+                    throw new Error('html2canvas library not loaded');
+                }
+                
+                if (typeof jsPDF === 'undefined') {
+                    throw new Error('jsPDF library not loaded');
+                }
+                
+                // Get the CV container
+                const element = document.querySelector('.cv-container');
+                
+                // Create canvas with better quality
+                const canvas = await html2canvas(element, {
+                    scale: 3, // Higher scale for better quality
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: '#ffffff',
+                    allowTaint: true,
+                    onclone: function(clonedDoc) {
+                        // Ensure fonts are loaded
+                        const style = clonedDoc.createElement('style');
+                        style.textContent = `
+                            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+                            * { font-family: 'Inter', sans-serif; }
+                        `;
+                        clonedDoc.head.appendChild(style);
+                    }
+                });
+                
+                // Create PDF
+                const pdf = new jsPDF.jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                // Calculate dimensions
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                
+                // Calculate image dimensions to fit page
+                const imgWidth = pageWidth;
+                const imgHeight = (canvas.height * pageWidth) / canvas.width;
+                
+                // Add image to PDF
+                const imgData = canvas.toDataURL('image/png', 1.0);
+                pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                
+                // Save the PDF
+                const fileName = `${document.getElementById('fullName').textContent.replace(/\s+/g, '_')}_CV.pdf`;
+                pdf.save(fileName);
+                
+            } catch (error) {
+                console.error('PDF Generation Error:', error);
+                alert('Failed to generate PDF. Please try printing instead.');
+                
+                // Fallback: Open print dialog
+                setTimeout(() => {
+                    window.print();
+                }, 100);
+            } finally {
+                // Hide loading overlay
+                document.getElementById('loadingOverlay').style.display = 'none';
+            }
+        }
+        
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.style.position = 'fixed';
+            errorDiv.style.top = '20px';
+            errorDiv.style.right = '20px';
+            errorDiv.style.backgroundColor = '#dc3545';
+            errorDiv.style.color = 'white';
+            errorDiv.style.padding = '15px';
+            errorDiv.style.borderRadius = '5px';
+            errorDiv.style.zIndex = '10000';
+            errorDiv.textContent = message;
+            document.body.appendChild(errorDiv);
+            
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+        
+        // Initialize with sample data if no URL data
+        window.addEventListener('DOMContentLoaded', () => {
+            if (!dataParam) {
+                // Show that the template is ready
+                console.log('CV Template ready. Use ?data= parameter to load CV data.');
+            }
+        });
+    </script>
+</body>
+</html>

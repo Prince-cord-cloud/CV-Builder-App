@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Preparation Guide - CV Builder</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --radius: 12px;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-container img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .logo-container span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .header-cta {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .header-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Hero Section */
+        .interview-hero {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .interview-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .interview-hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Guide Navigation */
+        .interview-nav {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 80px;
+            z-index: 999;
+        }
+
+        .interview-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .interview-nav-container::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .interview-nav-container::-webkit-scrollbar-track {
+            background: var(--gray-light);
+            border-radius: 2px;
+        }
+
+        .interview-nav-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .interview-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--light);
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+            color: var(--gray);
+            text-decoration: none;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .interview-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .interview-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Main Container */
+        .interview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Checklist Section */
+        .checklist-section {
+            margin-bottom: 4rem;
+        }
+
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .checklist-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            border-top: 4px solid var(--primary);
+        }
+
+        .checklist-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checklist-card h3::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .checklist-items {
+            list-style: none;
+        }
+
+        .checklist-item {
+            margin-bottom: 0.75rem;
+            padding-left: 2rem;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .checklist-item::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .checklist-item input:checked + label {
+            color: var(--dark);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* Question Bank */
+        .question-bank {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(79, 70, 229, 0.05) 100%);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+        }
+
+        .question-bank h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .question-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .question-tab {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .question-tab:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .question-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .question-content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .question-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .question-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .question-item:last-child {
+            border-bottom: none;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .answer-text {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+
+        .star-tip {
+            background: rgba(245, 158, 11, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--warning);
+        }
+
+        .star-tip h4 {
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Virtual Interview Prep */
+        .virtual-prep {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .virtual-do, .virtual-dont {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .virtual-do {
+            border-top: 4px solid var(--success);
+        }
+
+        .virtual-dont {
+            border-top: 4px solid var(--danger);
+        }
+
+        .virtual-do h3, .virtual-dont h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .virtual-do h3::before {
+            content: '✅';
+        }
+
+        .virtual-dont h3::before {
+            content: '❌';
+        }
+
+        .virtual-do ul, .virtual-dont ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .virtual-do li, .virtual-dont li {
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--gray);
+        }
+
+        .virtual-do li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .virtual-dont li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        /* Salary Negotiation */
+        .salary-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+        }
+
+        .salary-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .salary-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .salary-tip {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .salary-tip h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .salary-tip p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Mock Interview Tool */
+        .mock-interview {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+        }
+
+        .mock-interview h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .mock-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: var(--radius);
+        }
+
+        .feature-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .mock-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            margin-top: 1rem;
+        }
+
+        .mock-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Follow-up Section */
+        .followup-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(5, 150, 105, 0.05) 100%);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin: 3rem 0;
+        }
+
+        .followup-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .followup-timeline {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 29px;
+            top: 40px;
+            bottom: -2rem;
+            width: 2px;
+            background: var(--primary);
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-top: 1rem;
+        }
+
+        .timeline-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .timeline-content p {
+            color: var(--gray);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #0f172a 100%);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+        }
+
+        .footer-logo span {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .footer-links h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .interview-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .checklist-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .virtual-prep {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .timeline-item::before {
+                left: 29px;
+                top: 60px;
+                bottom: -2rem;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo-container">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="builder.html">CV Builder</a></li>
+                <li><a href="templates.html">Templates</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="resume-tips.html">Resume Tips</a></li>
+                <li><a href="cover-letter-guide.html">Cover Letters</a></li>
+                <li><a href="interview-guide.html" class="active">Interview Guide</a></li>
+            </ul>
+            
+            <a href="builder.html" class="header-cta">Create Your CV</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="interview-hero">
+        <h1>Ace Your Next Interview</h1>
+        <p>Master the art of interviewing with our comprehensive guide. From preparation to follow-up, we've got you covered.</p>
+    </section>
+
+    <!-- Guide Navigation -->
+    <nav class="interview-nav">
+        <div class="interview-nav-container">
+            <a href="#preparation" class="interview-btn active">Preparation</a>
+            <a href="#questions" class="interview-btn">Common Questions</a>
+            <a href="#virtual" class="interview-btn">Virtual Interviews</a>
+            <a href="#salary" class="interview-btn">Salary Negotiation</a>
+            <a href="#followup" class="interview-btn">Follow-up</a>
+            <a href="#mistakes" class="interview-btn">Common Mistakes</a>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="interview-container">
+        <!-- Preparation Checklist -->
+        <section id="preparation" class="checklist-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark);">Interview Preparation Checklist</h2>
+            <p style="color: var(--gray); margin-bottom: 2rem;">Use this comprehensive checklist to ensure you're fully prepared for your interview.</p>
+            
+            <div class="checklist-grid">
+                <div class="checklist-card">
+                    <h3>Research & Company Knowledge</h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <input type="checkbox" id="research1">
+                            <label for="research1">Understand company mission, values, and culture</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="research2">
+                            <label for="research2">Research recent company news and developments</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="research3">
+                            <label for="research3">Study the company's products/services</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="research4">
+                            <label for="research4">Learn about the company's competitors</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="research5">
+                            <label for="research5">Research the interviewers on LinkedIn</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-card">
+                    <h3>Document Preparation</h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <input type="checkbox" id="docs1">
+                            <label for="docs1">Print 3 copies of your resume</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="docs2">
+                            <label for="docs2">Prepare your portfolio/work samples</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="docs3">
+                            <label for="docs3">Write down questions to ask the interviewer</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="docs4">
+                            <label for="docs4">Prepare references list</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="docs5">
+                            <label for="docs5">Bring notepad and pen</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-card">
+                    <h3>Personal Preparation</h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <input type="checkbox" id="personal1">
+                            <label for="personal1">Practice answers to common questions</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="personal2">
+                            <label for="personal2">Prepare your "Tell me about yourself" pitch</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="personal3">
+                            <label for="personal3">Plan your interview outfit</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="personal4">
+                            <label for="personal4">Get a good night's sleep</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="personal5">
+                            <label for="personal5">Plan your route and travel time</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Questions Bank -->
+        <section id="questions" class="question-bank">
+            <h2>Common Interview Questions & Answers</h2>
+            <div class="question-tabs">
+                <div class="question-tab active" data-category="personal">Personal Questions</div>
+                <div class="question-tab" data-category="behavioral">Behavioral Questions</div>
+                <div class="question-tab" data-category="technical">Technical Questions</div>
+                <div class="question-tab" data-category="strengths">Strengths & Weaknesses</div>
+            </div>
+
+            <div class="question-content active" id="personal-questions">
+                <div class="question-item">
+                    <div class="question-text">"Tell me about yourself."</div>
+                    <div class="answer-text">
+                        <strong>Structure your answer:</strong> Present → Past → Future<br><br>
+                        <strong>Present:</strong> Your current role and key responsibilities<br>
+                        <strong>Past:</strong> Relevant experience and achievements<br>
+                        <strong>Future:</strong> Why you're interested in this role/company<br><br>
+                        <em>Example: "Currently, I'm a marketing manager at XYZ Corp where I lead a team of 5... Previously, I worked at ABC Inc where I increased social media engagement by 40%... I'm excited about this opportunity because..."</em>
+                    </div>
+                    <div class="star-tip">
+                        <h4>Pro Tip</h4>
+                        <p>Keep it to 60-90 seconds. Focus on relevant experience. End with why you're interested in this specific role.</p>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-text">"Why do you want to work here?"</div>
+                    <div class="answer-text">
+                        <strong>Show you've done your research:</strong><br>
+                        1. Mention specific company values/mission that resonate with you<br>
+                        2. Talk about their products/services you admire<br>
+                        3. Connect your skills to their needs<br>
+                        4. Show enthusiasm for the industry<br><br>
+                        <em>Example: "I've admired your company's commitment to sustainability, especially your recent initiative to reduce carbon footprint by 30%. My background in eco-friendly marketing aligns perfectly with this mission, and I'm excited about the opportunity to contribute to your team's success in this area."</em>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-text">"Where do you see yourself in 5 years?"</div>
+                    <div class="answer-text">
+                        <strong>Show ambition + alignment with company:</strong><br>
+                        1. Express desire to grow within the company<br>
+                        2. Mention skill development goals<br>
+                        3. Show how you can contribute long-term<br>
+                        4. Be realistic and enthusiastic<br><br>
+                        <em>Example: "In five years, I hope to have developed deep expertise in [relevant area] and taken on more leadership responsibilities. I see myself contributing significantly to your team's success while continuing to grow professionally with the company."</em>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-content" id="behavioral-questions">
+                <!-- Behavioral questions content -->
+                <div class="question-item">
+                    <div class="question-text">"Tell me about a time you faced a challenge at work and how you handled it."</div>
+                    <div class="answer-text">
+                        <strong>Use the STAR method:</strong><br>
+                        <strong>Situation:</strong> Describe the context<br>
+                        <strong>Task:</strong> What was your responsibility?<br>
+                        <strong>Action:</strong> What specific steps did you take?<br>
+                        <strong>Result:</strong> What was the outcome?<br><br>
+                        Focus on your problem-solving skills and positive outcomes.
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-text">"Describe a time you worked in a team."</div>
+                    <div class="answer-text">
+                        Highlight collaboration skills, conflict resolution, and successful outcomes. Mention your specific role in the team's success.
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-content" id="technical-questions">
+                <!-- Technical questions content -->
+                <div class="question-item">
+                    <div class="question-text">"How do you handle tight deadlines?"</div>
+                    <div class="answer-text">
+                        Discuss prioritization, time management, communication with stakeholders, and examples of successfully meeting deadlines under pressure.
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-content" id="strengths-questions">
+                <!-- Strengths/Weaknesses content -->
+                <div class="question-item">
+                    <div class="question-text">"What are your greatest strengths?"</div>
+                    <div class="answer-text">
+                        Choose 2-3 strengths relevant to the job. Provide specific examples. Connect how these strengths will benefit the company.
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-text">"What is your greatest weakness?"</div>
+                    <div class="answer-text">
+                        Choose a real but non-critical weakness. Show self-awareness and mention steps you're taking to improve. Turn it into a positive.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Virtual Interview Prep -->
+        <section id="virtual" class="virtual-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark);">Virtual Interview Preparation</h2>
+            
+            <div class="virtual-prep">
+                <div class="virtual-do">
+                    <h3>Do This for Virtual Interviews</h3>
+                    <ul>
+                        <li>Test your technology beforehand</li>
+                        <li>Use a professional background</li>
+                        <li>Ensure good lighting (face the light source)</li>
+                        <li>Maintain eye contact with the camera</li>
+                        <li>Dress professionally (full outfit)</li>
+                        <li>Have notes handy but don't read from them</li>
+                        <li>Close other applications and notifications</li>
+                        <li>Use a high-quality microphone/headset</li>
+                    </ul>
+                </div>
+
+                <div class="virtual-dont">
+                    <h3>Avoid This for Virtual Interviews</h3>
+                    <ul>
+                        <li>Don't use virtual backgrounds that glitch</li>
+                        <li>Don't look at yourself on screen</li>
+                        <li>Avoid backlighting (window behind you)</li>
+                        <li>Don't multitask during the interview</li>
+                        <li>Avoid noisy or distracting environments</li>
+                        <li>Don't use casual clothing (even if not visible)</li>
+                        <li>Avoid poor internet connection spots</li>
+                        <li>Don't eat or drink during the interview</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Salary Negotiation -->
+        <section id="salary" class="salary-section">
+            <h2>Salary Negotiation Strategies</h2>
+            <p style="text-align: center; opacity: 0.9; max-width: 600px; margin: 0 auto 2rem;">Learn how to negotiate your salary confidently and effectively</p>
+            
+            <div class="salary-tips">
+                <div class="salary-tip">
+                    <h4>Know Your Worth</h4>
+                    <p>Research industry standards, company salary ranges, and regional averages before negotiations.</p>
+                </div>
+                <div class="salary-tip">
+                    <h4>Let Them Go First</h4>
+                    <p>Whenever possible, let the employer mention a number first to establish the negotiation range.</p>
+                </div>
+                <div class="salary-tip">
+                    <h4>Consider Total Package</h4>
+                    <p>Look beyond base salary: benefits, bonuses, stock options, vacation time, and flexibility.</p>
+                </div>
+                <div class="salary-tip">
+                    <h4>Practice Your Pitch</h4>
+                    <p>Rehearse your negotiation conversation. Be confident, professional, and ready with data.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <p><strong>Sample negotiation script:</strong> "Based on my research for this role in [Location] with [X years] of experience, the typical range is [Range]. Given my specific expertise in [Skill], I was hoping for [Your Target]. Is this something we can discuss?"</p>
+            </div>
+        </section>
+
+        <!-- Mock Interview Tool -->
+        <section class="mock-interview">
+            <h2>Practice with Our Mock Interview Tool</h2>
+            <p>Get AI-powered feedback on your interview responses and improve your confidence</p>
+            
+            <div class="mock-features">
+                <div class="feature-item">
+                    <h4>AI-Powered Feedback</h4>
+                    <p>Get instant analysis of your answers</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Industry-Specific Questions</h4>
+                    <p>Practice with relevant questions for your field</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Video Recording</h4>
+                    <p>Record and review your performance</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Progress Tracking</h4>
+                    <p>Monitor your improvement over time</p>
+                </div>
+            </div>
+            
+            <a href="mock-interview.html" class="mock-btn">Try Mock Interview Tool →</a>
+        </section>
+
+        <!-- Follow-up Strategies -->
+        <section id="followup" class="followup-section">
+            <h2>Post-Interview Follow-up Timeline</h2>
+            
+            <div class="followup-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content">
+                        <h4>Immediately After Interview</h4>
+                        <p>Send a thank you email within 24 hours. Personalize each note, mention something specific from the interview, and reiterate your interest.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">
+                        <h4>3-5 Days Later</h4>
+                        <p>If you haven't heard back, send a brief follow-up email. Express continued interest and ask about the timeline for decisions.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">
+                        <h4>1-2 Weeks Later</h4>
+                        <p>Send a final follow-up if still no response. Be polite and professional. Consider it an opportunity to provide additional information if needed.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-content">
+                        <h4>After Receiving an Offer</h4>
+                        <p>Respond within the given timeframe. Express gratitude, ask clarifying questions if needed, and begin salary negotiations if appropriate.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Mistakes -->
+        <section id="mistakes" class="checklist-section">
+            <h2 style="font-size: 2rem; margin-bottom: 2rem; color: var(--dark); margin-top: 4rem;">Common Interview Mistakes to Avoid</h2>
+            
+            <div class="checklist-grid">
+                <div class="checklist-card">
+                    <h3>Preparation Mistakes</h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake1">
+                            <label for="mistake1">Not researching the company</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake2">
+                            <label for="mistake2">Arriving late to the interview</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake3">
+                            <label for="mistake3">Not preparing questions to ask</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake4">
+                            <label for="mistake4">Forgetting to bring necessary documents</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-card">
+                    <h3>Communication Mistakes</h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake5">
+                            <label for="mistake5">Speaking negatively about previous employers</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake6">
+                            <label for="mistake6">Rambling or giving overly long answers</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake7">
+                            <label for="mistake7">Not listening carefully to questions</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake8">
+                            <label for="mistake8">Using too much jargon or technical terms</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="checklist-card">
+                    <h3>Presentation Mistakes</h3>
+                    <ul class="checklist-items">
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake9">
+                            <label for="mistake9">Poor body language (slouching, avoiding eye contact)</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake10">
+                            <label for="mistake10">Inappropriate attire for the company culture</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake11">
+                            <label for="mistake11">Checking phone or watch during interview</label>
+                        </li>
+                        <li class="checklist-item">
+                            <input type="checkbox" id="mistake12">
+                            <label for="mistake12">Not sending a thank you note</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section style="text-align: center; margin: 4rem 0;">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem; color: var(--dark);">Ready for Your Interview?</h2>
+            <p style="color: var(--gray); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">Make sure your resume is just as impressive as your interview skills.</p>
+            <a href="builder.html" class="mock-btn">Update Your Resume Now →</a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.bsAO8VWk8g-clnxsrNsHbQHaHJ?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="CV Builder Logo">
+                <span>CV Builder</span>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="builder.html">CV Builder</a></li>
+                    <li><a href="templates.html">Templates</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="resume-tips.html">Resume Tips</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="help.html">Help Center</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Connect With Us</h4>
+                <div class="social-links">
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📸</a>
+                    <a href="#">💼</a>
+                    <a href="#">📹</a>
+                </div>
+                <p style="margin-top: 1.5rem; color: rgba(255, 255, 255, 0.7);">
+                    Email: support@cvbuilder.com<br>
+                    Phone: +234 812 000 0000
+                </p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2025 CV Builder. All rights reserved. Master your interviews with confidence.
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.interview-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active button
+                    document.querySelectorAll('.interview-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active nav on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.checklist-section, .question-bank, .virtual-section, .salary-section, .followup-section');
+            const navButtons = document.querySelectorAll('.interview-btn');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 150;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.id;
+                }
+            });
+            
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.getAttribute('href') === currentSection) {
+                    button.classList.add('active');
+                }
+            });
+        });
+
+        // Question tabs functionality
+        document.querySelectorAll('.question-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // Update active tab
+                document.querySelectorAll('.question-tab').forEach(t => {
+                    t.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // Show corresponding questions
+                document.querySelectorAll('.question-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(category + '-questions').classList.add('active');
+            });
+        });
+
+        // Checklist functionality
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const card = this.closest('.checklist-card');
+                const checkedItems = card.querySelectorAll('input:checked').length;
+                const totalItems = card.querySelectorAll('input').length;
+                
+                // Update card title with progress
+                const title = card.querySelector('h3');
+                const originalText = title.textContent.replace(/ \(\d+\/\d+\)/, '');
+                title.textContent = `${originalText} (${checkedItems}/${totalItems})`;
+                
+                // Save progress to localStorage
+                saveChecklistProgress();
+            });
+        });
+
+        // Save checklist progress
+        function saveChecklistProgress() {
+            const progress = {};
+            document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+                progress[checkbox.id] = checkbox.checked;
+            });
+            localStorage.setItem('interviewChecklist', JSON.stringify(progress));
+        }
+
+        // Load checklist progress
+        function loadChecklistProgress() {
+            const savedProgress = JSON.parse(localStorage.getItem('interviewChecklist') || '{}');
+            
+            Object.entries(savedProgress).forEach(([id, checked]) => {
+                const checkbox = document.getElementById(id);
+                if (checkbox) {
+                    checkbox.checked = checked;
+                    checkbox.dispatchEvent(new Event('change'));
+                }
+            });
+        }
+
+        // Initialize question content
+        const questions = {
+            personal: [
+                {
+                    question: "Tell me about yourself.",
+                    answer: "Structure: Present → Past → Future. Present your current role, past relevant experience, and future aspirations related to this role.",
+                    tip: "Keep it to 60-90 seconds. Focus on relevant experience."
+                },
+                {
+                    question: "Why do you want to work here?",
+                    answer: "Show research: Mention company values, products, and how your skills align. Example: 'I admire your commitment to sustainability...'",
+                    tip: "Be specific and enthusiastic"
+                }
+            ],
+            behavioral: [
+                {
+                    question: "Tell me about a time you faced a challenge.",
+                    answer: "Use STAR method: Situation, Task, Action, Result. Focus on problem-solving and positive outcomes.",
+                    tip: "Prepare 3-5 STAR stories for common scenarios"
+                }
+            ]
+        };
+
+        // Populate questions
+        Object.entries(questions).forEach(([category, items]) => {
+            const container = document.getElementById(category + '-questions');
+            if (container) {
+                container.innerHTML = items.map((item, index) => `
+                    <div class="question-item">
+                        <div class="question-text">"${item.question}"</div>
+                        <div class="answer-text">${item.answer}</div>
+                        ${item.tip ? `<div class="star-tip">
+                            <h4>Pro Tip</h4>
+                            <p>${item.tip}</p>
+                        </div>` : ''}
+                    </div>
+                `).join('');
+            }
+        });
+
+        // Highlight active section on load
+        window.addEventListener('load', function() {
+            loadChecklistProgress();
+            
+            const hash = window.location.hash;
+            if (hash) {
+                const targetSection = document.querySelector(hash);
+                if (targetSection) {
+                    setTimeout(() => {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                    
+                    // Update active button
+                    document.querySelectorAll('.interview-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('href') === hash) {
+                            btn.classList.add('active');
+                        }
+                    });
+                }
+            }
+        });
+
+        // Mock interview booking
+        document.querySelector('.mock-btn').addEventListener('click', function(e) {
+            if (this.getAttribute('href') === '#') {
+                e.preventDefault();
+                alert('Redirecting to Mock Interview Tool...\n\nFeature includes:\n• AI-powered feedback\n• Video recording\n• Progress tracking\n• Industry-specific questions');
+            }
+        });
+    </script>
+</body>
+</html>

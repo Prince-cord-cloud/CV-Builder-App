@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generated CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    background: #f3f3f3;
+  }
+
+  .cv-container {
+    width: 210mm;
+    height: 297mm;
+    margin: auto;
+    background: #fff;
+    display: flex;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 35%;
+    background-color: #556B2F;
+    color: #fff;
+    padding: 25px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+  }
+
+  .sidebar .profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    align-self: center;
+  }
+
+  .sidebar h3 {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #8F9779;
+    width: 100%;
+    padding-bottom: 3px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .sidebar p,
+  .sidebar li {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .sidebar ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0 0 12px 0;
+  }
+
+  /* Main */
+  .main {
+    width: 65%;
+    padding: 25px 30px;
+    box-sizing: border-box;
+    color: #333;
+    line-height: 1.6;
+    overflow: hidden;
+  }
+
+  .main h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+  }
+
+  .main h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #556B2F;
+    font-weight: 500;
+  }
+
+  .main h3 {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 3px;
+    font-weight: 700;
+  }
+
+  .main p,
+  .main li {
+    font-size: 15px;
+    margin-bottom: 9px;
+  }
+
+  .main ul {
+    padding-left: 20px;
+    margin: 0;
+  }
+
+  @media print {
+    body { background: #fff; }
+    .cv-container { width: 100%; height: 100%; box-shadow: none; display: flex; }
+    .cv-container .sidebar, .cv-container .main { width: auto; padding: 15px; }
+    * { -webkit-print-color-adjust: exact; color-adjust: exact; }
+    @page { size: A4; margin: 5mm; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cv-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <img id="profileImage" class="profile-pic" src="" alt="Profile Picture">
+    
+    <h3>Contact</h3>
+    <div id="contact"></div>
+
+    <h3>Education</h3>
+    <ul id="education"></ul>
+
+    <h3>Skills</h3>
+    <ul id="skills"></ul>
+
+    <h3>Languages</h3>
+    <ul id="languages"></ul>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <h1 id="fullName">Full Name</h1>
+    <h2 id="title">Professional Title</h2>
+
+    <h3>Profile</h3>
+    <p id="profileSummary">Profile summary goes here...</p>
+
+    <h3>Work Experience</h3>
+    <ul id="experience"></ul>
+
+    <h3>Referees</h3>
+    <ul id="referees"></ul>
+  </div>
+</div>
+
+<script>
+  // ===== Load CV Data from localStorage =====
+const cvData = JSON.parse(localStorage.getItem('cvData')) || {};
+
+// ===== Name & Title =====
+document.getElementById('fullName').textContent = cvData.name?.trim() || 'Full Name';
+document.getElementById('title').textContent = cvData.title?.trim() || 'Professional Title';
+
+// ===== Profile Image =====
+const profileImage = document.getElementById('profileImage');
+profileImage.src = cvData.profileImage || 'https://randomuser.me/api/portraits/men/75.jpg';
+
+// ===== Contact Info =====
+const contactDiv = document.getElementById('contact');
+if (Array.isArray(cvData.phones)) {
+  cvData.phones.forEach(p => {
+    if (p.trim()) {
+      const pEl = document.createElement('p');
+      pEl.textContent = 'Phone: ' + p.trim();
+      contactDiv.appendChild(pEl);
+    }
+  });
+}
+if (Array.isArray(cvData.emails)) {
+  cvData.emails.forEach(e => {
+    if (e.trim()) {
+      const pEl = document.createElement('p');
+      pEl.textContent = 'Email: ' + e.trim();
+      contactDiv.appendChild(pEl);
+    }
+  });
+}
+if (cvData.city?.trim()) {
+  const pEl = document.createElement('p');
+  pEl.textContent = 'City, State: ' + cvData.city.trim();
+  contactDiv.appendChild(pEl);
+}
+if (cvData.linkedin?.trim()) {
+  const pEl = document.createElement('p');
+  pEl.textContent = 'LinkedIn: ' + cvData.linkedin.trim();
+  contactDiv.appendChild(pEl);
+}
+
+// ===== Education =====
+const educationUl = document.getElementById('education');
+if (Array.isArray(cvData.education)) {
+  cvData.education.forEach(ed => {
+    const li = document.createElement('li');
+    li.textContent = `${ed.university || ''} – ${ed.degree || ''}, ${ed.year || ''}`.trim();
+    educationUl.appendChild(li);
+  });
+}
+
+// ===== Skills =====
+const skillsUl = document.getElementById('skills');
+if (Array.isArray(cvData.skills)) {
+  cvData.skills.forEach(skill => {
+    if (skill.trim()) {
+      const li = document.createElement('li');
+      li.textContent = skill.trim();
+      skillsUl.appendChild(li);
+    }
+  });
+}
+
+// ===== Languages =====
+const languagesUl = document.getElementById('languages');
+if (Array.isArray(cvData.languages)) {
+  cvData.languages.forEach(lang => {
+    if (lang.trim()) {
+      const li = document.createElement('li');
+      li.textContent = lang.trim();
+      languagesUl.appendChild(li);
+    }
+  });
+}
+
+// ===== Profile Summary =====
+document.getElementById('profileSummary').textContent = cvData.profileSummary?.trim() || 'Profile summary goes here...';
+
+// ===== Work Experience =====
+const expUl = document.getElementById('experience');
+if (Array.isArray(cvData.experience)) {
+  cvData.experience.forEach(exp => {
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${exp.role || ''}</strong> – ${exp.company || ''} (${exp.duration || ''})`;
+    if (Array.isArray(exp.details) && exp.details.length > 0) {
+      li.innerHTML += `<ul>${exp.details.map(d => `<li>${d}</li>`).join('')}</ul>`;
+    }
+    expUl.appendChild(li);
+  });
+}
+
+// ===== Referees =====
+const refUl = document.getElementById('referees');
+if (Array.isArray(cvData.referees)) {
+  cvData.referees.forEach(ref => {
+    const li = document.createElement('li');
+    let parts = [];
+    if (ref.name?.trim()) parts.push(ref.name.trim());
+    if (ref.position?.trim()) parts.push(ref.position.trim());
+    if (ref.phone?.trim()) parts.push(ref.phone.trim());
+    if (ref.address?.trim()) parts.push(ref.address.trim());
+    li.textContent = parts.join(' – ');
+    refUl.appendChild(li);
+  });
+}
+
+</script>
+
+</body>
+</html>
