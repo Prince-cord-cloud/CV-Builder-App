@@ -1441,7 +1441,7 @@ section.visible, .feature-box.visible, .step.visible,
       <span>Dark Mode</span>
     </button>
     
-    <a href="builder.html" class="mobile-cta">
+    <a href="cv-builder/index.html" class="mobile-cta">
       <span>Start Building</span>
       <i class="arrow">→</i>
     </a>
@@ -3568,6 +3568,418 @@ document.body.insertAdjacentHTML('beforeend', bannerHTML);
     }
 }
 </script>
+<script>
+// ============================================
+// COMPREHENSIVE INSPECTION DETECTION & BLOCKING
+// ============================================
 
+(function() {
+    'use strict';
+    
+    // Prevent right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        showWarning('Inspection is disabled on this site.');
+        return false;
+    });
+    
+    // Prevent F12 key
+    document.addEventListener('keydown', function(e) {
+        // F12
+        if (e.keyCode === 123) {
+            e.preventDefault();
+            showWarning('Developer tools are disabled.');
+            return false;
+        }
+        
+        // Ctrl+Shift+I / Cmd+Opt+I
+        if (e.keyCode === 73 && (e.ctrlKey || e.metaKey) && e.shiftKey) {
+            e.preventDefault();
+            showWarning('Developer tools shortcut is disabled.');
+            return false;
+        }
+        
+        // Ctrl+Shift+J / Cmd+Opt+J
+        if (e.keyCode === 74 && (e.ctrlKey || e.metaKey) && e.shiftKey) {
+            e.preventDefault();
+            showWarning('Console is disabled.');
+            return false;
+        }
+        
+        // Ctrl+U (View Source)
+        if (e.keyCode === 85 && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault();
+            showWarning('Viewing source is disabled.');
+            return false;
+        }
+        
+        // Ctrl+Shift+C / Cmd+Shift+C (Inspect Element)
+        if (e.keyCode === 67 && (e.ctrlKey || e.metaKey) && e.shiftKey) {
+            e.preventDefault();
+            showWarning('Inspect element is disabled.');
+            return false;
+        }
+    });
+    
+    // Prevent drag-and-drop of images and links
+    document.addEventListener('dragstart', function(e) {
+        if (e.target.tagName === 'IMG' || e.target.tagName === 'A') {
+            e.preventDefault();
+        }
+    });
+    
+    // Prevent text selection for certain elements
+    const nonSelectableSelectors = 'code, pre, .no-select';
+    document.querySelectorAll(nonSelectableSelectors).forEach(el => {
+        el.style.userSelect = 'none';
+        el.style.webkitUserSelect = 'none';
+    });
+    
+    // Detect DevTools opening (works in many browsers)
+    let devToolsOpen = false;
+    
+    const checkDevTools = function() {
+        const widthThreshold = window.outerWidth - window.innerWidth > 160;
+        const heightThreshold = window.outerHeight - window.innerHeight > 160;
+        const orientation = widthThreshold ? 'vertical' : 'horizontal';
+        
+        if (!(heightThreshold && widthThreshold) &&
+            ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || 
+             widthThreshold || 
+             heightThreshold)) {
+            
+            if (!devToolsOpen) {
+                devToolsOpen = true;
+                showWarning('Developer tools detected. Please close them to continue.');
+                // Redirect or take other action
+                // document.body.innerHTML = '<h1>Developer tools are not allowed on this site.</h1>';
+            }
+        } else {
+            devToolsOpen = false;
+        }
+    };
+    
+    // Run check periodically
+    setInterval(checkDevTools, 1000);
+    
+    // Double-check on resize
+    window.addEventListener('resize', checkDevTools);
+    
+    // Anti-debugging techniques
+    // 1. Debugger statement loop
+    function startDebuggerLoop() {
+        setInterval(function() {
+            (function() {
+                return false;
+            })
+            ['constructor']('debugger')
+            ['call']();
+        }, 4000);
+    }
+    
+    // Start after a delay
+    setTimeout(startDebuggerLoop, 5000);
+    
+    // 2. Override console methods
+    if (window.console) {
+        const consoleMethods = ['log', 'warning', 'error', 'info', 'debug', 'table', 'dir'];
+        consoleMethods.forEach(method => {
+            const original = console[method];
+            console[method] = function() {
+                showWarning(`Right Click has been disabled.`);
+                // Still log if you want, or suppress completely
+                // original.apply(console, arguments);
+            };
+        });
+        
+        // Block clearing console
+        console.clear = function() {
+            showWarning('Console clearing is disabled.');
+        };
+    }
+    
+    // 3. Detect mobile browser dev tools
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Additional mobile protections
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 2) { // Three-finger touch often opens dev tools
+                e.preventDefault();
+                showWarning('Multiple touch gestures are restricted.');
+            }
+        }, { passive: false });
+        
+        // Prevent shake gesture (sometimes opens dev tools)
+        let lastShakeTime = 0;
+        window.addEventListener('devicemotion', function(e) {
+            const acceleration = e.acceleration || e.accelerationIncludingGravity;
+            if (acceleration) {
+                const x = acceleration.x;
+                const y = acceleration.y;
+                const z = acceleration.z;
+                
+                const intensity = Math.sqrt(x*x + y*y + z*z);
+                
+                if (intensity > 20) { // High intensity = shake
+                    const now = Date.now();
+                    if (now - lastShakeTime > 1000) { // Throttle
+                        lastShakeTime = now;
+                        showWarning('Shake gesture is disabled.');
+                    }
+                }
+            }
+        });
+    }
+    
+    // 4. Obfuscate source code visibility
+    // Disable view source via iframe busting
+    if (window.top !== window.self) {
+        window.top.location = window.self.location;
+    }
+    
+    // 5. Warning display function
+    function showWarning(message) {
+        // Create or update warning element
+        let warning = document.getElementById('inspection-warning');
+        
+        if (!warning) {
+            warning = document.createElement('div');
+            warning.id = 'inspection-warning';
+            warning.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #ff4444;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                z-index: 999999;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                box-shadow: 0 4px 12px rgba(255, 68, 68, 0.3);
+                max-width: 300px;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            document.body.appendChild(warning);
+        }
+        
+        warning.textContent = message;
+        warning.style.display = 'block';
+        
+        // Auto-hide after 3 seconds
+        clearTimeout(warning.hideTimeout);
+        warning.hideTimeout = setTimeout(() => {
+            warning.style.display = 'none';
+        }, 3000);
+    }
+    
+    // 6. Blur content when dev tools detected
+    const contentBlurrer = setInterval(() => {
+        if (devToolsOpen) {
+            document.body.style.filter = 'blur(5px)';
+            document.body.style.pointerEvents = 'none';
+            
+            // Create overlay message
+            let overlay = document.getElementById('devtools-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'devtools-overlay';
+                overlay.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: rgba(0, 0, 0, 0.9);
+                        color: white;
+                        padding: 30px;
+                        border-radius: 10px;
+                        text-align: center;
+                        z-index: 999998;
+                        max-width: 80%;
+                    ">
+                        <h3>⚠️ Developer Tools Detected</h3>
+                        <p>Please close developer tools to view this content.</p>
+                        <button onclick="location.reload()" style="
+                            background: #4CAF50;
+                            color: white;
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            margin-top: 15px;
+                        ">Reload Page</button>
+                    </div>
+                `;
+                document.body.appendChild(overlay);
+            }
+        } else {
+            document.body.style.filter = '';
+            document.body.style.pointerEvents = '';
+            
+            const overlay = document.getElementById('devtools-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+    }, 500);
+    
+    // 7. Prevent opening via browser menu
+    // Override window.open to block new windows with view-source
+    const originalOpen = window.open;
+    window.open = function(url, name, specs, replace) {
+        if (url && url.toString().startsWith('view-source:')) {
+            showWarning('View source is not allowed.');
+            return null;
+        }
+        return originalOpen.apply(window, arguments);
+    };
+    
+    // 8. Log inspection attempts (optional)
+    function logInspectionAttempt(type) {
+        // You can send this to your server for monitoring
+        console.warn(`Inspection attempt detected: ${type}`);
+        
+        // Example: Send to analytics
+        // fetch('/api/log-inspection', {
+        //     method: 'POST',
+        //     headers: {'Content-Type': 'application/json'},
+        //     body: JSON.stringify({
+        //         type: type,
+        //         timestamp: new Date().toISOString(),
+        //         url: window.location.href,
+        //         userAgent: navigator.userAgent
+        //     })
+        // });
+    }
+    
+    // Initialize logging for different events
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode === 123 || // F12
+            (e.keyCode === 73 && (e.ctrlKey || e.metaKey) && e.shiftKey) || // Ctrl+Shift+I
+            (e.keyCode === 74 && (e.ctrlKey || e.metaKey) && e.shiftKey) || // Ctrl+Shift+J
+            (e.keyCode === 85 && (e.ctrlKey || e.metaKey))) { // Ctrl+U
+            logInspectionAttempt('keyboard_shortcut');
+        }
+    });
+    
+    // Right-click logging
+    document.addEventListener('contextmenu', function(e) {
+        logInspectionAttempt('right_click');
+    });
+    
+    // 9. Add a no-copy class for sensitive elements
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add to elements you want to protect
+        document.querySelectorAll('.protect-content').forEach(el => {
+            el.style.userSelect = 'none';
+            el.style.webkitUserSelect = 'none';
+            el.style.msUserSelect = 'none';
+            el.style.MozUserSelect = 'none';
+            
+            // Prevent copying
+            el.addEventListener('copy', function(e) {
+                e.preventDefault();
+                showWarning('Copying is disabled for this content.');
+            });
+        });
+    });
+    
+    console.log('Inspection protection enabled.');
+})();
+
+// ============================================
+// ADDITIONAL MOBILE-SPECIFIC PROTECTIONS
+// ============================================
+
+// Detect mobile specifically and apply extra measures
+if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Prevent screenshot on some Android devices
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            // Page might be in background (user taking screenshot)
+            document.body.style.filter = 'blur(10px)';
+            document.body.style.transition = 'filter 0.3s';
+        } else {
+            document.body.style.filter = '';
+        }
+    });
+    
+    // Prevent text selection globally on mobile
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length === 1) {
+            // Allow single touch for navigation
+        } else {
+            e.preventDefault();
+        }
+    }, { passive: false });
+    
+    // Block long-press (context menu on mobile)
+    let pressTimer;
+    document.addEventListener('touchstart', function(e) {
+        pressTimer = setTimeout(() => {
+            showWarning('Long-press is disabled.');
+            e.preventDefault();
+        }, 800); // 800ms = long press
+    });
+    
+    document.addEventListener('touchend', function() {
+        clearTimeout(pressTimer);
+    });
+    
+    document.addEventListener('touchmove', function() {
+        clearTimeout(pressTimer);
+    });
+}
+</script>
+
+<style>
+/* Additional CSS to prevent text selection */
+.no-copy {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* Make it harder to select text */
+.protected-content {
+    cursor: default;
+}
+
+/* Blur sensitive content when selected */
+.protected-content::selection {
+    background-color: rgba(0,0,0,0.1);
+    color: transparent;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+.protected-content::-moz-selection {
+    background-color: rgba(0,0,0,0.1);
+    color: transparent;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Disable image dragging */
+img {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+}
+</style>
 </body>
 </html>

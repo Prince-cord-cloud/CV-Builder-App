@@ -490,5 +490,424 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProCV Builder | Create Professional Resumes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!-- ====== ADD THIS CODE IMMEDIATELY HERE ====== -->
+<noscript>
+    <div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:#fff;z-index:999999;padding:50px;text-align:center;font-size:24px;">
+        JavaScript is required to use this CV Builder. Please enable JavaScript and refresh the page.
+    </div>
+</noscript>
+
+<div id="blockerOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:999999;display:none;"></div>
+
+<style id="antiInspectCSS">
+    /* Prevent text selection */
+    body {
+        -webkit-user-select: none !important;
+        -moz-user-select: none !important;
+        -ms-user-select: none !important;
+        user-select: none !important;
+    }
+    
+    /* Disable dragging */
+    img, a, .preview-wrapper, .template-card {
+        -webkit-user-drag: none;
+        -khtml-user-drag: none;
+        -moz-user-drag: none;
+        -o-user-drag: none;
+        user-drag: none;
+    }
+    
+    /* Hide from view source */
+    body::after {
+        content: " ";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        pointer-events: none;
+        z-index: 9999999;
+    }
+</style>
+
+<script>
+// ====== STRONG ANTI-INSPECTION SYSTEM ======
+(function() {
+    'use strict';
+    
+    // Immediately block common inspection methods
+    if (window.location.protocol === 'file:') {
+        alert('⚠️ For security reasons, please run this CV Builder from a web server (not local file).');
+        document.body.innerHTML = '<h1 style="padding:50px;text-align:center;">Please host this CV Builder on a web server for full functionality.</h1>';
+        return;
+    }
+    
+    // ====== BLOCK RIGHT CLICK ======
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        showBlockMessage('Right-click is disabled');
+        return false;
+    });
+    
+    // ====== BLOCK KEYBOARD SHORTCUTS ======
+    document.addEventListener('keydown', function(e) {
+        // Block F12
+        if (e.key === 'F12' || e.keyCode === 123) {
+            e.preventDefault();
+            triggerAntiDebug();
+            return false;
+        }
+        
+        // Block Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+            e.preventDefault();
+            triggerAntiDebug();
+            return false;
+        }
+        
+        // Block Ctrl+Shift+J
+        if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+            e.preventDefault();
+            triggerAntiDebug();
+            return false;
+        }
+        
+        // Block Ctrl+U (View Source)
+        if (e.ctrlKey && e.key === 'u') {
+            e.preventDefault();
+            triggerAntiDebug();
+            return false;
+        }
+        
+        // Block Ctrl+S
+        if (e.ctrlKey && e.key === 's') {
+            e.preventDefault();
+            showBlockMessage('Use the Save Progress button instead');
+            return false;
+        }
+        
+        // Block Ctrl+P
+        if (e.ctrlKey && e.key === 'p') {
+            e.preventDefault();
+            showBlockMessage('Use the Print button in preview instead');
+            return false;
+        }
+    });
+    
+    // ====== DETECT DEVTOOLS OPENING ======
+    let devToolsOpen = false;
+    
+    // Method 1: Check window dimensions
+    function checkDevTools1() {
+        const threshold = 160;
+        const widthMatch = window.outerWidth - window.innerWidth > threshold;
+        const heightMatch = window.outerHeight - window.innerHeight > threshold;
+        
+        if (widthMatch || heightMatch) {
+            if (!devToolsOpen) {
+                devToolsOpen = true;
+                showBlockMessage('Developer Tools detected. Please close to continue.');
+                triggerAntiDebug();
+            }
+        } else {
+            devToolsOpen = false;
+        }
+    }
+    
+    // Method 2: Debugger statement loop
+    function checkDevTools2() {
+        const start = new Date();
+        debugger;
+        const end = new Date();
+        if (end - start > 100) {
+            showBlockMessage('Debugger detected');
+            triggerAntiDebug();
+        }
+    }
+    
+    // Method 3: Function constructor detection
+    function checkDevTools3() {
+        const element = new Image();
+        Object.defineProperty(element, 'id', {
+            get: function() {
+                showBlockMessage('Inspection detected');
+                triggerAntiDebug();
+            }
+        });
+        console.log(element);
+    }
+    
+    // ====== TRIGGER ANTI-DEBUG MEASURES ======
+    function triggerAntiDebug() {
+        // Show blocking overlay
+        document.getElementById('blockerOverlay').style.display = 'block';
+        
+        // Create infinite debugger loop
+        setInterval(function() {
+            (function() {
+                return false;
+            }
+            ['constructor']('debugger')
+            ['call']());
+        }, 50);
+        
+        // Flood console with warnings
+        console.clear();
+        for(let i = 0; i < 100; i++) {
+            console.error('%c🚫 STOP! 🚫', 'color:red;font-size:30px;font-weight:bold;');
+            console.error('%cCV Builder inspection is prohibited', 'color:orange;font-size:20px;');
+        }
+        
+        // Redirect after 3 seconds
+        setTimeout(function() {
+            window.location.href = window.location.href; // Refresh page
+        }, 3000);
+    }
+    
+    // ====== BLOCK CONSOLE ACCESS ======
+    if (typeof console !== 'undefined') {
+        // Store original console
+        const originalConsole = {};
+        const methods = ['log', 'warn', 'error', 'info', 'debug', 'table', 'dir', 'trace'];
+        
+        methods.forEach(method => {
+            originalConsole[method] = console[method];
+            console[method] = function() {
+                // Only allow certain console messages
+                if (method === 'error' || method === 'warn') {
+                    originalConsole[method].apply(console, arguments);
+                }
+                // Block everything else
+            };
+        });
+        
+        // Block console.clear
+        console.clear = function() {
+            showBlockMessage('Console clearing disabled');
+        };
+        
+        // Block console opening
+        Object.defineProperty(window, 'console', {
+            get: function() {
+                showBlockMessage('Console access blocked');
+                return {
+                    log: function(){},
+                    warn: function(){},
+                    error: function(){},
+                    info: function(){},
+                    debug: function(){},
+                    clear: function(){},
+                    table: function(){}
+                };
+            },
+            set: function() {
+                return;
+            }
+        });
+    }
+    
+    // ====== BLOCK IFRAME INSPECTION ======
+    const iframe = document.getElementById('cvPreview');
+    if (iframe) {
+        iframe.addEventListener('load', function() {
+            try {
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                
+                // Block right-click in iframe
+                iframeDoc.addEventListener('contextmenu', function(e) {
+                    e.preventDefault();
+                    return false;
+                });
+                
+                // Add invisible overlay to iframe
+                const overlay = iframeDoc.createElement('div');
+                overlay.style.cssText = `
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: transparent;
+                    z-index: 999999;
+                    pointer-events: none;
+                `;
+                iframeDoc.body.appendChild(overlay);
+                
+            } catch(e) {
+                // Cross-origin iframe, can't modify
+            }
+        });
+    }
+    
+    // ====== MOBILE PROTECTION ======
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Block long-press
+        let touchTimer;
+        document.addEventListener('touchstart', function(e) {
+            if (e.target.closest('.preview-wrapper') || e.target.closest('#cvPreview')) {
+                touchTimer = setTimeout(function() {
+                    showBlockMessage('Long-press disabled');
+                    e.preventDefault();
+                }, 800);
+            }
+        });
+        
+        document.addEventListener('touchend', function() {
+            clearTimeout(touchTimer);
+        });
+        
+        document.addEventListener('touchmove', function() {
+            clearTimeout(touchTimer);
+        });
+        
+        // Block three-finger touch
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 2) {
+                showBlockMessage('Multi-touch disabled');
+                e.preventDefault();
+            }
+        });
+    }
+    
+    // ====== SHOW BLOCK MESSAGE ======
+    function showBlockMessage(message) {
+        // Create message element
+        let msgBox = document.getElementById('blockMessage');
+        if (!msgBox) {
+            msgBox = document.createElement('div');
+            msgBox.id = 'blockMessage';
+            msgBox.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+                color: white;
+                padding: 15px 20px;
+                border-radius: 10px;
+                z-index: 1000000;
+                font-family: 'Poppins', sans-serif;
+                font-size: 14px;
+                box-shadow: 0 5px 15px rgba(255, 68, 68, 0.3);
+                max-width: 300px;
+                animation: slideIn 0.3s ease;
+                border-left: 5px solid #ffaa00;
+                display: none;
+            `;
+            document.body.appendChild(msgBox);
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-5px); }
+                    75% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        msgBox.textContent = '🚫 ' + message;
+        msgBox.style.display = 'block';
+        msgBox.style.animation = 'slideIn 0.3s ease, shake 0.5s ease 0.3s';
+        
+        // Auto-hide
+        setTimeout(function() {
+            msgBox.style.display = 'none';
+        }, 3000);
+    }
+    
+    // ====== OBFUSCATE SOURCE CODE ======
+    // Clear page source on unload
+    window.addEventListener('beforeunload', function() {
+        document.body.innerHTML = '<div style="padding:50px;text-align:center;"><h1>CV Builder</h1><p>Loading...</p></div>';
+    });
+    
+    // ====== START PROTECTION CHECKS ======
+    // Run multiple detection methods
+    setInterval(checkDevTools1, 1000);
+    
+    // Run debugger check occasionally
+    setInterval(function() {
+        try {
+            checkDevTools2();
+        } catch(e) {
+            // Debugger was triggered
+        }
+    }, 5000);
+    
+    // Run function constructor check
+    setTimeout(checkDevTools3, 3000);
+    
+    // ====== PREVENT VIEW SOURCE ======
+    // Block iframe embedding
+    if (window.top !== window.self) {
+        try {
+            window.top.location = window.self.location;
+        } catch(e) {
+            document.body.innerHTML = '<h1 style="color:red;padding:50px;text-align:center;">This CV Builder cannot be embedded in iframes.</h1>';
+        }
+    }
+    
+    // ====== FINAL PROTECTION ======
+    // Make source code hard to read
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add random comments to confuse source viewers
+        const comment = document.createComment(`
+            CV Builder Protected Code - Do Not Inspect
+            Generated: ${new Date().toISOString()}
+            Security Level: Maximum
+            Unauthorized access prohibited
+        `);
+        document.insertBefore(comment, document.documentElement);
+        
+        // Obfuscate JavaScript function names
+        window['CV_BUILDER_PROTECTION_ACTIVE'] = true;
+    });
+    
+    console.log('%c🛡️ CV Builder Protection Active', 'color:green;font-size:16px;font-weight:bold;');
+    
+})();
+</script>
+<!-- ====== END OF ANTI-INSPECTION CODE ====== -->
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-file-alt"></i>
+                <h1>Pro<span>CV</span> Builder</h1>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="exportPDF()">
+                    <i class="fas fa-download"></i> Export PDF
+                </button>
+                <button class="nav-btn primary" onclick="saveProgress()">
+                    <i class="fas fa-cloud-upload-alt"></i> Save Progress
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- ... rest of your HTML ... -->
 </body>
 </html>
