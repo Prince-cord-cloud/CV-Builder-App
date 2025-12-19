@@ -3686,7 +3686,7 @@ document.body.insertAdjacentHTML('beforeend', bannerHTML);
         consoleMethods.forEach(method => {
             const original = console[method];
             console[method] = function() {
-                showWarning(`Right Click has been disabled.`);
+                showWarning(`The site is protected.`);
                 // Still log if you want, or suppress completely
                 // original.apply(console, arguments);
             };
