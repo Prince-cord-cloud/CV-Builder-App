@@ -606,664 +606,439 @@
     </div>
 
     <script>
-        // Initialize theme
-        function initTheme() {
-            const savedTheme = localStorage.getItem('cvProTheme') || 'light';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
-            }
+    // ==================== CONFIGURATION ====================
+    const API_BASE_URL = 'https://cv-builder-backend-qtpb.onrender.com/api';
+    
+    // ==================== INITIALIZATION ====================
+    function initTheme() {
+        const savedTheme = localStorage.getItem('cvProTheme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
         }
+    }
 
-        // Toggle dark/light mode
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.getElementById('themeToggle');
-            
-            if (body.classList.contains('dark-mode')) {
-                body.classList.remove('dark-mode');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                localStorage.setItem('cvProTheme', 'light');
-            } else {
-                body.classList.add('dark-mode');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                localStorage.setItem('cvProTheme', 'dark');
-            }
+    function toggleTheme() {
+        const body = document.body;
+        const themeToggle = document.getElementById('themeToggle');
+        
+        if (body.classList.contains('dark-mode')) {
+            body.classList.remove('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            localStorage.setItem('cvProTheme', 'light');
+        } else {
+            body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            localStorage.setItem('cvProTheme', 'dark');
         }
+    }
 
-        // Page switching
-        function showRegister() {
-            document.getElementById("register-page").style.display = "block";
-            document.getElementById("login-page").style.display = "none";
-            clearErrors();
-        }
+    // ==================== PAGE SWITCHING ====================
+    function showRegister() {
+        document.getElementById("register-page").style.display = "block";
+        document.getElementById("login-page").style.display = "none";
+        clearErrors();
+    }
 
-        function showLogin() {
-            document.getElementById("login-page").style.display = "block";
-            document.getElementById("register-page").style.display = "none";
-            clearErrors();
-        }
+    function showLogin() {
+        document.getElementById("login-page").style.display = "block";
+        document.getElementById("register-page").style.display = "none";
+        clearErrors();
+    }
 
-        // Toggle password visibility
-        function setupPasswordToggle() {
-            // Login password toggle
-            const loginToggle = document.getElementById("login-password-toggle");
-            const loginPassword = document.getElementById("login-password");
-            
-            loginToggle.addEventListener("click", function() {
-                const type = loginPassword.getAttribute("type") === "password" ? "text" : "password";
-                loginPassword.setAttribute("type", type);
-                this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-                
-                // Maintain focus on input after toggle
-                loginPassword.focus();
-            });
-
-            // Registration password toggle
-            const regToggle = document.getElementById("reg-password-toggle");
-            const regPassword = document.getElementById("reg-pass");
-            
-            regToggle.addEventListener("click", function() {
-                const type = regPassword.getAttribute("type") === "password" ? "text" : "password";
-                regPassword.setAttribute("type", type);
-                this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-                
-                // Maintain focus on input after toggle
-                regPassword.focus();
-            });
-
-            // Registration confirm password toggle
-            const regConfirmToggle = document.getElementById("reg-confirm-toggle");
-            const regConfirm = document.getElementById("reg-confirm");
-            
-            regConfirmToggle.addEventListener("click", function() {
-                const type = regConfirm.getAttribute("type") === "password" ? "text" : "password";
-                regConfirm.setAttribute("type", type);
-                this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
-                
-                // Maintain focus on input after toggle
-                regConfirm.focus();
-            });
-        }
-
-        // Initialize password toggles and theme
-        document.addEventListener("DOMContentLoaded", function() {
-            setupPasswordToggle();
-            initTheme();
-            
-            // Add event listener to theme toggle button
-            document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    // ==================== PASSWORD TOGGLE ====================
+    function setupPasswordToggle() {
+        const loginToggle = document.getElementById("login-password-toggle");
+        const loginPassword = document.getElementById("login-password");
+        
+        loginToggle.addEventListener("click", function() {
+            const type = loginPassword.getAttribute("type") === "password" ? "text" : "password";
+            loginPassword.setAttribute("type", type);
+            this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            loginPassword.focus();
         });
 
-        // Error handling
-        function showError(elementId, message) {
-            const errorElement = document.getElementById(elementId);
-            errorElement.textContent = message;
-            errorElement.style.display = "block";
-            
-            // Add error class to input
-            const inputId = elementId.replace("-error", "");
-            const inputElement = document.getElementById(inputId);
-            if (inputElement) {
-                inputElement.classList.add("input-error");
-            }
-        }
+        const regToggle = document.getElementById("reg-password-toggle");
+        const regPassword = document.getElementById("reg-pass");
+        
+        regToggle.addEventListener("click", function() {
+            const type = regPassword.getAttribute("type") === "password" ? "text" : "password";
+            regPassword.setAttribute("type", type);
+            this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            regPassword.focus();
+        });
 
-        function clearError(elementId) {
-            const errorElement = document.getElementById(elementId);
-            errorElement.textContent = "";
-            errorElement.style.display = "none";
-            
-            // Remove error class from input
-            const inputId = elementId.replace("-error", "");
-            const inputElement = document.getElementById(inputId);
-            if (inputElement) {
-                inputElement.classList.remove("input-error");
-            }
-        }
+        const regConfirmToggle = document.getElementById("reg-confirm-toggle");
+        const regConfirm = document.getElementById("reg-confirm");
+        
+        regConfirmToggle.addEventListener("click", function() {
+            const type = regConfirm.getAttribute("type") === "password" ? "text" : "password";
+            regConfirm.setAttribute("type", type);
+            this.innerHTML = type === "password" ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            regConfirm.focus();
+        });
+    }
 
-        function clearErrors() {
-            const errorElements = document.querySelectorAll(".error-message");
-            errorElements.forEach(el => {
-                el.textContent = "";
-                el.style.display = "none";
+    // ==================== ERROR HANDLING ====================
+    function showError(elementId, message) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = message;
+        errorElement.style.display = "block";
+        
+        const inputId = elementId.replace("-error", "");
+        const inputElement = document.getElementById(inputId);
+        if (inputElement) {
+            inputElement.classList.add("input-error");
+        }
+    }
+
+    function clearError(elementId) {
+        const errorElement = document.getElementById(elementId);
+        errorElement.textContent = "";
+        errorElement.style.display = "none";
+        
+        const inputId = elementId.replace("-error", "");
+        const inputElement = document.getElementById(inputId);
+        if (inputElement) {
+            inputElement.classList.remove("input-error");
+        }
+    }
+
+    function clearErrors() {
+        const errorElements = document.querySelectorAll(".error-message");
+        errorElements.forEach(el => {
+            el.textContent = "";
+            el.style.display = "none";
+        });
+        
+        const inputElements = document.querySelectorAll("input");
+        inputElements.forEach(el => {
+            el.classList.remove("input-error");
+        });
+    }
+
+    // Show user-friendly toast/alert messages
+    function showUserMessage(message, type = 'info') {
+        // You can replace this with a nicer toast notification later
+        if (type === 'error') {
+            alert(`❌ Error: ${message}`);
+        } else if (type === 'success') {
+            alert(`✅ Success: ${message}`);
+        } else {
+            alert(message);
+        }
+    }
+
+    // ==================== LOADING STATE ====================
+    function setLoading(button, isLoading, originalText) {
+        if (isLoading) {
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            button.disabled = true;
+        } else {
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+    }
+
+    // ==================== REGISTER USER ====================
+    async function registerUser() {
+        // Clear any previous errors
+        clearErrors();
+        
+        // Get form values
+        const fullName = document.getElementById("reg-name").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const phone = document.getElementById("reg-phone").value.trim();
+        const password = document.getElementById("reg-pass").value;
+        const confirmPassword = document.getElementById("reg-confirm").value;
+        
+        // Validate form
+        let isValid = true;
+        let errorMessages = [];
+        
+        if (!fullName) {
+            showError("reg-name-error", "Full name is required");
+            errorMessages.push("Full name is required");
+            isValid = false;
+        } else if (fullName.length < 2) {
+            showError("reg-name-error", "Name must be at least 2 characters");
+            errorMessages.push("Name must be at least 2 characters");
+            isValid = false;
+        }
+        
+        if (!email) {
+            showError("reg-email-error", "Email address is required");
+            errorMessages.push("Email address is required");
+            isValid = false;
+        } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+            showError("reg-email-error", "Please enter a valid email address (e.g., name@example.com)");
+            errorMessages.push("Please enter a valid email address");
+            isValid = false;
+        }
+        
+        if (!phone) {
+            showError("reg-phone-error", "Phone number is required for employers to contact you");
+            errorMessages.push("Phone number is required");
+            isValid = false;
+        }
+        
+        if (!password) {
+            showError("reg-pass-error", "Password is required");
+            errorMessages.push("Password is required");
+            isValid = false;
+        } else if (password.length < 8) {
+            showError("reg-pass-error", "Password must be at least 8 characters for security");
+            errorMessages.push("Password must be at least 8 characters");
+            isValid = false;
+        } else if (!/(?=.*[A-Za-z])(?=.*\d)/.test(password)) {
+            showError("reg-pass-error", "Password must contain at least one letter and one number");
+            errorMessages.push("Password must contain at least one letter and one number");
+            isValid = false;
+        }
+        
+        if (!confirmPassword) {
+            showError("reg-confirm-error", "Please confirm your password");
+            errorMessages.push("Please confirm your password");
+            isValid = false;
+        } else if (password !== confirmPassword) {
+            showError("reg-confirm-error", "Passwords do not match. Please check and try again");
+            errorMessages.push("Passwords do not match");
+            isValid = false;
+        }
+        
+        if (!isValid) {
+            // Show first error as alert for clarity
+            if (errorMessages.length > 0) {
+                showUserMessage(errorMessages[0], 'error');
+            }
+            return;
+        }
+        
+        // Show loading state
+        const registerBtn = document.querySelector("button[onclick='registerUser()']");
+        const originalText = registerBtn.innerHTML;
+        setLoading(registerBtn, true, originalText);
+        
+        try {
+            // Send registration data to backend
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fullName: fullName,
+                    email: email,
+                    password: password,
+                    confirmPassword: confirmPassword,
+                    phoneNumber: phone
+                })
             });
             
-            const inputElements = document.querySelectorAll("input");
-            inputElements.forEach(el => {
-                el.classList.remove("input-error");
-            });
-        }
-
-        // Register User
-        function registerUser() {
-            clearErrors();
+            const data = await response.json();
             
-            const name = document.getElementById("reg-name").value.trim();
-            const email = document.getElementById("reg-email").value.trim();
-            const phone = document.getElementById("reg-phone").value.trim();
-            const pass = document.getElementById("reg-pass").value;
-            const confirm = document.getElementById("reg-confirm").value;
-            
-            let isValid = true;
-            
-            // Validation
-            if (!name) {
-                showError("reg-name-error", "Full name is required for your resume");
-                isValid = false;
-            }
-            
-            if (!email) {
-                showError("reg-email-error", "Email is required");
-                isValid = false;
-            } else if (!/^\S+@\S+\.\S+$/.test(email)) {
-                showError("reg-email-error", "Please enter a valid email address");
-                isValid = false;
-            }
-            
-            if (!phone) {
-                showError("reg-phone-error", "Phone number is required");
-                isValid = false;
-            }
-            
-            if (!pass) {
-                showError("reg-pass-error", "Password is required");
-                isValid = false;
-            } else if (pass.length < 6) {
-                showError("reg-pass-error", "Password must be at least 6 characters");
-                isValid = false;
-            }
-            
-            if (!confirm) {
-                showError("reg-confirm-error", "Please confirm your password");
-                isValid = false;
-            } else if (pass !== confirm) {
-                showError("reg-confirm-error", "Passwords do not match");
-                isValid = false;
-            }
-            
-            if (!isValid) return;
-            
-            // Create user object
-            const user = { 
-                name, 
-                email, 
-                phone, 
-                pass,
-                createdAt: new Date().toISOString(),
-                resumeCount: 0
-            };
-            
-            // Store user data
-            localStorage.setItem("cvProUser", JSON.stringify(user));
-            
-            // Success message with CV-specific text
-            alert("🎉 Registration successful! You can now access our professional CV builder.");
-            showLogin();
-            
-            // Clear registration form
-            document.getElementById("reg-name").value = "";
-            document.getElementById("reg-email").value = "";
-            document.getElementById("reg-phone").value = "";
-            document.getElementById("reg-pass").value = "";
-            document.getElementById("reg-confirm").value = "";
-        }
-
-        // Login User
-        function loginUser() {
-            clearErrors();
-            
-            const email = document.getElementById("login-email").value.trim();
-            const password = document.getElementById("login-password").value;
-            
-            let isValid = true;
-            
-            if (!email) {
-                showError("login-email-error", "Email is required");
-                isValid = false;
-            }
-            
-            if (!password) {
-                showError("login-password-error", "Password is required");
-                isValid = false;
-            }
-            
-            if (!isValid) return;
-            
-            const savedUser = JSON.parse(localStorage.getItem("cvProUser"));
-            
-            if (!savedUser) {
-                alert("No account found. Please register first to build your CV.");
-                showRegister();
+            // Handle unsuccessful response
+            if (!response.ok) {
+                // Handle validation errors from backend
+                if (data.errors && data.errors.length > 0) {
+                    // Show each error on its corresponding field
+                    data.errors.forEach(err => {
+                        if (err.field === 'fullName') showError("reg-name-error", err.message);
+                        if (err.field === 'email') showError("reg-email-error", err.message);
+                        if (err.field === 'password') showError("reg-pass-error", err.message);
+                        if (err.field === 'confirmPassword') showError("reg-confirm-error", err.message);
+                        if (err.field === 'phoneNumber') showError("reg-phone-error", err.message);
+                    });
+                    // Show the first error as an alert
+                    showUserMessage(data.errors[0].message, 'error');
+                } else if (data.error) {
+                    // Show general error message
+                    showUserMessage(data.error, 'error');
+                    if (data.error.includes('email already exists')) {
+                        showError("reg-email-error", "This email is already registered. Please login instead.");
+                    }
+                } else {
+                    showUserMessage('Registration failed. Please try again.', 'error');
+                }
+                setLoading(registerBtn, false, originalText);
                 return;
             }
             
-            if (email === savedUser.email && password === savedUser.pass) {
-                // Login successful - simulate redirect
-                const loginBtn = document.querySelector("button[onclick='loginUser()']");
-                loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading Dashboard...';
-                loginBtn.disabled = true;
+            // SUCCESS: Save token and user data
+            if (data.data && data.data.token) {
+                localStorage.setItem('cvProToken', data.data.token);
+                localStorage.setItem('cvProUser', JSON.stringify(data.data.user));
                 
+                // Show success message
+                showUserMessage('🎉 Registration successful! Welcome to CV Builder!', 'success');
+                
+                // Clear registration form
+                document.getElementById("reg-name").value = "";
+                document.getElementById("reg-email").value = "";
+                document.getElementById("reg-phone").value = "";
+                document.getElementById("reg-pass").value = "";
+                document.getElementById("reg-confirm").value = "";
+                
+                // REDIRECT TO DASHBOARD (user is already logged in)
                 setTimeout(() => {
-                    alert(`✅ Welcome back, ${savedUser.name}! Redirecting to your CV Dashboard...`);
-                    // In a real app, this would redirect to dashboard.html
-                    window.location.href = "dashboard.html"; // Simulated redirect
-                    
-                    // Reset button
-                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login to CV Dashboard';
-                    loginBtn.disabled = false;
-                }, 1000);
+                    window.location.href = "dashboard.html";
+                }, 1500); // Small delay to show success message
             } else {
-                alert("Invalid email or password. Please try again.");
+                showUserMessage('Registration completed but login failed. Please login manually.', 'info');
+                showLogin();
             }
+            
+        } catch (error) {
+            console.error('Registration error:', error);
+            
+            // Handle network errors
+            if (!navigator.onLine) {
+                showUserMessage('No internet connection. Please check your network and try again.', 'error');
+            } else if (error.message.includes('Failed to fetch')) {
+                showUserMessage('Unable to connect to server. Please try again later.', 'error');
+            } else {
+                showUserMessage('Network error. Please check your connection and try again.', 'error');
+            }
+        } finally {
+            setLoading(registerBtn, false, originalText);
         }
-    </script>
-<script>
-// ============================================
-// COMPREHENSIVE INSPECTION DETECTION & BLOCKING
-// ============================================
+    }
 
-(function() {
-    'use strict';
-    
-    // Show warning function
-    function showWarning(message) {
-        // Create warning element
-        let warning = document.getElementById('inspection-warning');
+    // ==================== LOGIN USER ====================
+    async function loginUser() {
+        clearErrors();
         
-        if (!warning) {
-            warning = document.createElement('div');
-            warning.id = 'inspection-warning';
-            warning.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-                color: white;
-                padding: 15px 20px;
-                border-radius: var(--radius);
-                z-index: 999999;
-                font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-                font-size: 14px;
-                box-shadow: var(--shadow-lg);
-                max-width: 300px;
-                animation: slideIn 0.3s ease;
-                display: none;
-            `;
-            
-            // Add animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-                @keyframes slideOut {
-                    from { transform: translateX(0); opacity: 1; }
-                    to { transform: translateX(100%); opacity: 0; }
-                }
-            `;
-            document.head.appendChild(style);
-            document.body.appendChild(warning);
+        const email = document.getElementById("login-email").value.trim();
+        const password = document.getElementById("login-password").value;
+        
+        let isValid = true;
+        let errorMessages = [];
+        
+        if (!email) {
+            showError("login-email-error", "Email address is required");
+            errorMessages.push("Email address is required");
+            isValid = false;
         }
         
-        warning.textContent = message;
-        warning.style.display = 'block';
-        warning.style.animation = 'slideIn 0.3s ease';
-        
-        // Auto-hide after 3 seconds
-        clearTimeout(warning.hideTimeout);
-        warning.hideTimeout = setTimeout(() => {
-            warning.style.animation = 'slideOut 0.3s ease';
-            setTimeout(() => {
-                warning.style.display = 'none';
-            }, 300);
-        }, 3000);
-    }
-    
-    // 1. Prevent right-click context menu
-    document.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-        showWarning('Right-click is disabled on this site.');
-        return false;
-    });
-    
-    // 2. Prevent keyboard shortcuts for inspection
-    document.addEventListener('keydown', function(e) {
-        // F12
-        if (e.keyCode === 123) {
-            e.preventDefault();
-            showWarning('Developer tools are disabled.');
-            return false;
+        if (!password) {
+            showError("login-password-error", "Password is required");
+            errorMessages.push("Password is required");
+            isValid = false;
         }
         
-        // Ctrl+Shift+I / Cmd+Opt+I
-        if (e.keyCode === 73 && (e.ctrlKey || e.metaKey) && e.shiftKey) {
-            e.preventDefault();
-            showWarning('Developer tools shortcut is disabled.');
-            return false;
-        }
-        
-        // Ctrl+Shift+J / Cmd+Opt+J
-        if (e.keyCode === 74 && (e.ctrlKey || e.metaKey) && e.shiftKey) {
-            e.preventDefault();
-            showWarning('Console is disabled.');
-            return false;
-        }
-        
-        // Ctrl+U (View Source)
-        if (e.keyCode === 85 && (e.ctrlKey || e.metaKey)) {
-            e.preventDefault();
-            showWarning('Viewing source is disabled.');
-            return false;
-        }
-        
-        // Ctrl+Shift+C / Cmd+Shift+C (Inspect Element)
-        if (e.keyCode === 67 && (e.ctrlKey || e.metaKey) && e.shiftKey) {
-            e.preventDefault();
-            showWarning('Inspect element is disabled.');
-            return false;
-        }
-        
-        // Ctrl+S (Save Page)
-        if (e.keyCode === 83 && (e.ctrlKey || e.metaKey)) {
-            e.preventDefault();
-            showWarning('Page saving is disabled.');
-            return false;
-        }
-    });
-    
-    // 3. Prevent drag-and-drop of images
-    document.addEventListener('dragstart', function(e) {
-        if (e.target.tagName === 'IMG' || e.target.tagName === 'A') {
-            e.preventDefault();
-            showWarning('Drag & drop is disabled.');
-        }
-    });
-    
-    // 4. Detect DevTools opening
-    let devToolsOpen = false;
-    let lastDetectionTime = 0;
-    
-    const checkDevTools = function() {
-        // Prevent too frequent checks
-        const now = Date.now();
-        if (now - lastDetectionTime < 1000) return;
-        
-        const widthThreshold = window.outerWidth - window.innerWidth > 160;
-        const heightThreshold = window.outerHeight - window.innerHeight > 160;
-        
-        if ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || 
-            widthThreshold || 
-            heightThreshold) {
-            
-            if (!devToolsOpen) {
-                devToolsOpen = true;
-                lastDetectionTime = now;
-                showWarning('Developer tools detected. Some features may be limited.');
-                
-                // Blur content slightly when dev tools are open
-                document.body.style.filter = 'blur(2px) brightness(0.95)';
-                document.body.style.transition = 'filter 0.3s ease';
+        if (!isValid) {
+            if (errorMessages.length > 0) {
+                showUserMessage(errorMessages[0], 'error');
             }
-        } else {
-            if (devToolsOpen) {
-                devToolsOpen = false;
-                document.body.style.filter = '';
-            }
-        }
-    };
-    
-    // Run check periodically
-    setInterval(checkDevTools, 1500);
-    
-    // Double-check on resize
-    window.addEventListener('resize', function() {
-        setTimeout(checkDevTools, 100);
-    });
-    
-    // 5. Anti-debugging technique
-    function startDebuggerLoop() {
-        const debuggerCheck = setInterval(function() {
-            (function() {
-                return false;
-            })
-            ['constructor']('debugger')
-            ['call']();
-        }, 5000); // Check every 5 seconds
-        
-        // Stop the loop if user closes dev tools for 10 seconds
-        let cleanTime = 0;
-        const cleanCheck = setInterval(function() {
-            if (!devToolsOpen) {
-                cleanTime += 1000;
-                if (cleanTime >= 10000) { // 10 seconds
-                    clearInterval(debuggerCheck);
-                    clearInterval(cleanCheck);
-                }
-            } else {
-                cleanTime = 0;
-            }
-        }, 1000);
-    }
-    
-    // Start debugger detection after page loads
-    setTimeout(startDebuggerLoop, 3000);
-    
-    // 6. Override console methods
-    if (window.console) {
-        const originalConsole = {};
-        const consoleMethods = ['log', 'warning', 'error', 'info', 'debug', 'table', 'dir', 'trace'];
-        
-        consoleMethods.forEach(method => {
-            if (typeof console[method] === 'function') {
-                originalConsole[method] = console[method].bind(console);
-                console[method] = function() {
-                    // Log silently for monitoring
-                    if (method === 'error') {
-                        // Still show errors but modified
-                        originalConsole.error('⚠️ Console access monitored');
-                    }
-                    // Don't execute original method
-                };
-            }
-        });
-        
-        // Block clearing console
-        console.clear = function() {
-            showWarning('Console clearing is disabled.');
-        };
-        
-        // Block console opening attempts
-        Object.defineProperty(window, 'console', {
-            get: function() {
-                showWarning('⚠️ This site is protected.');
-                return {};
-            },
-            set: function() {
-                showWarning('Console modification attempted.');
-            }
-        });
-    }
-    
-    // 7. Mobile-specific protections
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-        // Prevent three-finger touch (often opens dev tools)
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length > 2) {
-                e.preventDefault();
-                showWarning('Multi-touch gestures are restricted.');
-            }
-        }, { passive: false });
-        
-        // Prevent shake gesture
-        let lastShakeTime = 0;
-        if (window.DeviceMotionEvent) {
-            window.addEventListener('devicemotion', function(e) {
-                const acceleration = e.acceleration || e.accelerationIncludingGravity;
-                if (acceleration) {
-                    const x = acceleration.x;
-                    const y = acceleration.y;
-                    const z = acceleration.z;
-                    
-                    const intensity = Math.sqrt(x*x + y*y + z*z);
-                    
-                    if (intensity > 15) { // High intensity = shake
-                        const now = Date.now();
-                        if (now - lastShakeTime > 2000) { // Throttle to 2 seconds
-                            lastShakeTime = now;
-                            showWarning('Shake gesture is disabled.');
-                        }
-                    }
-                }
-            });
+            return;
         }
         
-        // Prevent long-press (context menu on mobile)
-        let pressTimer;
-        document.addEventListener('touchstart', function(e) {
-            pressTimer = setTimeout(() => {
-                showWarning('Long-press is disabled.');
-                e.preventDefault();
-            }, 800); // 800ms = long press
-        });
+        const loginBtn = document.querySelector("button[onclick='loginUser()']");
+        const originalText = loginBtn.innerHTML;
+        setLoading(loginBtn, true, originalText);
         
-        document.addEventListener('touchend', function() {
-            clearTimeout(pressTimer);
-        });
-        
-        document.addEventListener('touchmove', function() {
-            clearTimeout(pressTimer);
-        });
-    }
-    
-    // 8. Prevent view source via iframe
-    if (window.top !== window.self) {
         try {
-            window.top.location = window.self.location;
-        } catch (e) {
-            // Silently handle cross-origin iframe attempts
-        }
-    }
-    
-    // 9. Block page saving
-    document.addEventListener('keydown', function(e) {
-        // Ctrl+P / Cmd+P (Print)
-        if (e.keyCode === 80 && (e.ctrlKey || e.metaKey)) {
-            e.preventDefault();
-            showWarning('Printing is disabled for this page.');
-            return false;
-        }
-    });
-    
-    // 10. Prevent text selection for sensitive elements
-    document.addEventListener('DOMContentLoaded', function() {
-        // Add to any elements you want to protect
-        document.querySelectorAll('.logo, .header, .cv-highlight, .feature i').forEach(el => {
-            el.style.userSelect = 'none';
-            el.style.webkitUserSelect = 'none';
-            el.style.msUserSelect = 'none';
-            el.style.MozUserSelect = 'none';
-            
-            // Prevent copying
-            el.addEventListener('copy', function(e) {
-                e.preventDefault();
-                showWarning('Copying is disabled for this content.');
+            const response = await fetch(`${API_BASE_URL}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
             });
-        });
-        
-        // Prevent image saving
-        document.querySelectorAll('img').forEach(img => {
-            img.style.pointerEvents = 'none';
-            img.style.userSelect = 'none';
-            img.style.webkitUserDrag = 'none';
-        });
-    });
-    
-    // 11. Monitor and log inspection attempts (optional)
-    function logInspectionAttempt(type) {
-        // You can send this to your server for monitoring
-        const data = {
-            type: type,
-            timestamp: new Date().toISOString(),
-            url: window.location.href,
-            userAgent: navigator.userAgent
-        };
-        
-        // Store locally
-        const attempts = JSON.parse(localStorage.getItem('inspection_attempts') || '[]');
-        attempts.push(data);
-        if (attempts.length > 50) attempts.shift(); // Keep only last 50
-        localStorage.setItem('inspection_attempts', JSON.stringify(attempts));
-    }
-    
-    // Initialize logging
-    document.addEventListener('contextmenu', function() {
-        logInspectionAttempt('right_click');
-    });
-    
-    document.addEventListener('keydown', function(e) {
-        if (e.keyCode === 123 || // F12
-            (e.keyCode === 73 && (e.ctrlKey || e.metaKey) && e.shiftKey) || // Ctrl+Shift+I
-            (e.keyCode === 85 && (e.ctrlKey || e.metaKey))) { // Ctrl+U
-            logInspectionAttempt('keyboard_shortcut_' + e.keyCode);
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                if (data.errors && data.errors.length > 0) {
+                    data.errors.forEach(err => {
+                        if (err.field === 'email') showError("login-email-error", err.message);
+                        if (err.field === 'password') showError("login-password-error", err.message);
+                    });
+                    showUserMessage(data.errors[0].message, 'error');
+                } else if (data.error) {
+                    showUserMessage(data.error, 'error');
+                    if (data.error.includes('Invalid credentials')) {
+                        showError("login-email-error", "Invalid email or password combination");
+                        showError("login-password-error", "Please check and try again");
+                    }
+                } else {
+                    showUserMessage('Login failed. Please try again.', 'error');
+                }
+                setLoading(loginBtn, false, originalText);
+                return;
+            }
+            
+            // SUCCESS
+            if (data.data && data.data.token) {
+                localStorage.setItem('cvProToken', data.data.token);
+                localStorage.setItem('cvProUser', JSON.stringify(data.data.user));
+                
+                // Custom welcome message based on login count
+                const welcomeMsg = data.data.user.isFirstLogin 
+                    ? '🎉 Welcome to CV Builder! Check your email for getting started guide.'
+                    : `👋 Welcome back, ${data.data.user.firstName}!`;
+                
+                showUserMessage(welcomeMsg, 'success');
+                
+                // Redirect to dashboard
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1500);
+            }
+            
+        } catch (error) {
+            console.error('Login error:', error);
+            
+            if (!navigator.onLine) {
+                showUserMessage('No internet connection. Please check your network.', 'error');
+            } else if (error.message.includes('Failed to fetch')) {
+                showUserMessage('Unable to connect to server. Please try again later.', 'error');
+            } else {
+                showUserMessage('Network error. Please check your connection.', 'error');
+            }
+        } finally {
+            setLoading(loginBtn, false, originalText);
         }
-    });
-    
-    // 12. Final protection - obscure source on page unload
-    window.addEventListener('beforeunload', function() {
-        // Clear sensitive data
-        document.querySelectorAll('input[type="password"]').forEach(input => {
-            input.value = '';
-        });
-    });
-    
-    console.log('🔒 CV Pro protection system activated');
-})();
+    }
 
-// Add CSS for protected elements
-const protectionStyle = document.createElement('style');
-protectionStyle.textContent = `
-    /* Prevent text selection */
-    .no-select {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-touch-callout: none;
+    // ==================== CHECK AUTH STATUS ====================
+    function checkAuthStatus() {
+        const token = localStorage.getItem('cvProToken');
+        const user = localStorage.getItem('cvProUser');
+        
+        if (token && user) {
+            console.log('✅ User is logged in:', JSON.parse(user));
+            
+            // If on login/register page, redirect to dashboard
+            const currentPath = window.location.pathname.toLowerCase();
+            if (currentPath.includes('login') || 
+                currentPath.includes('register') || 
+                currentPath.endsWith('index.html') || 
+                currentPath.endsWith('/')) {
+                window.location.href = "dashboard.html";
+            }
+        }
     }
-    
-    /* Prevent image dragging */
-    img.no-drag {
-        -webkit-user-drag: none;
-        -khtml-user-drag: none;
-        -moz-user-drag: none;
-        -o-user-drag: none;
-        user-drag: none;
+
+    // ==================== LOGOUT ====================
+    function logoutUser() {
+        localStorage.removeItem('cvProToken');
+        localStorage.removeItem('cvProUser');
+        showUserMessage('You have been logged out successfully.', 'info');
+        window.location.href = "index.html";
     }
-    
-    /* Blur sensitive content when selected */
-    .protected::selection {
-        background-color: rgba(79, 70, 229, 0.1);
-        color: var(--text);
-        text-shadow: 0 0 2px rgba(0,0,0,0.1);
-    }
-    
-    .protected::-moz-selection {
-        background-color: rgba(79, 70, 229, 0.1);
-        color: var(--text);
-        text-shadow: 0 0 2px rgba(0,0,0,0.1);
-    }
-    
-    /* Disable outline for protected elements */
-    .protected {
-        outline: none !important;
-    }
-`;
-document.head.appendChild(protectionStyle);
-</script>
-    
+
+    // ==================== INITIALIZE ====================
+    document.addEventListener("DOMContentLoaded", function() {
+        setupPasswordToggle();
+        initTheme();
+        checkAuthStatus();
+        
+        document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    });
+</script>    
 </body>
 </html>
