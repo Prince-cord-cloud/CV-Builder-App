@@ -1388,15 +1388,335 @@ section.visible, .feature-box.visible, .step.visible,
     <a href="#contact">Contact</a>
     
     <!-- Theme Toggle Container -->
-    <div class="theme-toggle-container">
-      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
-        <i class="fas fa-moon"></i>
-      </button>
-    </div>
+  <div class="theme-toggle-container">
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle dark mode">
+      <i class="fas fa-moon"></i>
+    </button>
   </div>
   
-  <a href="cv-builder/index.html" class="nav-cta">Get Started</a>
-  
+  <!-- 👇 DESKTOP: Icon-only logout button (shows when logged in) -->
+  <button class="logout-icon-btn" id="logoutIconBtn" onclick="logoutUser()" title="Logout" style="display: none;">
+    <i class="fas fa-sign-out-alt"></i>
+  </button>
+</div>
+
+<!-- Keep your existing CTA button -->
+<a href="cv-builder/index.html" class="nav-cta" id="ctaButton">Get Started</a>
+<style>
+
+/* ==================== LOGOUT BUTTON STYLES ==================== */
+
+/* Desktop: Icon-only logout button */
+.logout-icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-left: 15px;
+  position: relative;
+  font-size: 1.2rem;
+}
+
+.logout-icon-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 18px rgba(239, 68, 68, 0.3);
+  border-color: transparent;
+}
+
+.logout-icon-btn:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Tooltip on hover */
+.logout-icon-btn::after {
+  content: 'Logout';
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--dark);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.logout-icon-btn:hover::after {
+  opacity: 1;
+  visibility: visible;
+  bottom: -35px;
+}
+
+/* Dark mode support */
+.dark-mode .logout-icon-btn {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.dark-mode .logout-icon-btn:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* Mobile: Full logout button */
+.mobile-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 15px 0 10px;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-logout-btn i {
+  font-size: 1.2rem;
+}
+
+.mobile-logout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+.mobile-logout-btn:active {
+  transform: translateY(-1px);
+}
+
+/* User greeting for desktop (optional) */
+.user-greeting-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-right: 5px;
+}
+
+.user-greeting-icon i {
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .logout-icon-btn {
+    display: none !important; /* Hide icon-only on mobile */
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-logout-btn {
+    display: none !important; /* Hide full button on desktop */
+  }
+}
+
+/* Animation for logout button */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.logout-icon-btn,
+.mobile-logout-btn {
+  animation: fadeInScale 0.3s ease;
+}
+</style>
+
+<script> 
+  // ==================== LOGOUT FUNCTIONALITY ====================
+
+// Update UI based on auth status
+function updateAuthUI(isLoggedIn, user = null) {
+    const logoutIconBtn = document.getElementById('logoutIconBtn');
+    const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+    const ctaButton = document.getElementById('ctaButton');
+    const mobileCtaButton = document.getElementById('mobileCtaButton');
+    
+    if (isLoggedIn && user) {
+        // Show logout buttons
+        if (logoutIconBtn) logoutIconBtn.style.display = 'flex';
+        if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'flex';
+        
+        // Update CTA button to Dashboard
+        if (ctaButton) {
+            ctaButton.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
+            ctaButton.href = 'dashboard.html';
+        }
+        if (mobileCtaButton) {
+            mobileCtaButton.innerHTML = '<span>Dashboard</span> <i class="arrow">→</i>';
+            mobileCtaButton.href = 'dashboard.html';
+        }
+        
+        // Optional: Add user greeting
+        addUserGreeting(user.firstName || user.name || 'User');
+        
+    } else {
+        // Hide logout buttons
+        if (logoutIconBtn) logoutIconBtn.style.display = 'none';
+        if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
+        
+        // Reset CTA button
+        if (ctaButton) {
+            ctaButton.innerHTML = 'Get Started';
+            ctaButton.href = 'cv-builder/index.html';
+        }
+        if (mobileCtaButton) {
+            mobileCtaButton.innerHTML = '<span>Start Building</span> <i class="arrow">→</i>';
+            mobileCtaButton.href = 'cv-builder/index.html';
+        }
+        
+        // Remove user greeting
+        removeUserGreeting();
+    }
+}
+
+// Add user greeting (optional)
+function addUserGreeting(userName) {
+    // Remove existing greeting if any
+    removeUserGreeting();
+    
+    const desktopNav = document.querySelector('.desktop-nav');
+    const logoutIcon = document.getElementById('logoutIconBtn');
+    
+    if (desktopNav && logoutIcon) {
+        const greeting = document.createElement('span');
+        greeting.id = 'userGreeting';
+        greeting.className = 'user-greeting-icon';
+        greeting.innerHTML = `<i class="fas fa-user-circle"></i> ${userName.split(' ')[0]}`;
+        
+        // Insert before logout icon
+        desktopNav.insertBefore(greeting, logoutIcon);
+    }
+}
+
+function removeUserGreeting() {
+    const greeting = document.getElementById('userGreeting');
+    if (greeting) greeting.remove();
+}
+
+// Logout function
+function logoutUser() {
+    if (confirm('Are you sure you want to logout?')) {
+        // Show loading state on mobile button
+        const mobileBtn = document.getElementById('mobileLogoutBtn');
+        const iconBtn = document.getElementById('logoutIconBtn');
+        
+        if (mobileBtn) {
+            mobileBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging out...';
+            mobileBtn.disabled = true;
+        }
+        
+        if (iconBtn) {
+            iconBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            iconBtn.disabled = true;
+        }
+        
+        // Clear user data
+        localStorage.removeItem('cvProToken');
+        localStorage.removeItem('cvProUser');
+        
+        // Update UI after delay
+        setTimeout(() => {
+            updateAuthUI(false);
+            showNotification('✅ Logged out successfully!', 'success');
+            
+            // Redirect to home
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
+        }, 500);
+    }
+}
+
+// Show notification
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.innerHTML = message;
+    
+    const style = document.createElement('style');
+    style.textContent = `
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid;
+        }
+        .notification.success {
+            border-left-color: #10b981;
+            background: #f0fdf4;
+            color: #065f46;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease forwards';
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// Check auth on load
+document.addEventListener('DOMContentLoaded', function() {
+    const token = localStorage.getItem('cvProToken');
+    const user = localStorage.getItem('cvProUser');
+    
+    if (token && user) {
+        updateAuthUI(true, JSON.parse(user));
+    } else {
+        updateAuthUI(false);
+    }
+});
+</script>
   <!-- Mobile Hamburger -->
   <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
     <span class="hamburger-line line-1"></span>
@@ -1410,41 +1730,48 @@ section.visible, .feature-box.visible, .step.visible,
       <h3>Menu</h3>
       <button class="close-menu" aria-label="Close menu">×</button>
     </div>
-    <a href="#features" class="mobile-link">
-      <i class="feature-icon">🎯</i>
-      <span>Features</span>
-    </a>
-    <a href="#how" class="mobile-link">
-      <i class="feature-icon">⚙️</i>
-      <span>How It Works</span>
-    </a>
-    <a href="#templates" class="mobile-link">
-      <i class="feature-icon">🎨</i>
-      <span>Templates</span>
-    </a>
-    <a href="#testimonials" class="mobile-link">
-      <i class="feature-icon">💬</i>
-      <span>Testimonials</span>
-    </a>
-    <a href="#faq" class="mobile-link">
-      <i class="feature-icon">❓</i>
-      <span>FAQ</span>
-    </a>
-    <a href="#contact" class="mobile-link">
-      <i class="feature-icon">📞</i>
-      <span>Contact</span>
-    </a>
-    
-    <!-- Mobile Theme Toggle -->
-    <button class="mobile-theme-toggle mobile-link" id="mobileThemeToggle">
-      <i class="fas fa-moon"></i>
-      <span>Dark Mode</span>
-    </button>
-    
-    <a href="cv-builder/index.html" class="mobile-cta">
-      <span>Start Building</span>
-      <i class="arrow">→</i>
-    </a>
+     <a href="#features" class="mobile-link">
+    <i class="feature-icon">🎯</i>
+    <span>Features</span>
+  </a>
+  <a href="#how" class="mobile-link">
+    <i class="feature-icon">⚙️</i>
+    <span>How It Works</span>
+  </a>
+  <a href="#templates" class="mobile-link">
+    <i class="feature-icon">🎨</i>
+    <span>Templates</span>
+  </a>
+  <a href="#testimonials" class="mobile-link">
+    <i class="feature-icon">💬</i>
+    <span>Testimonials</span>
+  </a>
+  <a href="#faq" class="mobile-link">
+    <i class="feature-icon">❓</i>
+    <span>FAQ</span>
+  </a>
+  <a href="#contact" class="mobile-link">
+    <i class="feature-icon">📞</i>
+    <span>Contact</span>
+  </a>
+  
+  <!-- Mobile Theme Toggle -->
+  <button class="mobile-theme-toggle mobile-link" id="mobileThemeToggle">
+    <i class="fas fa-moon"></i>
+    <span>Dark Mode</span>
+  </button>
+  
+  <!-- 👇 MOBILE: Full logout button with text and icon -->
+  <button class="mobile-logout-btn" id="mobileLogoutBtn" onclick="logoutUser()" style="display: none;">
+    <i class="fas fa-sign-out-alt"></i>
+    <span>Logout</span>
+  </button>
+  
+  <a href="cv-builder/index.html" class="mobile-cta" id="mobileCtaButton">
+    <span>Start Building</span>
+    <i class="arrow">→</i>
+  </a>
+</div>
   </div>
 </nav>
  
