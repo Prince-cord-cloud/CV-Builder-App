@@ -1563,13 +1563,39 @@ section.visible, .feature-box.visible, .step.visible,
 function updateAuthUI(isLoggedIn, user = null) {
     const logoutIconBtn = document.getElementById('logoutIconBtn');
     const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+    const profileContainer = document.getElementById('profileContainer');
+    const profileName = document.getElementById('profileName');
+    const mobileProfile = document.getElementById('mobileProfile');
+    const mobileProfileName = document.getElementById('mobileProfileName');
     const ctaButton = document.getElementById('ctaButton');
     const mobileCtaButton = document.getElementById('mobileCtaButton');
     
     if (isLoggedIn && user) {
-        // Show logout buttons
+        // Show desktop logout button
         if (logoutIconBtn) logoutIconBtn.style.display = 'flex';
+        
+        // Show mobile logout button
         if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'flex';
+        
+        // Show desktop profile
+        if (profileContainer) {
+            profileContainer.style.display = 'flex';
+            if (profileName) {
+                const firstName = user.firstName || user.name || 'User';
+                profileName.textContent = firstName;
+            }
+        }
+        
+        // Show mobile profile
+        if (mobileProfile) {
+            mobileProfile.style.display = 'flex';
+            if (mobileProfileName) {
+                const fullName = user.firstName && user.lastName 
+                    ? `${user.firstName} ${user.lastName}`
+                    : user.name || user.firstName || 'User';
+                mobileProfileName.textContent = fullName;
+            }
+        }
         
         // Update CTA button to Dashboard
         if (ctaButton) {
@@ -1581,13 +1607,18 @@ function updateAuthUI(isLoggedIn, user = null) {
             mobileCtaButton.href = 'dashboard.html';
         }
         
-        // Optional: Add user greeting
-        addUserGreeting(user.firstName || user.name || 'User');
-        
     } else {
-        // Hide logout buttons
+        // Hide desktop logout button
         if (logoutIconBtn) logoutIconBtn.style.display = 'none';
+        
+        // Hide mobile logout button
         if (mobileLogoutBtn) mobileLogoutBtn.style.display = 'none';
+        
+        // Hide desktop profile
+        if (profileContainer) profileContainer.style.display = 'none';
+        
+        // Hide mobile profile
+        if (mobileProfile) mobileProfile.style.display = 'none';
         
         // Reset CTA button
         if (ctaButton) {
@@ -1598,9 +1629,6 @@ function updateAuthUI(isLoggedIn, user = null) {
             mobileCtaButton.innerHTML = '<span>Start Building</span> <i class="arrow">→</i>';
             mobileCtaButton.href = 'cv-builder/index.html';
         }
-        
-        // Remove user greeting
-        removeUserGreeting();
     }
 }
 
@@ -1725,12 +1753,24 @@ document.addEventListener('DOMContentLoaded', function() {
   </button>
   
   <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <div class="mobile-menu-header">
-      <h3>Menu</h3>
-      <button class="close-menu" aria-label="Close menu">×</button>
+<div class="mobile-menu">
+  <div class="mobile-menu-header">
+    <h3>Menu</h3>
+    <button class="close-menu" aria-label="Close menu">×</button>
+  </div>
+  
+  <!-- 👤 MOBILE PROFILE SECTION (shows when logged in) -->
+  <div class="mobile-profile" id="mobileProfile" style="display: none;">
+    <div class="mobile-profile-icon">
+      <i class="fas fa-user-circle"></i>
     </div>
-     <a href="#features" class="mobile-link">
+    <div class="mobile-profile-info">
+      <span class="mobile-profile-label">Logged in as</span>
+      <span class="mobile-profile-name" id="mobileProfileName">User</span>
+    </div>
+  </div>
+  
+  <a href="#features" class="mobile-link">
     <i class="feature-icon">🎯</i>
     <span>Features</span>
   </a>
@@ -1772,10 +1812,63 @@ document.addEventListener('DOMContentLoaded', function() {
     <i class="arrow">→</i>
   </a>
 </div>
+</div>
   </div>
 </nav>
  
 <style>
+  /* Mobile Profile Styles */
+.mobile-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  animation: slideDown 0.3s ease;
+}
+
+.mobile-profile-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+}
+
+.mobile-profile-info {
+  flex: 1;
+}
+
+.mobile-profile-label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.mobile-profile-name {
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  word-break: break-word;
+}
+
+.dark-mode .mobile-profile {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(79, 70, 229, 0.2) 100%);
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.dark-mode .mobile-profile-name {
+  color: #818cf8;
+}
 /* Add this to your existing CSS */
 .theme-toggle-container {
   display: flex;
@@ -2152,7 +2245,359 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <style>
+/* ==================== COMPREHENSIVE RESPONSIVE OVERRIDES ==================== */
+/* This ensures proper display across ALL devices - tablets, mobile, Android, iOS */
 
+/* Reset any conflicting styles */
+.desktop-nav,
+.hamburger,
+.mobile-menu,
+.menu-backdrop,
+.profile-container,
+.logout-icon-btn,
+.mobile-profile,
+.mobile-logout-btn {
+    box-sizing: border-box;
+}
+
+/* ===== TABLET DEVICES (768px to 1024px) ===== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    /* Adjust desktop nav for tablet */
+    .desktop-nav {
+        gap: 16px !important;
+    }
+    
+    .desktop-nav a {
+        font-size: 0.9rem !important;
+        padding: 6px 0 !important;
+    }
+    
+    /* Hide theme toggle text if any */
+    .theme-toggle-btn {
+        width: 38px !important;
+        height: 38px !important;
+    }
+    
+    /* Adjust profile for tablet */
+    .profile-container {
+        padding: 4px 10px !important;
+        margin-left: 5px !important;
+    }
+    
+    .profile-name {
+        max-width: 70px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    /* Adjust CTA button */
+    .nav-cta {
+        padding: 8px 18px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    /* Keep logout icon visible */
+    .logout-icon-btn {
+        width: 38px !important;
+        height: 38px !important;
+        margin-left: 8px !important;
+    }
+}
+
+/* ===== MOBILE DEVICES (up to 768px) ===== */
+@media (max-width: 768px) {
+    /* Hide desktop elements on mobile */
+    .desktop-nav {
+        display: none !important;
+    }
+    
+    .nav-cta {
+        display: none !important;
+    }
+    
+    .profile-container {
+        display: none !important;
+    }
+    
+    .logout-icon-btn {
+        display: none !important;
+    }
+    
+    /* Show hamburger menu */
+    .hamburger {
+        display: flex !important;
+        width: 44px !important;
+        height: 44px !important;
+        z-index: 1001 !important;
+    }
+    
+    /* Mobile menu styling */
+    .mobile-menu {
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important;
+        width: 85% !important;
+        max-width: 320px !important;
+        height: 100vh !important;
+        background: var(--container-bg) !important;
+        backdrop-filter: blur(10px) !important;
+        padding: 80px 20px 30px !important;
+        transition: right 0.4s ease !important;
+        z-index: 1000 !important;
+        box-shadow: -5px 0 25px rgba(0,0,0,0.15) !important;
+        overflow-y: auto !important;
+    }
+    
+    .mobile-menu.show {
+        right: 0 !important;
+    }
+    
+    /* Mobile menu header */
+    .mobile-menu-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding-bottom: 20px !important;
+        margin-bottom: 20px !important;
+        border-bottom: 1px solid var(--border) !important;
+    }
+    
+    .mobile-menu-header h3 {
+        font-size: 1.5rem !important;
+        font-weight: 700 !important;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+    
+    .close-menu {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 2rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: none !important;
+        border: none !important;
+        color: var(--text-light) !important;
+        cursor: pointer !important;
+    }
+    
+    /* Mobile profile section */
+    .mobile-profile {
+        display: flex !important;
+        align-items: center !important;
+        gap: 15px !important;
+        padding: 15px !important;
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(79, 70, 229, 0.1) 100%) !important;
+        border-radius: 12px !important;
+        margin-bottom: 20px !important;
+        border: 1px solid rgba(99, 102, 241, 0.2) !important;
+    }
+    
+    .mobile-profile-icon {
+        width: 45px !important;
+        height: 45px !important;
+        border-radius: 50% !important;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: white !important;
+        font-size: 20px !important;
+    }
+    
+    .mobile-profile-info {
+        flex: 1 !important;
+    }
+    
+    .mobile-profile-label {
+        font-size: 0.75rem !important;
+        color: var(--text-light) !important;
+        margin-bottom: 4px !important;
+        display: block !important;
+    }
+    
+    .mobile-profile-name {
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        color: var(--primary) !important;
+        display: block !important;
+        word-break: break-word !important;
+    }
+    
+    /* Mobile links */
+    .mobile-link {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        padding: 14px 16px !important;
+        font-size: 1rem !important;
+        color: var(--text) !important;
+        text-decoration: none !important;
+        border-radius: 10px !important;
+        transition: all 0.3s !important;
+        margin-bottom: 2px !important;
+    }
+    
+    .mobile-link .feature-icon {
+        width: 36px !important;
+        height: 36px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: rgba(99, 102, 241, 0.1) !important;
+        border-radius: 8px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .mobile-link:hover {
+        background: rgba(99, 102, 241, 0.05) !important;
+        transform: translateX(5px) !important;
+    }
+    
+    /* Mobile theme toggle */
+    .mobile-theme-toggle {
+        width: 100% !important;
+        justify-content: flex-start !important;
+        margin: 10px 0 !important;
+        background: rgba(99, 102, 241, 0.05) !important;
+        border: 1px solid var(--border) !important;
+    }
+    
+    /* Mobile logout button */
+    .mobile-logout-btn {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+        width: 100% !important;
+        padding: 16px 20px !important;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 10px !important;
+        font-weight: 600 !important;
+        font-size: 1rem !important;
+        margin: 15px 0 !important;
+        cursor: pointer !important;
+    }
+    
+    .mobile-logout-btn i {
+        font-size: 1.1rem !important;
+    }
+    
+    /* Mobile CTA */
+    .mobile-cta {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 16px 20px !important;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important;
+        color: white !important;
+        text-decoration: none !important;
+        border-radius: 10px !important;
+        font-weight: 600 !important;
+        margin-top: 10px !important;
+    }
+    
+    /* Menu backdrop */
+    .menu-backdrop {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(3px) !important;
+        z-index: 999 !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: all 0.3s !important;
+    }
+    
+    .menu-backdrop.show {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+}
+
+/* ===== SMALL MOBILE DEVICES (up to 480px) ===== */
+@media (max-width: 480px) {
+    .mobile-menu {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 70px 15px 20px !important;
+    }
+    
+    .mobile-menu-header h3 {
+        font-size: 1.3rem !important;
+    }
+    
+    .mobile-profile {
+        padding: 12px !important;
+    }
+    
+    .mobile-profile-icon {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 18px !important;
+    }
+    
+    .mobile-profile-name {
+        font-size: 0.95rem !important;
+    }
+    
+    .mobile-link {
+        padding: 12px 14px !important;
+    }
+    
+    .mobile-link .feature-icon {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    
+    .mobile-logout-btn,
+    .mobile-cta {
+        padding: 14px 16px !important;
+    }
+}
+
+/* ===== DARK MODE SUPPORT FOR MOBILE ===== */
+.dark-mode .mobile-menu {
+    background: var(--container-bg) !important;
+    border-left-color: var(--border) !important;
+}
+
+.dark-mode .mobile-link {
+    color: var(--text) !important;
+}
+
+.dark-mode .mobile-link:hover {
+    background: rgba(99, 102, 241, 0.15) !important;
+}
+
+.dark-mode .mobile-theme-toggle {
+    background: rgba(99, 102, 241, 0.1) !important;
+    border-color: var(--border) !important;
+    color: var(--text-light) !important;
+}
+
+/* ===== ENSURE PROPER TOUCH TARGETS FOR MOBILE ===== */
+@media (max-width: 768px) {
+    .hamburger,
+    .close-menu,
+    .mobile-link,
+    .mobile-theme-toggle,
+    .mobile-logout-btn,
+    .mobile-cta {
+        min-height: 44px !important; /* Apple's recommended minimum */
+    }
+    
+    .mobile-link .feature-icon,
+    .mobile-profile-icon {
+        min-width: 36px !important;
+        min-height: 36px !important;
+    }
+}
 </style>
 
 <script>
@@ -3657,7 +4102,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-<script>
+<!-- <script>
 // ============================================
 // COMPREHENSIVE INSPECTION DETECTION & BLOCKING
 // ============================================
@@ -4069,6 +4514,6 @@ img {
     -o-user-drag: none;
     user-drag: none;
 }
-</style>
+</style> -->
 </body>
 </html>
