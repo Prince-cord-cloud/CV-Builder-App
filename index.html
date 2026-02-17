@@ -596,14 +596,133 @@
           </p>
 
           <div class="form-group">
-            <label for="reg-name">Please Full Name</label>
-            <div class="input-container">
-              <i class="fas fa-user input-icon"></i>
-              <input type="text" id="reg-name" placeholder="Full name" />
-            </div>
-            <div class="error-message" id="reg-name-error"></div>
-          </div>
+    <div class="form-group">
+    <!-- Label that changes to hint -->
+    <label for="reg-name" id="nameLabel">Full Name</label>
+    <!-- Hint that appears above input -->
+    <div class="name-hint" id="nameHint" style="display: none;">
+        <i class="fas fa-info-circle"></i> Please enter your full name (first and last name)
+    </div>
+    <div class="input-container">
+        <i class="fas fa-user input-icon"></i>
+        <input type="text" id="reg-name" placeholder="e.g., John Doe" />
+    </div>
+    <div class="error-message" id="reg-name-error"></div>
+</div>
+<style> 
 
+   /* Name hint styling - appears above input */
+.name-hint {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: #0369a1;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 4px solid #0284c7;
+    animation: slideDown 0.3s ease;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(2, 132, 199, 0.1);
+    width: 100%;
+}
+
+.dark-mode .name-hint {
+    background: linear-gradient(135deg, #082f49 0%, #0c4a6e 100%);
+    color: #bae6fd;
+    border-left-color: #38bdf8;
+    box-shadow: 0 2px 8px rgba(56, 189, 248, 0.2);
+}
+
+.name-hint i {
+    font-size: 16px;
+    color: #0284c7;
+    animation: pulse 2s infinite;
+}
+
+.dark-mode .name-hint i {
+    color: #38bdf8;
+}
+
+/* Label styling when hint is active */
+label.hint-active {
+    color: #0284c7;
+    font-weight: 600;
+}
+
+.dark-mode label.hint-active {
+    color: #38bdf8;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+</style>
+
+<script> 
+  // ==================== NAME INPUT REAL-TIME HINT ====================
+function setupNameHint() {
+    const nameInput = document.getElementById("reg-name");
+    const nameHint = document.getElementById("nameHint");
+    const nameLabel = document.getElementById("nameLabel");
+    
+    if (nameInput && nameHint && nameLabel) {
+        nameInput.addEventListener("input", function() {
+            const nameValue = this.value.trim();
+            const wordCount = nameValue.split(/\s+/).filter(word => word.length > 0).length;
+            
+            // Show hint if they have less than 2 words AND they've started typing
+            if (nameValue.length > 0 && wordCount < 2) {
+                nameHint.style.display = "flex";
+                nameLabel.classList.add("hint-active");
+                nameLabel.textContent = "Full Name is required";
+            } else {
+                nameHint.style.display = "none";
+                nameLabel.classList.remove("hint-active");
+                nameLabel.textContent = "Full Name";
+            }
+        });
+        
+        // Also check on blur (when they leave the field)
+        nameInput.addEventListener("blur", function() {
+            const nameValue = this.value.trim();
+            const wordCount = nameValue.split(/\s+/).filter(word => word.length > 0).length;
+            
+            if (nameValue.length > 0 && wordCount < 2) {
+                nameHint.style.display = "flex";
+                nameLabel.classList.add("hint-active");
+                nameLabel.textContent = "⚠️ Full Name Needed";
+            }
+        });
+        
+        // When they focus back, keep hint if still invalid
+        nameInput.addEventListener("focus", function() {
+            const nameValue = this.value.trim();
+            const wordCount = nameValue.split(/\s+/).filter(word => word.length > 0).length;
+            
+            if (nameValue.length > 0 && wordCount < 2) {
+                nameHint.style.display = "flex";
+                nameLabel.classList.add("hint-active");
+                nameLabel.textContent = "⚠️ Full Name Needed";
+            }
+        });
+    }
+}
+</script>
           <div class="form-group">
             <label for="reg-email">Email Address</label>
             <div class="input-container">
@@ -1229,6 +1348,7 @@
         setupPasswordToggle();
         initTheme();
         checkAuthStatus();
+        setupNameHint(); // 👈 Add this line
 
         document
           .getElementById("themeToggle")
