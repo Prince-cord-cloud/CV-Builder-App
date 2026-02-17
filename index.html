@@ -682,25 +682,15 @@
     // ==================== ERROR HANDLING ====================
     function showError(elementId, message) {
         const errorElement = document.getElementById(elementId);
-        errorElement.textContent = message;
-        errorElement.style.display = "block";
-        
-        const inputId = elementId.replace("-error", "");
-        const inputElement = document.getElementById(inputId);
-        if (inputElement) {
-            inputElement.classList.add("input-error");
-        }
-    }
-
-    function clearError(elementId) {
-        const errorElement = document.getElementById(elementId);
-        errorElement.textContent = "";
-        errorElement.style.display = "none";
-        
-        const inputId = elementId.replace("-error", "");
-        const inputElement = document.getElementById(inputId);
-        if (inputElement) {
-            inputElement.classList.remove("input-error");
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+            
+            const inputId = elementId.replace("-error", "");
+            const inputElement = document.getElementById(inputId);
+            if (inputElement) {
+                inputElement.classList.add("input-error");
+            }
         }
     }
 
@@ -717,9 +707,8 @@
         });
     }
 
-    // Show user-friendly toast/alert messages
+    // Show user-friendly messages
     function showUserMessage(message, type = 'info') {
-        // You can replace this with a nicer toast notification later
         if (type === 'error') {
             alert(`❌ Error: ${message}`);
         } else if (type === 'success') {
@@ -740,186 +729,191 @@
         }
     }
 
-// ==================== REGISTER USER ====================
-async function registerUser() {
-    // Clear any previous errors
-    clearErrors();
-    
-    // Get form values
-    const fullName = document.getElementById("reg-name").value.trim();
-    const email = document.getElementById("reg-email").value.trim();
-    const phone = document.getElementById("reg-phone").value.trim();
-    const password = document.getElementById("reg-pass").value;
-    const confirmPassword = document.getElementById("reg-confirm").value;
-    
-    // Validate form
-    let isValid = true;
-    let errorMessages = [];
-    
-    // ===== FULL NAME VALIDATION =====
-    if (!fullName) {
-        showError("reg-name-error", "Full name is required");
-        errorMessages.push("Full name is required");
-        isValid = false;
-    } else if (fullName.length < 2) {
-        showError("reg-name-error", "Full name must be at least 2 characters");
-        errorMessages.push("Full name must be at least 2 characters");
-        isValid = false;
-    } else if (fullName.length > 50) {
-        showError("reg-name-error", "Full name cannot exceed 50 characters");
-        errorMessages.push("Full name cannot exceed 50 characters");
-        isValid = false;
-    } else if (!/^[a-zA-Z\s\-']+$/.test(fullName)) {
-        showError("reg-name-error", "Full name can only contain letters, spaces, and hyphens");
-        errorMessages.push("Full name can only contain letters, spaces, and hyphens");
-        isValid = false;
-    }
-    
-    // ===== EMAIL VALIDATION =====
-    if (!email) {
-        showError("reg-email-error", "Email address is required");
-        errorMessages.push("Email address is required");
-        isValid = false;
-    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
-        showError("reg-email-error", "Please enter a valid email address (e.g., name@example.com)");
-        errorMessages.push("Please enter a valid email address");
-        isValid = false;
-    }
-    
-    // ===== PHONE VALIDATION =====
-    if (!phone) {
-        showError("reg-phone-error", "Phone number is required for employers to contact you");
-        errorMessages.push("Phone number is required");
-        isValid = false;
-    } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phone)) {
-        showError("reg-phone-error", "Please enter a valid phone number (e.g., +1234567890)");
-        errorMessages.push("Please enter a valid phone number");
-        isValid = false;
-    }
-    
-    // ===== PASSWORD VALIDATION =====
-    if (!password) {
-        showError("reg-pass-error", "Password is required");
-        errorMessages.push("Password is required");
-        isValid = false;
-    } else if (password.length < 8) {
-        showError("reg-pass-error", "Password must be at least 8 characters for security");
-        errorMessages.push("Password must be at least 8 characters");
-        isValid = false;
-    } else if (!/(?=.*[A-Za-z])(?=.*\d)/.test(password)) {
-        showError("reg-pass-error", "Password must contain at least one letter and one number");
-        errorMessages.push("Password must contain at least one letter and one number");
-        isValid = false;
-    }
-    
-    // ===== CONFIRM PASSWORD VALIDATION =====
-    if (!confirmPassword) {
-        showError("reg-confirm-error", "Please confirm your password");
-        errorMessages.push("Please confirm your password");
-        isValid = false;
-    } else if (password !== confirmPassword) {
-        showError("reg-confirm-error", "Passwords do not match. Please check and try again");
-        errorMessages.push("Passwords do not match");
-        isValid = false;
-    }
-    
-    if (!isValid) {
-        // Show first error as alert for clarity
-        if (errorMessages.length > 0) {
-            showUserMessage(errorMessages[0], 'error');
+    // ==================== REGISTER USER (NEW VERSION WITH FULL NAME VALIDATION) ====================
+    async function registerUser() {
+        // Clear any previous errors
+        clearErrors();
+        
+        // Get form values
+        const fullName = document.getElementById("reg-name").value.trim();
+        const email = document.getElementById("reg-email").value.trim();
+        const phone = document.getElementById("reg-phone").value.trim();
+        const password = document.getElementById("reg-pass").value;
+        const confirmPassword = document.getElementById("reg-confirm").value;
+        
+        // Validate form
+        let isValid = true;
+        let errorMessages = [];
+        
+        // ===== FULL NAME VALIDATION =====
+        if (!fullName) {
+            showError("reg-name-error", "Full name is required");
+            errorMessages.push("Full name is required");
+            isValid = false;
+        } else if (fullName.length < 2) {
+            showError("reg-name-error", "Full name must be at least 2 characters");
+            errorMessages.push("Full name must be at least 2 characters");
+            isValid = false;
+        } else if (fullName.length > 50) {
+            showError("reg-name-error", "Full name cannot exceed 50 characters");
+            errorMessages.push("Full name cannot exceed 50 characters");
+            isValid = false;
+        } else if (!/^[a-zA-Z\s\-']+$/.test(fullName)) {
+            showError("reg-name-error", "Full name can only contain letters, spaces, and hyphens");
+            errorMessages.push("Full name can only contain letters, spaces, and hyphens");
+            isValid = false;
         }
-        return;
-    }
-    
-    // Show loading state
-    const registerBtn = document.querySelector("button[onclick='registerUser()']");
-    const originalText = registerBtn.innerHTML;
-    setLoading(registerBtn, true, originalText);
-    
-    try {
-        // Send registration data to backend
-        const response = await fetch(`${API_BASE_URL}/auth/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                fullName: fullName,
-                email: email,
-                password: password,
-                confirmPassword: confirmPassword,
-                phoneNumber: phone
-            })
-        });
         
-        const data = await response.json();
+        // ===== EMAIL VALIDATION =====
+        if (!email) {
+            showError("reg-email-error", "Email address is required");
+            errorMessages.push("Email address is required");
+            isValid = false;
+        } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+            showError("reg-email-error", "Please enter a valid email address (e.g., name@example.com)");
+            errorMessages.push("Please enter a valid email address");
+            isValid = false;
+        }
         
-        // Handle unsuccessful response
-        if (!response.ok) {
-            // Handle validation errors from backend
-            if (data.errors && data.errors.length > 0) {
-                // Show each error on its corresponding field
-                data.errors.forEach(err => {
-                    if (err.field === 'fullName') showError("reg-name-error", err.message);
-                    if (err.field === 'email') showError("reg-email-error", err.message);
-                    if (err.field === 'password') showError("reg-pass-error", err.message);
-                    if (err.field === 'confirmPassword') showError("reg-confirm-error", err.message);
-                    if (err.field === 'phoneNumber') showError("reg-phone-error", err.message);
-                });
-                // Show the first error as an alert
-                showUserMessage(data.errors[0].message, 'error');
-            } else if (data.error) {
-                // Show general error message
-                showUserMessage(data.error, 'error');
-                if (data.error.includes('email already exists')) {
-                    showError("reg-email-error", "This email is already registered. Please login instead.");
-                }
-            } else {
-                showUserMessage('Registration failed. Please try again.', 'error');
+        // ===== PHONE VALIDATION =====
+        if (!phone) {
+            showError("reg-phone-error", "Phone number is required for employers to contact you");
+            errorMessages.push("Phone number is required");
+            isValid = false;
+        } else if (!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(phone)) {
+            showError("reg-phone-error", "Please enter a valid phone number (e.g., +1234567890)");
+            errorMessages.push("Please enter a valid phone number");
+            isValid = false;
+        }
+        
+        // ===== PASSWORD VALIDATION =====
+        if (!password) {
+            showError("reg-pass-error", "Password is required");
+            errorMessages.push("Password is required");
+            isValid = false;
+        } else if (password.length < 8) {
+            showError("reg-pass-error", "Password must be at least 8 characters for security");
+            errorMessages.push("Password must be at least 8 characters");
+            isValid = false;
+        } else if (!/(?=.*[A-Za-z])(?=.*\d)/.test(password)) {
+            showError("reg-pass-error", "Password must contain at least one letter and one number");
+            errorMessages.push("Password must contain at least one letter and one number");
+            isValid = false;
+        }
+        
+        // ===== CONFIRM PASSWORD VALIDATION =====
+        if (!confirmPassword) {
+            showError("reg-confirm-error", "Please confirm your password");
+            errorMessages.push("Please confirm your password");
+            isValid = false;
+        } else if (password !== confirmPassword) {
+            showError("reg-confirm-error", "Passwords do not match. Please check and try again");
+            errorMessages.push("Passwords do not match");
+            isValid = false;
+        }
+        
+        if (!isValid) {
+            // Show first error as alert for clarity
+            if (errorMessages.length > 0) {
+                showUserMessage(errorMessages[0], 'error');
             }
-            setLoading(registerBtn, false, originalText);
             return;
         }
         
-        // SUCCESS: Save token and user data
-        if (data.data && data.data.token) {
-            localStorage.setItem('cvProToken', data.data.token);
-            localStorage.setItem('cvProUser', JSON.stringify(data.data.user));
-            
-            // Show success message
-            showUserMessage('🎉 Registration successful! Welcome to CV Builder!', 'success');
-            
-            // Clear registration form
-            document.getElementById("reg-name").value = "";
-            document.getElementById("reg-email").value = "";
-            document.getElementById("reg-phone").value = "";
-            document.getElementById("reg-pass").value = "";
-            document.getElementById("reg-confirm").value = "";
-            
-            // REDIRECT TO DASHBOARD (user is already logged in)
-            setTimeout(() => {
-                window.location.href = "dashboard.html";
-            }, 1500); // Small delay to show success message
-        } else {
-            showUserMessage('Registration completed but login failed. Please login manually.', 'info');
-            showLogin();
-        }
+        // Show loading state
+        const registerBtn = document.querySelector("button[onclick='registerUser()']");
+        const originalText = registerBtn.innerHTML;
+        setLoading(registerBtn, true, originalText);
         
-    } catch (error) {
-        console.error('Registration error:', error);
-        
-        // Handle network errors
-        if (!navigator.onLine) {
-            showUserMessage('No internet connection. Please check your network and try again.', 'error');
-        } else if (error.message.includes('Failed to fetch')) {
-            showUserMessage('Unable to connect to server. Please try again later.', 'error');
-        } else {
-            showUserMessage('Network error. Please check your connection and try again.', 'error');
+        try {
+            // Send registration data to backend
+            const response = await fetch(`${API_BASE_URL}/auth/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fullName: fullName,
+                    email: email,
+                    password: password,
+                    confirmPassword: confirmPassword,
+                    phoneNumber: phone
+                })
+            });
+            
+            const data = await response.json();
+            
+            // Handle unsuccessful response
+            if (!response.ok) {
+                // Handle validation errors from backend
+                if (data.errors && data.errors.length > 0) {
+                    // Show each error on its corresponding field
+                    data.errors.forEach(err => {
+                        if (err.field === 'fullName' || err.field.includes('name')) 
+                            showError("reg-name-error", err.message);
+                        if (err.field === 'email' || err.field.includes('email')) 
+                            showError("reg-email-error", err.message);
+                        if (err.field === 'password' || err.field.includes('password')) 
+                            showError("reg-pass-error", err.message);
+                        if (err.field === 'confirmPassword' || err.field.includes('confirm')) 
+                            showError("reg-confirm-error", err.message);
+                        if (err.field === 'phoneNumber' || err.field.includes('phone')) 
+                            showError("reg-phone-error", err.message);
+                    });
+                    // Show the first error as an alert
+                    showUserMessage(data.errors[0].message, 'error');
+                } else if (data.error) {
+                    // Show general error message
+                    showUserMessage(data.error, 'error');
+                    if (data.error.includes('email already exists')) {
+                        showError("reg-email-error", "This email is already registered. Please login instead.");
+                    }
+                } else {
+                    showUserMessage('Registration failed. Please try again.', 'error');
+                }
+                setLoading(registerBtn, false, originalText);
+                return;
+            }
+            
+            // SUCCESS: Save token and user data
+            if (data.data && data.data.token) {
+                localStorage.setItem('cvProToken', data.data.token);
+                localStorage.setItem('cvProUser', JSON.stringify(data.data.user));
+                
+                // Show success message
+                showUserMessage('🎉 Registration successful! Welcome to CV Builder!', 'success');
+                
+                // Clear registration form
+                document.getElementById("reg-name").value = "";
+                document.getElementById("reg-email").value = "";
+                document.getElementById("reg-phone").value = "";
+                document.getElementById("reg-pass").value = "";
+                document.getElementById("reg-confirm").value = "";
+                
+                // REDIRECT TO DASHBOARD (user is already logged in)
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1500);
+            } else {
+                showUserMessage('Registration completed but login failed. Please login manually.', 'info');
+                showLogin();
+            }
+            
+        } catch (error) {
+            console.error('Registration error:', error);
+            
+            // Handle network errors
+            if (!navigator.onLine) {
+                showUserMessage('No internet connection. Please check your network and try again.', 'error');
+            } else if (error.message.includes('Failed to fetch')) {
+                showUserMessage('Unable to connect to server. Please try again later.', 'error');
+            } else {
+                showUserMessage('Network error. Please check your connection and try again.', 'error');
+            }
+        } finally {
+            setLoading(registerBtn, false, originalText);
         }
-    } finally {
-        setLoading(registerBtn, false, originalText);
     }
-}
 
     // ==================== LOGIN USER ====================
     async function loginUser() {
@@ -1056,6 +1050,6 @@ async function registerUser() {
         
         document.getElementById('themeToggle').addEventListener('click', toggleTheme);
     });
-</script>    
+</script>
 </body>
 </html>
