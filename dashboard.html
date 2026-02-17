@@ -1599,12 +1599,12 @@ function updateAuthUI(isLoggedIn, user = null) {
         
         // Update CTA button to Dashboard
         if (ctaButton) {
-            ctaButton.innerHTML = '<i class="fas fa-tachometer-alt"></i> Dashboard';
-            ctaButton.href = 'dashboard.html';
+            ctaButton.innerHTML = '<i class="fas fa-tachometer-alt"></i> Start Building';
+            ctaButton.href = 'cv-builder/index.html';
         }
         if (mobileCtaButton) {
-            mobileCtaButton.innerHTML = '<span>Dashboard</span> <i class="arrow">→</i>';
-            mobileCtaButton.href = 'dashboard.html';
+            mobileCtaButton.innerHTML = '<span>Start Building</span> <i class="arrow">→</i>';
+            mobileCtaButton.href = 'cv-builder/index.html';
         }
         
     } else {
